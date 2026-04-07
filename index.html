@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dimensions-Meubles — Trouvez le meuble exact à vos dimensions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --k1: #1e2a1f;
+  --k2: #2d3a2e;
+  --k3: #3d4e3a;
+  --k4: #4a5e3a;
+  --k5: #6b7c52;
+  --k6: #8a9e6a;
+  --k7: #9aab7a;
+  --k8: #c8d4a8;
+  --k9: #dde8c0;
+  --k10: #f0eedf;
+  --k11: #f7f5ec;
+  --gold: #c4a35a;
+  --gold2: #8c6e2f;
+  --text: #1a2018;
+  --muted: #5a6a50;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--k11);color:var(--text);overflow-x:hidden}
+
+/* NAV */
+nav{background:var(--k1);position:sticky;top:0;z-index:200;border-bottom:2px solid var(--gold)}
+.nav-inner{max-width:1440px;margin:0 auto;padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--k10);text-decoration:none;letter-spacing:-.5px;flex-shrink:0}
+.logo span{color:var(--gold)}
+.logo sub{font-size:11px;font-weight:400;font-family:'DM Sans',sans-serif;color:var(--k7);letter-spacing:.05em;display:block;margin-top:-4px}
+.nav-links{display:flex;gap:28px}
+.nav-links a{color:var(--k8);font-size:13px;font-weight:400;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--k1);padding:9px 20px;border-radius:2px;font-size:13px;font-weight:500;text-decoration:none;letter-spacing:.04em;transition:background .2s;flex-shrink:0}
+.nav-cta:hover{background:var(--gold2);color:var(--k10)}
+
+/* HERO */
+.hero{background:var(--k2);padding:80px 40px 70px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 15% 60%,rgba(74,94,58,.5) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 85% 20%,rgba(196,163,90,.1) 0%,transparent 60%)}
+.hero-grid{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative}
+.hero-badge{display:inline-block;background:rgba(196,163,90,.15);border:1px solid rgba(196,163,90,.35);color:var(--gold);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:24px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(38px,5vw,68px);font-weight:800;color:var(--k10);line-height:1.05;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:var(--k7)}
+.hero-sub{color:var(--k8);font-size:17px;font-weight:300;line-height:1.65;margin-bottom:36px;max-width:480px}
+.hero-search{display:flex;max-width:480px;box-shadow:0 6px 30px rgba(0,0,0,.3)}
+.hero-search input{flex:1;padding:16px 20px;background:rgba(240,238,223,.96);border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);border-radius:3px 0 0 3px}
+.hero-search button{background:var(--gold);color:var(--k1);border:none;padding:16px 24px;font-size:13px;font-weight:600;cursor:pointer;border-radius:0 3px 3px 0;letter-spacing:.04em;transition:background .2s}
+.hero-search button:hover{background:var(--gold2);color:var(--k10)}
+.hero-stats{display:flex;gap:32px;margin-top:32px}
+.stat{border-left:2px solid var(--k5);padding-left:16px}
+.stat-n{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--k10)}
+.stat-l{font-size:12px;color:var(--k7);letter-spacing:.04em;margin-top:2px}
+
+/* HERO VISUAL — animated carousel */
+.hero-visual{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:24px;overflow:hidden}
+.hv-title{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--k7);margin-bottom:14px}
+.hvc-stage{position:relative;height:170px;margin-bottom:10px}
+.hvc-card{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:20px;opacity:0;transform:translateX(40px);transition:opacity .5s ease,transform .5s ease;pointer-events:none}
+.hvc-card.active{opacity:1;transform:translateX(0);pointer-events:auto}
+.hvc-card.leaving{opacity:0;transform:translateX(-40px)}
+.hvc-iso{flex-shrink:0}
+.hvc-info{flex:1;min-width:0}
+.hvc-type{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--k7);margin-bottom:5px}
+.hvc-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--k10);line-height:1.2;margin-bottom:8px}
+.hvc-dims{display:flex;flex-direction:column;gap:4px}
+.hvc-dim-row{display:flex;align-items:center;gap:6px}
+.hvc-dim-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.hvc-dim-lbl{font-size:11px;color:var(--k8);width:72px;flex-shrink:0}
+.hvc-dim-bar{flex:1;height:3px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden}
+.hvc-dim-fill{height:100%;border-radius:2px;transition:width .8s ease}
+.hvc-dim-val{font-size:11px;font-weight:500;color:var(--k10);min-width:36px;text-align:right}
+.hvc-dots{display:flex;gap:6px;justify-content:center;margin-bottom:14px}
+.hvc-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:background .2s,transform .2s}
+.hvc-dot.on{background:var(--gold);transform:scale(1.3)}
+/* isometric 3D preview */
+.iso-svg{display:block}
+/* 3D preview canvas in selector */
+.dp-right{background:var(--k11);border:0.5px solid rgba(154,171,122,.25);border-radius:6px;padding:16px}
+.dp-preview-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-weight:500}
+
+/* CAT STRIP */
+.cat-strip{background:var(--k3);border-bottom:1px solid rgba(255,255,255,.07);overflow-x:auto;scrollbar-width:none}
+.cat-strip::-webkit-scrollbar{display:none}
+.cat-inner{max-width:1440px;margin:0 auto;padding:0 40px;display:flex;gap:0}
+.ci{flex-shrink:0;padding:14px 22px;color:var(--k8);font-size:13px;font-weight:400;letter-spacing:.04em;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
+.ci:hover,.ci.on{color:var(--k10);border-bottom-color:var(--gold);background:rgba(255,255,255,.04)}
+
+/* MAIN */
+.main{max-width:1440px;margin:0 auto;padding:64px 40px}
+
+/* SECTION HEADERS */
+.sh{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;gap:20px}
+.sh-left{}
+.sh-eye{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--k5);margin-bottom:6px}
+.sh-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--k2);line-height:1.1}
+.sh-link{color:var(--k4);font-size:13px;font-weight:500;text-decoration:none;border-bottom:1px solid var(--k7);padding-bottom:2px;white-space:nowrap;transition:color .2s,border-color .2s}
+.sh-link:hover{color:var(--gold2);border-color:var(--gold2)}
+
+/* DIMENSION SELECTOR FULL */
+.dim-selector{background:white;border:1px solid rgba(154,171,122,.25);border-radius:6px;padding:32px;margin-bottom:80px}
+.type-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;margin-bottom:28px}
+.tg-btn{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 4px;background:var(--k11);border:0.5px solid rgba(154,171,122,.3);border-radius:6px;cursor:pointer;transition:all .15s;font-size:11px;color:var(--muted);font-family:'DM Sans',sans-serif}
+.tg-btn:hover{background:var(--k9);border-color:var(--k7)}
+.tg-btn.on{background:white;border:1.5px solid var(--k4);color:var(--k2);font-weight:500}
+.tg-btn svg{width:36px;height:36px}
+.dim-panel{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.dp-left{}
+.dp-title{font-size:14px;font-weight:500;color:var(--k2);margin-bottom:16px}
+.dim-row2{margin-bottom:14px}
+.dr2-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.dr2-label{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dr2-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dr2-val{font-size:13px;font-weight:500;color:var(--text);min-width:52px;text-align:right}
+.dr2-range{display:flex;align-items:center;gap:6px}
+.dr2-range input[type=range]{flex:1;accent-color:var(--k4)}
+.dr2-bound{font-size:10px;color:#aaa;min-width:28px}
+.dr2-bound.r{text-align:right}
+.dp-right{background:var(--k11);border:0.5px solid rgba(154,171,122,.25);border-radius:6px;padding:16px}
+.dp-preview-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-weight:500}
+.dp-preview svg{width:100%;display:block}
+.dim-results{margin-top:28px}
+.dr-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.dr-count{font-size:13px;color:var(--muted)}
+.dr-n{font-size:13px;font-weight:500;color:var(--text)}
+.dim-search-btn{background:var(--k2);color:var(--k10);border:none;padding:10px 22px;border-radius:3px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}
+.dim-search-btn:hover{background:var(--k4)}
+.res-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.res-card{background:white;border:0.5px solid rgba(154,171,122,.25);border-radius:6px;overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s}
+.res-card:hover{border-color:var(--k5);transform:translateY(-2px)}
+.res-img{aspect-ratio:4/3;background:var(--k11);display:flex;align-items:center;justify-content:center}
+.res-img svg{width:75%;height:75%}
+.res-body{padding:10px 12px}
+.res-name{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px;line-height:1.3}
+.res-site{font-size:10px;color:var(--muted);margin-bottom:4px}
+.res-price{font-size:13px;font-weight:500;color:var(--k2);margin-bottom:6px}
+.res-btn{display:block;text-align:center;padding:6px;background:var(--k9);color:var(--k2);border-radius:3px;font-size:11px;font-weight:500;text-decoration:none;transition:background .15s}
+.res-btn:hover{background:var(--k8)}
+
+/* PRODUCT GRID */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;margin-bottom:80px}
+.prod-grid .card:first-child{grid-column:span 2;grid-row:span 2}
+.card{background:white;border:1px solid rgba(154,171,122,.2);border-radius:4px;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:transform .22s,box-shadow .22s;box-shadow:0 2px 10px rgba(45,58,46,.06)}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(45,58,46,.15)}
+.card-img-wrap{position:relative;overflow:hidden}
+.card-img-wrap svg{width:100%;display:block}
+.card:first-child .card-img-wrap svg{aspect-ratio:16/9}
+.card-badge{position:absolute;top:12px;left:12px;background:var(--k2);color:var(--k10);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:2px}
+.card-badge.promo{background:var(--gold2)}
+.card-badge.new{background:var(--k4)}
+.card-site-tag{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.92);color:var(--k4);font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;letter-spacing:.04em}
+.card-body{padding:18px 20px 20px;flex:1;display:flex;flex-direction:column;gap:5px}
+.card:first-child .card-body{padding:24px 28px 26px}
+.card-cat{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--k5)}
+.card-name{font-family:'Playfair Display',serif;font-size:19px;font-weight:600;color:var(--text);line-height:1.25}
+.card:first-child .card-name{font-size:28px}
+.card-desc{font-size:13px;color:var(--muted);line-height:1.55;flex:1}
+.card-dims{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap}
+.dim-tag{background:var(--k11);border:1px solid rgba(154,171,122,.35);color:var(--k4);font-size:10px;font-weight:500;padding:3px 8px;border-radius:3px;letter-spacing:.04em}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid var(--k9)}
+.card-price{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:var(--k2)}
+.card-price small{font-size:12px;font-family:'DM Sans',sans-serif;font-weight:300;color:var(--muted)}
+.card-arrow{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--k4);letter-spacing:.04em;text-transform:uppercase;transition:color .2s,gap .2s}
+.card:hover .card-arrow{color:var(--gold2);gap:9px}
+.card-arrow svg{width:13px;height:13px}
+
+/* SHOPPABLE ROOM SECTION */
+.room-section{margin-bottom:80px}
+.room-wrap{position:relative;border-radius:6px;overflow:hidden;border:1px solid rgba(154,171,122,.2);background:#c8d4a8;cursor:crosshair}
+.room-svg-el{display:block;width:100%}
+.hotspot{position:absolute;cursor:pointer;transform:translate(-50%,-50%)}
+.hs-ring{width:26px;height:26px;border-radius:50%;background:var(--k2);border:2.5px solid var(--k10);display:flex;align-items:center;justify-content:center;transition:transform .15s,background .15s}
+.hotspot:hover .hs-ring,.hotspot.act .hs-ring{transform:scale(1.3);background:var(--gold)}
+.hs-n{font-size:10px;font-weight:500;color:var(--k10)}
+.hotspot.act .hs-n{color:var(--k2)}
+.tt{position:absolute;background:white;border:0.5px solid rgba(154,171,122,.4);border-radius:10px;padding:12px 14px;width:190px;z-index:20;pointer-events:none;opacity:0;transition:opacity .15s}
+.tt.show{opacity:1;pointer-events:auto}
+.tt-svg{width:100%;aspect-ratio:4/3;background:var(--k11);border-radius:6px;overflow:hidden;margin-bottom:8px}
+.tt-svg svg{width:100%;height:100%}
+.tt-cat{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px}
+.tt-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;line-height:1.3}
+.tt-price{font-size:12px;color:var(--muted);margin-bottom:8px}
+.tt-link{display:block;text-align:center;width:100%;padding:7px;background:var(--k2);color:var(--k10);border-radius:5px;font-size:11px;font-weight:500;text-decoration:none;cursor:pointer;font-family:'DM Sans',sans-serif;border:none}
+.tt-link:hover{background:var(--k4)}
+.room-products{margin-top:20px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.rp-card{background:white;border:0.5px solid rgba(154,171,122,.25);border-radius:6px;overflow:hidden;cursor:pointer;transition:border-color .15s}
+.rp-card:hover,.rp-card.hl{border-color:var(--k4)}
+.rp-card.hl{border-width:1.5px}
+.rp-img{aspect-ratio:4/3;background:var(--k11);display:flex;align-items:center;justify-content:center}
+.rp-img svg{width:70%;height:70%}
+.rp-body{padding:8px 10px}
+.rp-num{font-size:10px;font-weight:500;color:var(--k5);margin-bottom:1px;display:flex;align-items:center;gap:4px}
+.badge-n{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--k2);color:var(--k10);font-size:9px;font-weight:500}
+.rp-name{font-size:11px;font-weight:500;color:var(--text);line-height:1.3;margin-bottom:2px}
+.rp-price{font-size:12px;color:var(--muted);margin-bottom:5px}
+.rp-link{display:block;text-align:center;padding:5px;background:var(--k11);color:var(--k2);border-radius:3px;font-size:10px;font-weight:500;text-decoration:none}
+.rp-link:hover{background:var(--k9)}
+.room-budget{margin-top:12px;padding:12px 16px;background:var(--k11);border-radius:4px;display:flex;align-items:center;justify-content:space-between}
+.rb-label{font-size:13px;color:var(--muted)}
+.rb-val{font-size:14px;font-weight:500;color:var(--text)}
+
+/* BANNER */
+.banner{background:var(--k3);border-radius:6px;padding:48px 56px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-bottom:80px;position:relative;overflow:hidden}
+.banner::after{content:'';position:absolute;right:-50px;top:-50px;width:260px;height:260px;border-radius:50%;background:rgba(196,163,90,.1)}
+.banner h2{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--k10);line-height:1.2;margin-bottom:12px}
+.banner p{color:var(--k8);font-size:15px;line-height:1.6;font-weight:300}
+.banner-links{display:flex;flex-direction:column;gap:14px}
+.bl{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:16px 20px;text-decoration:none;transition:background .2s,border-color .2s}
+.bl:hover{background:rgba(196,163,90,.12);border-color:rgba(196,163,90,.35)}
+.bl-name{font-weight:500;color:var(--k10);font-size:14px}
+.bl-sub{font-size:12px;color:var(--k7);margin-top:2px}
+.bl-arr{color:var(--gold);font-size:18px}
+
+/* BRANDS */
+.brands{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:80px}
+.brand-tag{background:white;border:1px solid rgba(154,171,122,.3);color:var(--k4);font-size:13px;font-weight:400;padding:9px 18px;border-radius:3px;text-decoration:none;transition:all .2s;display:flex;align-items:center;gap:6px}
+.brand-tag:hover{background:var(--k5);color:white;border-color:var(--k5);transform:translateY(-2px)}
+.brand-tag svg{width:11px;height:11px;opacity:.6}
+
+/* FOOTER */
+footer{background:var(--k1);padding:56px 40px 28px;border-top:3px solid var(--gold)}
+.footer-grid{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:44px}
+.footer-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--k10);text-decoration:none;letter-spacing:-.5px;display:block;margin-bottom:14px}
+.footer-logo span{color:var(--gold)}
+.footer-p{color:var(--k7);font-size:13px;line-height:1.7;font-weight:300}
+.fc h4{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.fc a{color:var(--k7);text-decoration:none;font-size:13px;transition:color .2s}
+.fc a:hover{color:var(--k10)}
+.footer-bottom{max-width:1440px;margin:0 auto;padding-top:22px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{color:var(--muted);font-size:12px}
+.affil-note{font-size:11px;color:var(--k5);margin-top:4px}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero>*{animation:fadeUp .55s ease both}
+.hero>*:nth-child(1){animation-delay:.08s}
+.hero>*:nth-child(2){animation-delay:.18s}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr}.hero-visual{display:none}
+  .prod-grid .card:first-child{grid-column:span 1;grid-row:span 1}
+  .type-grid{grid-template-columns:repeat(5,1fr)}
+  .res-grid{grid-template-columns:repeat(2,1fr)}
+  .room-products{grid-template-columns:repeat(3,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
+  .banner{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .main{padding:40px 20px}
+  .type-grid{grid-template-columns:repeat(5,1fr)}
+  .tg-btn{padding:8px 2px;font-size:10px}
+  .tg-btn svg{width:28px;height:28px}
+  .dim-panel{grid-template-columns:1fr}
+  .res-grid{grid-template-columns:1fr 1fr}
+  .room-products{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">Dimensions<span>-Meubles</span><sub>dimensions-meuble.fr</sub></a>
+    <div class="nav-links">
+      <a href="#recherche">Recherche</a>
+      <a href="#pieces">Pièces clés en main</a>
+      <a href="#meubles">Meubles</a>
+      <a href="#marques">Marques</a>
+    </div>
+    <a href="#recherche" class="nav-cta">Trouver par dimension →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge">✦ Le 1er comparateur par dimensions</div>
+      <h1>Le meuble exact<br>à <em>vos dimensions</em></h1>
+      <p class="hero-sub">Entrez la largeur, la hauteur, la profondeur que vous cherchez — et trouvez parmi les plus grandes enseignes françaises le meuble qui rentre parfaitement chez vous.</p>
+      <div class="hero-search">
+        <input type="text" placeholder="Ex : commode 80 cm largeur…" id="heroSearch">
+        <button onclick="document.getElementById('recherche').scrollIntoView({behavior:'smooth'})">Chercher</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-n">12+</div><div class="stat-l">Enseignes</div></div>
+        <div class="stat"><div class="stat-n">50k+</div><div class="stat-l">Produits</div></div>
+        <div class="stat"><div class="stat-n">10</div><div class="stat-l">Types de meubles</div></div>
+      </div>
+    </div>
+    <div class="hero-visual" id="heroVisual">
+      <div class="hv-title" id="hvTitle">Recherche par dimensions</div>
+      <div class="hv-carousel">
+        <div class="hvc-stage" id="hvcStage">
+          <!-- cards injected by JS -->
+        </div>
+        <div class="hvc-dots" id="hvcDots"></div>
+      </div>
+      <div class="dim-sliders" id="hvSliders"></div>
+      <button class="hv-btn" onclick="document.getElementById('recherche').scrollIntoView({behavior:'smooth'})">Rechercher ce meuble →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CAT STRIP -->
+<div class="cat-strip">
+  <div class="cat-inner" id="catStrip">
+    <div class="ci on" onclick="filterCat(this,'Tous')">Tous</div>
+    <div class="ci" onclick="filterCat(this,'Canapés')">Canapés</div>
+    <div class="ci" onclick="filterCat(this,'Tables')">Tables</div>
+    <div class="ci" onclick="filterCat(this,'Chaises')">Chaises</div>
+    <div class="ci" onclick="filterCat(this,'Lits')">Lits</div>
+    <div class="ci" onclick="filterCat(this,'Armoires')">Armoires</div>
+    <div class="ci" onclick="filterCat(this,'Bibliothèques')">Bibliothèques</div>
+    <div class="ci" onclick="filterCat(this,'Bureaux')">Bureaux</div>
+    <div class="ci" onclick="filterCat(this,'Fauteuils')">Fauteuils</div>
+    <div class="ci" onclick="filterCat(this,'Commodes')">Commodes</div>
+    <div class="ci" onclick="filterCat(this,'Tables basses')">Tables basses</div>
+    <div class="ci" onclick="filterCat(this,'Jardin')">Jardin</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- ══ DIMENSION SELECTOR ══ -->
+<section id="recherche">
+  <div class="sh">
+    <div class="sh-left">
+      <div class="sh-eye">Outil exclusif</div>
+      <div class="sh-title">Recherche par dimension</div>
+    </div>
+    <a href="#meubles" class="sh-link">Voir tous les meubles →</a>
+  </div>
+
+  <div class="dim-selector">
+    <div class="type-grid" id="typeGrid2"></div>
+    <div class="dim-panel">
+      <div class="dp-left">
+        <div class="dp-title" id="dimTitle2">Dimensions — Commode</div>
+        <div id="dimContainer2"></div>
+        <button class="dim-search-btn" onclick="doSearch2()">Voir les meubles correspondants →</button>
+      </div>
+      <div class="dp-right">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div class="dp-preview-title" style="margin-bottom:0" id="prevModeLabel">Vue de face</div>
+          <div style="display:flex;background:var(--k9);border-radius:4px;overflow:hidden;border:1px solid rgba(154,171,122,.3)">
+            <button onclick="setMode('face')" id="btnFace" style="padding:4px 10px;font-size:11px;font-weight:500;border:none;cursor:pointer;font-family:inherit;background:var(--k4);color:var(--k10);transition:all .15s">Face</button>
+            <button onclick="setMode('top')" id="btnTop" style="padding:4px 10px;font-size:11px;font-weight:500;border:none;cursor:pointer;font-family:inherit;background:transparent;color:var(--muted);transition:all .15s">Dessus</button>
+          </div>
+        </div>
+        <svg id="prevSvg2" viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%">
+          <line x1="5" y1="190" x2="215" y2="190" stroke="#dde8c0" stroke-width="0.5"/>
+        </svg>
+      </div>
+    </div>
+    <div class="dim-results">
+      <div class="dr-bar">
+        <span class="dr-count">Résultats : <span class="dr-n" id="resCount2">4 meubles trouvés</span></span>
+      </div>
+      <div class="res-grid" id="resGrid2"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SHOPPABLE ROOM ══ -->
+<section class="room-section" id="pieces">
+  <div class="sh">
+    <div class="sh-left">
+      <div class="sh-eye">Inspiration déco</div>
+      <div class="sh-title">Salon clé en main</div>
+    </div>
+    <a href="#" class="sh-link">Voir toutes les pièces →</a>
+  </div>
+
+  <div class="room-wrap" id="roomWrap2">
+    <svg class="room-svg-el" viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg">
+      <rect width="700" height="420" fill="#e8ead8"/>
+      <rect x="0" y="320" width="700" height="100" fill="#d4c9a8"/>
+      <rect x="0" y="0" width="700" height="320" fill="#edeade"/>
+      <rect x="0" y="315" width="700" height="8" fill="#c8b898" opacity=".6"/>
+      <rect x="180" y="0" width="340" height="280" fill="#ddd8c8" opacity=".35"/>
+      <rect x="220" y="30" width="120" height="150" fill="#c8c0a8" opacity=".25" rx="2"/>
+      <rect x="360" y="30" width="120" height="150" fill="#c8c0a8" opacity=".25" rx="2"/>
+      <line x1="180" y1="0" x2="180" y2="320" stroke="#b8a888" stroke-width=".8" opacity=".4"/>
+      <line x1="520" y1="0" x2="520" y2="320" stroke="#b8a888" stroke-width=".8" opacity=".4"/>
+      <rect x="0" y="0" width="3" height="420" fill="#b8a888" opacity=".35"/>
+      <rect x="697" y="0" width="3" height="420" fill="#b8a888" opacity=".35"/>
+      <!-- Canapé -->
+      <rect x="60" y="210" width="220" height="110" rx="6" fill="#6b7c52"/>
+      <rect x="68" y="215" width="204" height="95" rx="4" fill="#8a9e6a"/>
+      <rect x="78" y="220" width="58" height="80" rx="4" fill="#c8d4a8" opacity=".7"/>
+      <rect x="142" y="220" width="58" height="80" rx="4" fill="#c8d4a8" opacity=".7"/>
+      <rect x="206" y="220" width="58" height="80" rx="4" fill="#c8d4a8" opacity=".7"/>
+      <rect x="60" y="175" width="220" height="38" rx="4" fill="#4a5e3a"/>
+      <rect x="75" y="319" width="14" height="5" rx="2" fill="#3d4a35"/>
+      <rect x="251" y="319" width="14" height="5" rx="2" fill="#3d4a35"/>
+      <rect x="100" y="267" width="160" height="5" rx="2" fill="#c4a35a" opacity=".5"/>
+      <!-- Table basse -->
+      <rect x="390" y="245" width="180" height="75" rx="4" fill="#8c6e2f"/>
+      <rect x="398" y="250" width="164" height="63" rx="3" fill="#a08040"/>
+      <rect x="405" y="256" width="70" height="50" rx="3" fill="#c8b88a" opacity=".8"/>
+      <rect x="482" y="256" width="70" height="50" rx="3" fill="#c8b88a" opacity=".8"/>
+      <rect x="400" y="319" width="12" height="4" rx="2" fill="#6b5030"/>
+      <rect x="550" y="319" width="12" height="4" rx="2" fill="#6b5030"/>
+      <!-- Meuble TV -->
+      <rect x="350" y="295" width="40" height="27" rx="3" fill="#4a5e3a"/>
+      <rect x="356" y="299" width="28" height="19" rx="2" fill="#6b7c52"/>
+      <circle cx="370" cy="308" r="4" fill="#2d3a2e"/>
+      <rect x="353" y="320" width="8" height="3" rx="1" fill="#3d4a35"/>
+      <rect x="374" y="320" width="8" height="3" rx="1" fill="#3d4a35"/>
+      <!-- Bibliothèque -->
+      <rect x="600" y="135" width="80" height="185" rx="4" fill="#4a5e3a"/>
+      <rect x="607" y="142" width="66" height="171" rx="3" fill="#6b7c52"/>
+      <rect x="613" y="148" width="54" height="76" rx="2" fill="#2d3a2e" opacity=".6"/>
+      <line x1="607" y1="224" x2="673" y2="224" stroke="#4a5e3a" stroke-width="2"/>
+      <line x1="607" y1="250" x2="673" y2="250" stroke="#4a5e3a" stroke-width="2"/>
+      <!-- Plante -->
+      <circle cx="640" cy="184" r="20" fill="#4a5e3a"/>
+      <circle cx="640" cy="184" r="14" fill="#6b7c52"/>
+      <ellipse cx="640" cy="184" rx="4" ry="10" fill="#9aab7a" opacity=".8"/>
+      <!-- Lampe -->
+      <rect x="170" y="157" width="34" height="24" rx="12" fill="#c4a35a" opacity=".75"/>
+      <rect x="175" y="143" width="3" height="15" fill="#8c6e2f"/>
+      <ellipse cx="177" cy="140" rx="10" ry="7" fill="#f0eedf" opacity=".9"/>
+    </svg>
+
+    <div class="hotspot" style="left:50%;top:75%" id="r2hs1" onclick="toggleTip2(1)"><div class="hs-ring"><span class="hs-n">1</span></div></div>
+    <div class="hotspot" style="left:70%;top:71%" id="r2hs2" onclick="toggleTip2(2)"><div class="hs-ring"><span class="hs-n">2</span></div></div>
+    <div class="hotspot" style="left:53%;top:84%" id="r2hs3" onclick="toggleTip2(3)"><div class="hs-ring"><span class="hs-n">3</span></div></div>
+    <div class="hotspot" style="left:90%;top:58%" id="r2hs4" onclick="toggleTip2(4)"><div class="hs-ring"><span class="hs-n">4</span></div></div>
+    <div class="hotspot" style="left:25%;top:59%" id="r2hs5" onclick="toggleTip2(5)"><div class="hs-ring"><span class="hs-n">5</span></div></div>
+
+    <div class="tt" id="r2tt1">
+      <div class="tt-svg"><svg viewBox="0 0 80 60"><rect x="5" y="18" width="70" height="30" rx="4" fill="#6b7c52"/><rect x="9" y="7" width="62" height="13" rx="3" fill="#4a5e3a"/><rect x="9" y="20" width="18" height="24" rx="3" fill="#9aab7a"/><rect x="31" y="20" width="18" height="24" rx="3" fill="#9aab7a"/><rect x="53" y="20" width="18" height="24" rx="3" fill="#9aab7a"/><rect x="12" y="48" width="5" height="4" rx="1" fill="#3d4a35"/><rect x="62" y="48" width="5" height="4" rx="1" fill="#3d4a35"/></svg></div>
+      <div class="tt-cat">Canapé · L.220 × H.82 × P.95 cm</div>
+      <div class="tt-name">Canapé 3P Naxos déhoussable</div>
+      <div class="tt-price">899 € · camif.fr</div>
+      <a class="tt-link" href="https://www.camif.fr" target="_blank">Voir sur Camif →</a>
+    </div>
+    <div class="tt" id="r2tt2">
+      <div class="tt-svg"><svg viewBox="0 0 80 60"><rect x="8" y="22" width="64" height="18" rx="2" fill="#8c6e2f"/><rect x="12" y="25" width="24" height="12" rx="2" fill="#c8b88a"/><rect x="44" y="25" width="24" height="12" rx="2" fill="#c8b88a"/><rect x="11" y="40" width="5" height="4" rx="1" fill="#6b5030"/><rect x="63" y="40" width="5" height="4" rx="1" fill="#6b5030"/></svg></div>
+      <div class="tt-cat">Table basse · L.120 × H.40 × P.65 cm</div>
+      <div class="tt-name">Table basse Acacia bicolore</div>
+      <div class="tt-price">249 € · but.fr</div>
+      <a class="tt-link" href="https://www.but.fr" target="_blank">Voir sur BUT →</a>
+    </div>
+    <div class="tt" id="r2tt3">
+      <div class="tt-svg"><svg viewBox="0 0 80 60"><rect x="18" y="12" width="44" height="34" rx="3" fill="#4a5e3a"/><rect x="22" y="16" width="16" height="26" rx="2" fill="#6b7c52"/><rect x="42" y="16" width="16" height="26" rx="2" fill="#6b7c52"/><circle cx="30" cy="29" r="2" fill="#c4a35a"/><circle cx="50" cy="29" r="2" fill="#c4a35a"/></svg></div>
+      <div class="tt-cat">Meuble TV · L.140 × H.50 × P.42 cm</div>
+      <div class="tt-name">Meuble TV Velvet 2 portes</div>
+      <div class="tt-price">389 € · alinea.fr</div>
+      <a class="tt-link" href="https://www.alinea.fr" target="_blank">Voir sur Alinéa →</a>
+    </div>
+    <div class="tt" id="r2tt4">
+      <div class="tt-svg"><svg viewBox="0 0 80 60"><rect x="18" y="8" width="44" height="44" rx="3" fill="#4a5e3a"/><rect x="22" y="12" width="36" height="36" rx="2" fill="#6b7c52"/><line x1="22" y1="24" x2="58" y2="24" stroke="#4a5e3a" stroke-width="1.5"/><line x1="22" y1="36" x2="58" y2="36" stroke="#4a5e3a" stroke-width="1.5"/></svg></div>
+      <div class="tt-cat">Bibliothèque · L.80 × H.180 × P.28 cm</div>
+      <div class="tt-name">Bibliothèque 3 étagères Oslo</div>
+      <div class="tt-price">445 € · habitat.fr</div>
+      <a class="tt-link" href="https://www.habitat.fr" target="_blank">Voir sur Habitat →</a>
+    </div>
+    <div class="tt" id="r2tt5">
+      <div class="tt-svg"><svg viewBox="0 0 80 60"><rect x="28" y="32" width="12" height="8" rx="5" fill="#c4a35a" opacity=".8"/><rect x="32" y="22" width="3" height="11" fill="#8c6e2f"/><ellipse cx="34" cy="19" rx="10" ry="7" fill="#f0eedf" opacity=".9"/></svg></div>
+      <div class="tt-cat">Luminaire · H.160 cm</div>
+      <div class="tt-name">Lampe de sol Kaki doré</div>
+      <div class="tt-price">129 € · maisonsdumonde.com</div>
+      <a class="tt-link" href="https://www.maisons-du-monde.com" target="_blank">Voir sur MDM →</a>
+    </div>
+  </div>
+
+  <div class="room-products">
+    <div class="rp-card" id="r2pc1" onclick="hlHs2(1)">
+      <div class="rp-img"><svg viewBox="0 0 80 60"><rect x="5" y="18" width="70" height="30" rx="4" fill="#6b7c52"/><rect x="9" y="7" width="62" height="13" rx="3" fill="#4a5e3a"/><rect x="9" y="20" width="18" height="24" rx="3" fill="#9aab7a"/><rect x="31" y="20" width="18" height="24" rx="3" fill="#9aab7a"/><rect x="53" y="20" width="18" height="24" rx="3" fill="#9aab7a"/></svg></div>
+      <div class="rp-body"><div class="rp-num"><span class="badge-n">1</span>Canapé</div><div class="rp-name">Naxos 3P · 220×82×95 cm</div><div class="rp-price">899 €</div><a class="rp-link" href="https://www.camif.fr" target="_blank">Camif →</a></div>
+    </div>
+    <div class="rp-card" id="r2pc2" onclick="hlHs2(2)">
+      <div class="rp-img"><svg viewBox="0 0 80 60"><rect x="8" y="22" width="64" height="18" rx="2" fill="#8c6e2f"/><rect x="12" y="25" width="24" height="12" rx="2" fill="#c8b88a"/><rect x="44" y="25" width="24" height="12" rx="2" fill="#c8b88a"/></svg></div>
+      <div class="rp-body"><div class="rp-num"><span class="badge-n">2</span>Table basse</div><div class="rp-name">Acacia · 120×40×65 cm</div><div class="rp-price">249 €</div><a class="rp-link" href="https://www.but.fr" target="_blank">BUT →</a></div>
+    </div>
+    <div class="rp-card" id="r2pc3" onclick="hlHs2(3)">
+      <div class="rp-img"><svg viewBox="0 0 80 60"><rect x="18" y="12" width="44" height="34" rx="3" fill="#4a5e3a"/><rect x="22" y="16" width="16" height="26" rx="2" fill="#6b7c52"/><rect x="42" y="16" width="16" height="26" rx="2" fill="#6b7c52"/></svg></div>
+      <div class="rp-body"><div class="rp-num"><span class="badge-n">3</span>Meuble TV</div><div class="rp-name">Velvet · 140×50×42 cm</div><div class="rp-price">389 €</div><a class="rp-link" href="https://www.alinea.fr" target="_blank">Alinéa →</a></div>
+    </div>
+    <div class="rp-card" id="r2pc4" onclick="hlHs2(4)">
+      <div class="rp-img"><svg viewBox="0 0 80 60"><rect x="18" y="8" width="44" height="44" rx="3" fill="#4a5e3a"/><rect x="22" y="12" width="36" height="36" rx="2" fill="#6b7c52"/><line x1="22" y1="24" x2="58" y2="24" stroke="#4a5e3a" stroke-width="1.5"/><line x1="22" y1="36" x2="58" y2="36" stroke="#4a5e3a" stroke-width="1.5"/></svg></div>
+      <div class="rp-body"><div class="rp-num"><span class="badge-n">4</span>Bibliothèque</div><div class="rp-name">Oslo · 80×180×28 cm</div><div class="rp-price">445 €</div><a class="rp-link" href="https://www.habitat.fr" target="_blank">Habitat →</a></div>
+    </div>
+    <div class="rp-card" id="r2pc5" onclick="hlHs2(5)">
+      <div class="rp-img"><svg viewBox="0 0 80 60"><rect x="28" y="32" width="12" height="8" rx="5" fill="#c4a35a" opacity=".8"/><rect x="32" y="22" width="3" height="11" fill="#8c6e2f"/><ellipse cx="34" cy="19" rx="10" ry="7" fill="#f0eedf" opacity=".9"/></svg></div>
+      <div class="rp-body"><div class="rp-num"><span class="badge-n">5</span>Luminaire</div><div class="rp-name">Lampe sol · H.160 cm</div><div class="rp-price">129 €</div><a class="rp-link" href="https://www.maisons-du-monde.com" target="_blank">MDM →</a></div>
+    </div>
+  </div>
+  <div class="room-budget">
+    <span class="rb-label">Budget total pour reproduire ce salon</span>
+    <span class="rb-val">2 111 € · commissions estimées ~84 €</span>
+  </div>
+</section>
+
+<!-- ══ PRODUCTS ══ -->
+<section id="meubles">
+  <div class="sh">
+    <div class="sh-left">
+      <div class="sh-eye">Sélection</div>
+      <div class="sh-title">Coups de cœur du moment</div>
+    </div>
+    <a href="#" class="sh-link">Voir tout →</a>
+  </div>
+
+  <div class="prod-grid">
+    <a href="https://www.camif.fr/c/canapes-et-fauteuils" target="_blank" class="card">
+      <div class="card-img-wrap">
+        <svg viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg">
+          <rect width="800" height="440" fill="#4a5e3a"/>
+          <rect width="800" height="440" fill="#2d3a2e" opacity=".4"/>
+          <rect x="0" y="340" width="800" height="100" fill="#1e2a1f" opacity=".6"/>
+          <rect x="150" y="230" width="500" height="110" rx="12" fill="#c4a35a" opacity=".9"/>
+          <rect x="160" y="170" width="480" height="73" rx="10" fill="#c4a35a" opacity=".78"/>
+          <rect x="175" y="235" width="145" height="95" rx="8" fill="#f0eedf" opacity=".6"/>
+          <rect x="328" y="235" width="145" height="95" rx="8" fill="#f0eedf" opacity=".6"/>
+          <rect x="481" y="235" width="145" height="95" rx="8" fill="#f0eedf" opacity=".6"/>
+          <rect x="185" y="335" width="18" height="22" rx="3" fill="#8c6e2f"/>
+          <rect x="597" y="335" width="18" height="22" rx="3" fill="#8c6e2f"/>
+          <rect x="300" y="310" width="200" height="10" rx="3" fill="#9aab7a" opacity=".6"/>
+          <rect x="330" y="320" width="12" height="22" rx="2" fill="#9aab7a" opacity=".4"/>
+          <rect x="458" y="320" width="12" height="22" rx="2" fill="#9aab7a" opacity=".4"/>
+          <circle cx="680" cy="80" r="120" fill="#c4a35a" opacity=".05"/>
+        </svg>
+        <span class="card-badge new">Coup de cœur</span>
+        <span class="card-site-tag">camif.fr</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Canapés & Fauteuils</div>
+        <div class="card-name">Canapé Naxos déhoussable</div>
+        <div class="card-desc">Canapé 3 places en tissu déhoussable, fabriqué en France. Confort durable, pieds chêne massif.</div>
+        <div class="card-dims">
+          <span class="dim-tag">L. 220 cm</span>
+          <span class="dim-tag">H. 82 cm</span>
+          <span class="dim-tag">P. 95 cm</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-price">dès 899 €</div>
+          <div class="card-arrow">Voir sur Camif <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://www.ikea.com/fr/fr/cat/tables-dining-tables-10426/" target="_blank" class="card">
+      <div class="card-img-wrap">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="300" fill="#c8d4a8"/>
+          <rect x="0" y="230" width="400" height="70" fill="#9aab7a" opacity=".3"/>
+          <rect x="60" y="120" width="280" height="16" rx="3" fill="#8c6e2f"/>
+          <rect x="85" y="136" width="14" height="88" rx="3" fill="#6b7c52"/>
+          <rect x="301" y="136" width="14" height="88" rx="3" fill="#6b7c52"/>
+          <rect x="30" y="154" width="50" height="36" rx="3" fill="#4a5e3a" opacity=".6"/>
+          <rect x="320" y="154" width="50" height="36" rx="3" fill="#4a5e3a" opacity=".6"/>
+        </svg>
+        <span class="card-badge">Populaire</span>
+        <span class="card-site-tag">ikea.fr</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Tables à manger</div>
+        <div class="card-name">Table STORNAS extensible</div>
+        <div class="card-desc">Acacia massif, de 147 à 204 cm selon vos besoins.</div>
+        <div class="card-dims"><span class="dim-tag">L. 147-204 cm</span><span class="dim-tag">H. 74 cm</span></div>
+        <div class="card-footer">
+          <div class="card-price">799 €</div>
+          <div class="card-arrow">Voir sur Ikea <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://www.maisons-du-monde.com/fr-fr/meubles/lits" target="_blank" class="card">
+      <div class="card-img-wrap">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="300" fill="#e8ead8"/>
+          <rect x="0" y="240" width="400" height="60" fill="#c8d4a8" opacity=".4"/>
+          <rect x="50" y="160" width="300" height="86" rx="5" fill="#6b7c52"/>
+          <rect x="50" y="102" width="300" height="66" rx="5" fill="#4a5e3a"/>
+          <rect x="60" y="155" width="280" height="52" rx="4" fill="#f0eedf"/>
+          <rect x="80" y="162" width="98" height="36" rx="5" fill="white" opacity=".85"/>
+          <rect x="222" y="162" width="98" height="36" rx="5" fill="white" opacity=".85"/>
+        </svg>
+        <span class="card-badge new">Nouveau</span>
+        <span class="card-site-tag">maisonsdumonde.com</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Lits & Literie</div>
+        <div class="card-name">Lit Josephine capitonné</div>
+        <div class="card-desc">Tête de lit capitonnée, cadre bois massif naturel.</div>
+        <div class="card-dims"><span class="dim-tag">160×200 cm</span><span class="dim-tag">H. 110 cm</span></div>
+        <div class="card-footer">
+          <div class="card-price">549 €</div>
+          <div class="card-arrow">Voir sur MDM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://www.redoute.fr/e/mobilier-bureau" target="_blank" class="card">
+      <div class="card-img-wrap">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="300" fill="#d4dfc0"/>
+          <rect x="50" y="162" width="300" height="15" rx="3" fill="#8c6e2f"/>
+          <rect x="50" y="177" width="16" height="78" rx="3" fill="#6b7c52"/>
+          <rect x="334" y="177" width="16" height="78" rx="3" fill="#6b7c52"/>
+          <rect x="242" y="177" width="92" height="62" rx="3" fill="#4a5e3a"/>
+          <rect x="250" y="185" width="76" height="18" rx="2" fill="#2d3a2e"/>
+          <rect x="250" y="210" width="76" height="18" rx="2" fill="#2d3a2e"/>
+          <rect x="100" y="102" width="148" height="56" rx="4" fill="#2d3a2e"/>
+          <rect x="166" y="158" width="14" height="6" fill="#2d3a2e"/>
+          <rect x="153" y="164" width="40" height="4" rx="2" fill="#4a5e3a"/>
+        </svg>
+        <span class="card-badge promo">Promo −20%</span>
+        <span class="card-site-tag">laredoute.fr</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Bureaux</div>
+        <div class="card-name">Bureau Scandinave Oak Corner</div>
+        <div class="card-desc">Bureau d'angle avec caissons, finition chêne clair.</div>
+        <div class="card-dims"><span class="dim-tag">L. 120 cm</span><span class="dim-tag">H. 75 cm</span><span class="dim-tag">P. 60 cm</span></div>
+        <div class="card-footer">
+          <div class="card-price">319 € <small>au lieu de 399 €</small></div>
+          <div class="card-arrow">La Redoute <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://www.alinea.fr/fr/meubles/armoires-dressing" target="_blank" class="card">
+      <div class="card-img-wrap">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="300" fill="#e2e8d0"/>
+          <rect x="80" y="60" width="240" height="200" rx="4" fill="#4a5e3a"/>
+          <rect x="84" y="64" width="112" height="192" rx="3" fill="#6b7c52"/>
+          <rect x="204" y="64" width="112" height="192" rx="3" fill="#6b7c52"/>
+          <line x1="200" y1="64" x2="200" y2="256" stroke="#2d3a2e" stroke-width="3"/>
+          <rect x="183" y="148" width="8" height="26" rx="4" fill="#c4a35a"/>
+          <rect x="209" y="148" width="8" height="26" rx="4" fill="#c4a35a"/>
+          <rect x="80" y="60" width="240" height="18" rx="4" fill="#2d3a2e"/>
+        </svg>
+        <span class="card-site-tag">alinea.fr</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Armoires & Dressings</div>
+        <div class="card-name">Armoire 2 portes Velvet</div>
+        <div class="card-desc">Grande armoire intérieur équipé, poignées dorées.</div>
+        <div class="card-dims"><span class="dim-tag">L. 150 cm</span><span class="dim-tag">H. 220 cm</span><span class="dim-tag">P. 58 cm</span></div>
+        <div class="card-footer">
+          <div class="card-price">689 €</div>
+          <div class="card-arrow">Voir sur Alinéa <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://www.habitat.fr/meubles/bibliotheques" target="_blank" class="card">
+      <div class="card-img-wrap">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="300" fill="#dce8c8"/>
+          <rect x="90" y="50" width="220" height="220" rx="4" fill="#2d3a2e"/>
+          <rect x="94" y="108" width="212" height="7" fill="#4a5e3a"/>
+          <rect x="94" y="168" width="212" height="7" fill="#4a5e3a"/>
+          <rect x="94" y="228" width="212" height="7" fill="#4a5e3a"/>
+          <rect x="100" y="60" width="16" height="44" rx="2" fill="#c4a35a"/>
+          <rect x="120" y="65" width="12" height="39" rx="2" fill="#9aab7a"/>
+          <rect x="136" y="61" width="20" height="43" rx="2" fill="#c8d4a8"/>
+          <rect x="160" y="67" width="10" height="37" rx="2" fill="#6b7c52"/>
+          <rect x="174" y="60" width="18" height="44" rx="2" fill="#8c6e2f"/>
+          <rect x="196" y="63" width="14" height="41" rx="2" fill="#4a5e3a"/>
+          <rect x="100" y="118" width="18" height="44" rx="2" fill="#6b7c52"/>
+          <rect x="122" y="122" width="14" height="40" rx="2" fill="#c4a35a"/>
+          <circle cx="280" cy="88" r="20" fill="#4a5e3a"/>
+          <rect x="276" y="106" width="8" height="8" rx="2" fill="#6b7c52"/>
+        </svg>
+        <span class="card-site-tag">habitat.fr</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Bibliothèques</div>
+        <div class="card-name">Bibliothèque Modular System</div>
+        <div class="card-desc">Modulable 220 cm, 5 étagères ajustables, noir mat.</div>
+        <div class="card-dims"><span class="dim-tag">L. 100 cm</span><span class="dim-tag">H. 220 cm</span><span class="dim-tag">P. 28 cm</span></div>
+        <div class="card-footer">
+          <div class="card-price">445 €</div>
+          <div class="card-arrow">Voir sur Habitat <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner">
+  <div>
+    <h2>Toutes les enseignes françaises, une seule recherche</h2>
+    <p>Dimensions-Meubles agrège les catalogues de plus de 12 enseignes pour que vous trouviez enfin le meuble qui rentre exactement dans votre espace.</p>
+  </div>
+  <div class="banner-links">
+    <a href="https://www.ikea.com/fr/fr/" target="_blank" class="bl"><div><div class="bl-name">IKEA France</div><div class="bl-sub">Grand choix · Prix accessibles · Scandinave</div></div><span class="bl-arr">→</span></a>
+    <a href="https://www.maisons-du-monde.com/fr-fr/" target="_blank" class="bl"><div><div class="bl-name">Maisons du Monde</div><div class="bl-sub">Déco · Mobilier · Styles variés</div></div><span class="bl-arr">→</span></a>
+    <a href="https://www.camif.fr/" target="_blank" class="bl"><div><div class="bl-name">Camif</div><div class="bl-sub">Made in France · Éco-responsable · Premium</div></div><span class="bl-arr">→</span></a>
+  </div>
+</div>
+
+<!-- BRANDS -->
+<div class="sh" id="marques">
+  <div class="sh-left"><div class="sh-eye">Partenaires</div><div class="sh-title">Toutes les enseignes</div></div>
+</div>
+<div class="brands">
+  <a href="https://www.ikea.com/fr/fr/" target="_blank" class="brand-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>IKEA</a>
+  <a href="https://www.maisons-du-monde.com/fr-fr/" target="_blank" class="brand-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Maisons du Monde</a>
+  <a href="https://www.camif.fr/" target="_blank" class="brand-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Camif</a>
+  <a href="https://www.conforama.fr/" target="_blank" class="brand-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Conforama</a>
+  <a href="https://www.but.fr/" target="_blank" class="brand-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>BUT</a>
+  <a href="https://www.alinea.fr/" target="_blank" class="brand-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Alinéa</a>
+  <a href="https://www.laredoute.fr/" target="_blank" class="brand-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>La Redoute</a>
+  <a href="https://www.habitat.fr/" target="_blank" class="brand-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Habitat</a>
+  <a href="https://www.roche-bobois.com/fr-fr" target="_blank" class="brand-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Roche Bobois</a>
+  <a href="https://www.westwing.fr/" target="_blank" class="brand-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Westwing</a>
+  <a href="https://www.leroy-merlin.fr/" target="_blank" class="brand-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Leroy Merlin</a>
+  <a href="https://www.made.com/fr/" target="_blank" class="brand-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>MADE</a>
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="#" class="footer-logo">Dimensions<span>-Meubles</span></a>
+      <p class="footer-p">Le 1er comparateur de meubles par dimensions. Trouvez exactement ce qui rentre dans votre espace, parmi les meilleures enseignes françaises.</p>
+      <p class="affil-note">Site affilié — nous percevons une commission sur les ventes générées, sans surcoût pour vous.</p>
+    </div>
+    <div class="fc"><h4>Pièces</h4><ul><li><a href="#">Salon</a></li><li><a href="#">Chambre</a></li><li><a href="#">Cuisine</a></li><li><a href="#">Bureau</a></li><li><a href="#">Jardin</a></li></ul></div>
+    <div class="fc"><h4>Types</h4><ul><li><a href="#">Canapés</a></li><li><a href="#">Tables</a></li><li><a href="#">Lits</a></li><li><a href="#">Armoires</a></li><li><a href="#">Bureaux</a></li></ul></div>
+    <div class="fc"><h4>Enseignes</h4><ul><li><a href="https://www.ikea.com/fr/fr/" target="_blank">IKEA</a></li><li><a href="https://www.camif.fr/" target="_blank">Camif</a></li><li><a href="https://www.maisons-du-monde.com" target="_blank">MDM</a></li><li><a href="https://www.conforama.fr/" target="_blank">Conforama</a></li><li><a href="https://www.but.fr/" target="_blank">BUT</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Dimensions-Meubles · dimensions-meuble.fr</p>
+    <p>Liens affiliés · Mentions légales · Contact</p>
+  </div>
+</footer>
+
+<script>
+/* ── DIMENSION SELECTOR DATA ── */
+const types=[
+  {id:'commode',label:'Commode',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:40,max:160,val:80,unit:'cm'},{id:'d',label:'Profondeur',color:'#1D9E75',min:30,max:60,val:45,unit:'cm'},{id:'h',label:'Hauteur',color:'#E8593C',min:60,max:130,val:90,unit:'cm'},{id:'pl',label:'Haut. pieds',color:'#BA7517',min:0,max:20,val:8,unit:'cm'},{id:'dr',label:'Nb tiroirs',color:'#7F77DD',min:1,max:8,val:3,unit:''}],products:[{name:'Commode Oslo',w:[70,90],h:[80,100],d:[40,50],price:'249 €',site:'ikea.fr',url:'https://www.ikea.com'},{name:'Commode Gustave',w:[75,95],h:[85,105],d:[40,55],price:'389 €',site:'maisonsdumonde.com',url:'https://www.maisons-du-monde.com'},{name:'Commode Bristol 6T',w:[100,130],h:[88,98],d:[42,52],price:'529 €',site:'camif.fr',url:'https://www.camif.fr'},{name:'Commode Retro Oak',w:[60,85],h:[70,95],d:[35,50],price:'319 €',site:'but.fr',url:'https://www.but.fr'}]},
+  {id:'canape',label:'Canapé',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:120,max:320,val:220,unit:'cm'},{id:'d',label:'Prof. assise',color:'#1D9E75',min:40,max:90,val:60,unit:'cm'},{id:'h',label:'Haut. dossier',color:'#E8593C',min:60,max:110,val:80,unit:'cm'},{id:'ha',label:'Haut. accoud.',color:'#BA7517',min:50,max:90,val:65,unit:'cm'},{id:'pl',label:'Haut. pieds',color:'#7F77DD',min:3,max:25,val:10,unit:'cm'}],products:[{name:'Canapé Naxos 3P',w:[190,230],h:[75,90],d:[55,70],price:'899 €',site:'camif.fr',url:'https://www.camif.fr'},{name:'Canapé KIVIK',w:[220,260],h:[70,85],d:[58,72],price:'749 €',site:'ikea.fr',url:'https://www.ikea.com'},{name:'Canapé Corner Velvet',w:[250,310],h:[72,88],d:[60,80],price:'1 290 €',site:'habitat.fr',url:'https://www.habitat.fr'},{name:'Canapé Denim Bleu',w:[180,210],h:[75,95],d:[55,68],price:'1 150 €',site:'westwing.fr',url:'https://www.westwing.fr'}]},
+  {id:'lit',label:'Lit',dims:[{id:'w',label:'Larg. matelas',color:'#3B8BD4',min:80,max:200,val:160,unit:'cm'},{id:'l',label:'Long. matelas',color:'#1D9E75',min:180,max:220,val:200,unit:'cm'},{id:'ht',label:'Haut. tête lit',color:'#E8593C',min:60,max:160,val:110,unit:'cm'},{id:'hc',label:'Haut. cadre',color:'#BA7517',min:20,max:60,val:35,unit:'cm'},{id:'hs',label:'Haut. s/cadre',color:'#7F77DD',min:0,max:40,val:15,unit:'cm'}],products:[{name:'Lit Josephine 160',w:[155,170],h:[90,130],d:[195,210],price:'549 €',site:'maisonsdumonde.com',url:'https://www.maisons-du-monde.com'},{name:'Lit HEMNES 160',w:[155,170],h:[75,100],d:[198,215],price:'469 €',site:'ikea.fr',url:'https://www.ikea.com'},{name:'Lit Gabin Bois',w:[155,170],h:[95,120],d:[198,210],price:'789 €',site:'alinea.fr',url:'https://www.alinea.fr'},{name:'Lit Capitonné',w:[155,170],h:[110,160],d:[198,210],price:'1 090 €',site:'roche-bobois.com',url:'https://www.roche-bobois.com'}]},
+  {id:'table',label:'Table',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:60,max:200,val:90,unit:'cm'},{id:'l',label:'Longueur',color:'#1D9E75',min:100,max:300,val:160,unit:'cm'},{id:'h',label:'Hauteur',color:'#E8593C',min:55,max:80,val:75,unit:'cm'},{id:'ext',label:'Rallonge',color:'#BA7517',min:0,max:100,val:0,unit:'cm'},{id:'pl',label:'Haut. pieds',color:'#7F77DD',min:60,max:80,val:72,unit:'cm'}],products:[{name:'Table STORNAS 160',w:[85,95],h:[73,78],d:[155,175],price:'799 €',site:'ikea.fr',url:'https://www.ikea.com'},{name:'Table Acacia Naturel',w:[80,100],h:[72,78],d:[150,180],price:'649 €',site:'maisonsdumonde.com',url:'https://www.maisons-du-monde.com'},{name:'Table Ovale extensible',w:[90,110],h:[72,78],d:[140,250],price:'1 190 €',site:'habitat.fr',url:'https://www.habitat.fr'},{name:'Table Bois & Métal',w:[85,95],h:[74,80],d:[160,200],price:'499 €',site:'conforama.fr',url:'https://www.conforama.fr'}]},
+  {id:'armoire',label:'Armoire',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:60,max:300,val:150,unit:'cm'},{id:'d',label:'Profondeur',color:'#1D9E75',min:40,max:80,val:58,unit:'cm'},{id:'h',label:'Hauteur',color:'#E8593C',min:150,max:280,val:220,unit:'cm'},{id:'pl',label:'Haut. pieds',color:'#BA7517',min:0,max:25,val:5,unit:'cm'},{id:'pr',label:'Nb portes',color:'#7F77DD',min:1,max:6,val:2,unit:''}],products:[{name:'Armoire Velvet 2P',w:[130,170],h:[200,240],d:[54,62],price:'689 €',site:'alinea.fr',url:'https://www.alinea.fr'},{name:'Armoire PAX 150',w:[145,155],h:[235,240],d:[56,60],price:'595 €',site:'ikea.fr',url:'https://www.ikea.com'},{name:'Armoire Oslo Chêne',w:[140,160],h:[198,220],d:[54,60],price:'889 €',site:'but.fr',url:'https://www.but.fr'},{name:'Dressing Modulaire',w:[200,280],h:[200,250],d:[50,60],price:'1 450 €',site:'leroy-merlin.fr',url:'https://www.leroy-merlin.fr'}]},
+  {id:'bureau',label:'Bureau',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:60,max:200,val:120,unit:'cm'},{id:'d',label:'Profondeur',color:'#1D9E75',min:40,max:80,val:60,unit:'cm'},{id:'h',label:'Haut. plan',color:'#E8593C',min:65,max:80,val:75,unit:'cm'},{id:'pl',label:'Haut. pieds',color:'#BA7517',min:55,max:80,val:71,unit:'cm'},{id:'dr',label:'Nb tiroirs',color:'#7F77DD',min:0,max:4,val:1,unit:''}],products:[{name:'Bureau Scandinave Oak',w:[110,130],h:[73,78],d:[55,65],price:'319 €',site:'laredoute.fr',url:'https://www.laredoute.fr'},{name:'Bureau MICKE',w:[95,105],h:[73,78],d:[48,52],price:'129 €',site:'ikea.fr',url:'https://www.ikea.com'},{name:'Bureau Angle Corner',w:[140,160],h:[73,78],d:[55,70],price:'445 €',site:'conforama.fr',url:'https://www.conforama.fr'},{name:'Bureau Standing',w:[118,135],h:[60,125],d:[55,68],price:'899 €',site:'habitat.fr',url:'https://www.habitat.fr'}]},
+  {id:'etagere',label:'Étagère',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:40,max:300,val:100,unit:'cm'},{id:'d',label:'Profondeur',color:'#1D9E75',min:15,max:50,val:28,unit:'cm'},{id:'h',label:'Hauteur',color:'#E8593C',min:60,max:250,val:180,unit:'cm'},{id:'ne',label:'Nb étagères',color:'#BA7517',min:2,max:10,val:5,unit:''},{id:'ec',label:'Espac. cases',color:'#7F77DD',min:15,max:50,val:32,unit:'cm'}],products:[{name:'Bibliothèque Modular',w:[90,110],h:[210,235],d:[25,32],price:'445 €',site:'habitat.fr',url:'https://www.habitat.fr'},{name:'KALLAX 5×5',w:[145,155],h:[195,205],d:[38,42],price:'279 €',site:'ikea.fr',url:'https://www.ikea.com'},{name:'Étagère Métal Loft',w:[80,100],h:[175,200],d:[25,35],price:'249 €',site:'alinea.fr',url:'https://www.alinea.fr'},{name:'Bibliothèque Acacia',w:[100,140],h:[180,220],d:[26,34],price:'529 €',site:'camif.fr',url:'https://www.camif.fr'}]},
+  {id:'fauteuil',label:'Fauteuil',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:50,max:110,val:75,unit:'cm'},{id:'d',label:'Profondeur',color:'#1D9E75',min:50,max:100,val:80,unit:'cm'},{id:'h',label:'Haut. dossier',color:'#E8593C',min:70,max:130,val:90,unit:'cm'},{id:'ha',label:'Haut. assise',color:'#BA7517',min:35,max:55,val:45,unit:'cm'},{id:'pl',label:'Haut. pieds',color:'#7F77DD',min:5,max:25,val:12,unit:'cm'}],products:[{name:'Fauteuil Bergère Velours',w:[70,85],h:[85,105],d:[75,90],price:'549 €',site:'maisonsdumonde.com',url:'https://www.maisons-du-monde.com'},{name:'Fauteuil STRANDMON',w:[78,84],h:[100,105],d:[84,90],price:'249 €',site:'ikea.fr',url:'https://www.ikea.com'},{name:'Fauteuil Reading Club',w:[72,82],h:[88,100],d:[78,92],price:'749 €',site:'habitat.fr',url:'https://www.habitat.fr'},{name:'Fauteuil Capitonné',w:[76,88],h:[90,110],d:[80,94],price:'1 090 €',site:'roche-bobois.com',url:'https://www.roche-bobois.com'}]},
+  {id:'chaise',label:'Chaise',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:35,max:65,val:45,unit:'cm'},{id:'d',label:'Profondeur',color:'#1D9E75',min:35,max:60,val:48,unit:'cm'},{id:'h',label:'Haut. totale',color:'#E8593C',min:75,max:110,val:88,unit:'cm'},{id:'ha',label:'Haut. assise',color:'#BA7517',min:40,max:55,val:46,unit:'cm'},{id:'hd',label:'Haut. dossier',color:'#7F77DD',min:30,max:65,val:42,unit:'cm'}],products:[{name:'Chaise Scandinave Chêne',w:[42,50],h:[82,96],d:[44,54],price:'89 €',site:'ikea.fr',url:'https://www.ikea.com'},{name:'Chaise Velours Bouclé',w:[44,52],h:[84,98],d:[46,56],price:'149 €',site:'maisonsdumonde.com',url:'https://www.maisons-du-monde.com'},{name:'Chaise Acier & Bois',w:[40,48],h:[80,94],d:[42,52],price:'119 €',site:'habitat.fr',url:'https://www.habitat.fr'},{name:'Chaise Coque',w:[43,51],h:[78,92],d:[44,54],price:'69 €',site:'conforama.fr',url:'https://www.conforama.fr'}]},
+  {id:'tbasse',label:'T. basse',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:40,max:160,val:90,unit:'cm'},{id:'l',label:'Longueur',color:'#1D9E75',min:50,max:200,val:120,unit:'cm'},{id:'h',label:'Hauteur',color:'#E8593C',min:25,max:55,val:40,unit:'cm'},{id:'pl',label:'Haut. pieds',color:'#BA7517',min:5,max:30,val:18,unit:'cm'},{id:'ep',label:'Épais. plateau',color:'#7F77DD',min:2,max:8,val:3,unit:'cm'}],products:[{name:'Table basse Ovale Acacia',w:[80,100],h:[36,44],d:[110,135],price:'249 €',site:'but.fr',url:'https://www.but.fr'},{name:'STOCKHOLM 2017',w:[88,96],h:[42,46],d:[128,136],price:'349 €',site:'ikea.fr',url:'https://www.ikea.com'},{name:'Table Marbre & Métal',w:[78,98],h:[38,46],d:[100,130],price:'649 €',site:'roche-bobois.com',url:'https://www.roche-bobois.com'},{name:'Table basse Bois',w:[80,95],h:[35,44],d:[110,128],price:'329 €',site:'habitat.fr',url:'https://www.habitat.fr'}]},
+];
+
+const svgIcons={commode:`<svg viewBox="0 0 40 40"><rect x="4" y="6" width="32" height="26" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="4" y1="14" x2="36" y2="14" stroke="currentColor" stroke-width="1"/><line x1="4" y1="22" x2="36" y2="22" stroke="currentColor" stroke-width="1"/><circle cx="20" cy="10" r="1.5" fill="currentColor"/><circle cx="20" cy="18" r="1.5" fill="currentColor"/><circle cx="20" cy="26" r="1.5" fill="currentColor"/><line x1="10" y1="32" x2="10" y2="36" stroke="currentColor" stroke-width="1.5"/><line x1="30" y1="32" x2="30" y2="36" stroke="currentColor" stroke-width="1.5"/></svg>`,canape:`<svg viewBox="0 0 40 40"><rect x="4" y="16" width="32" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="10" width="32" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="16" width="6" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1"/><rect x="30" y="16" width="6" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1"/><line x1="10" y1="30" x2="9" y2="34" stroke="currentColor" stroke-width="1.5"/><line x1="30" y1="30" x2="31" y2="34" stroke="currentColor" stroke-width="1.5"/></svg>`,lit:`<svg viewBox="0 0 40 40"><rect x="4" y="20" width="32" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="10" width="32" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="6" y="12" width="12" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1"/><rect x="22" y="12" width="12" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1"/><line x1="6" y1="30" x2="6" y2="34" stroke="currentColor" stroke-width="1.5"/><line x1="34" y1="30" x2="34" y2="34" stroke="currentColor" stroke-width="1.5"/></svg>`,table:`<svg viewBox="0 0 40 40"><rect x="4" y="16" width="32" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="10" y1="21" x2="10" y2="34" stroke="currentColor" stroke-width="1.5"/><line x1="30" y1="21" x2="30" y2="34" stroke="currentColor" stroke-width="1.5"/></svg>`,armoire:`<svg viewBox="0 0 40 40"><rect x="5" y="4" width="30" height="32" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="20" y1="4" x2="20" y2="36" stroke="currentColor" stroke-width="1"/><circle cx="17" cy="20" r="1.5" fill="currentColor"/><circle cx="23" cy="20" r="1.5" fill="currentColor"/><line x1="10" y1="36" x2="10" y2="39" stroke="currentColor" stroke-width="1.5"/><line x1="30" y1="36" x2="30" y2="39" stroke="currentColor" stroke-width="1.5"/></svg>`,bureau:`<svg viewBox="0 0 40 40"><rect x="4" y="18" width="32" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="26" y="23" width="10" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="8" y1="23" x2="8" y2="34" stroke="currentColor" stroke-width="1.5"/><line x1="24" y1="23" x2="24" y2="34" stroke="currentColor" stroke-width="1.5"/></svg>`,etagere:`<svg viewBox="0 0 40 40"><line x1="6" y1="6" x2="6" y2="36" stroke="currentColor" stroke-width="1.5"/><line x1="34" y1="6" x2="34" y2="36" stroke="currentColor" stroke-width="1.5"/><line x1="6" y1="12" x2="34" y2="12" stroke="currentColor" stroke-width="1.5"/><line x1="6" y1="20" x2="34" y2="20" stroke="currentColor" stroke-width="1.5"/><line x1="6" y1="28" x2="34" y2="28" stroke="currentColor" stroke-width="1.5"/><line x1="6" y1="36" x2="34" y2="36" stroke="currentColor" stroke-width="1.5"/></svg>`,fauteuil:`<svg viewBox="0 0 40 40"><rect x="10" y="8" width="20" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="10" y="22" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="5" y="22" width="7" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1"/><rect x="28" y="22" width="7" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1"/><line x1="12" y1="30" x2="11" y2="34" stroke="currentColor" stroke-width="1.5"/><line x1="28" y1="30" x2="29" y2="34" stroke="currentColor" stroke-width="1.5"/></svg>`,chaise:`<svg viewBox="0 0 40 40"><rect x="10" y="18" width="20" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="8" width="16" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="23" x2="10" y2="34" stroke="currentColor" stroke-width="1.5"/><line x1="28" y1="23" x2="30" y2="34" stroke="currentColor" stroke-width="1.5"/></svg>`,tbasse:`<svg viewBox="0 0 40 40"><rect x="4" y="20" width="32" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="26" x2="8" y2="32" stroke="currentColor" stroke-width="1.5"/><line x1="31" y1="26" x2="32" y2="32" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="26" x2="16" y2="32" stroke="currentColor" stroke-width="1.5"/><line x1="24" y1="26" x2="24" y2="32" stroke="currentColor" stroke-width="1.5"/></svg>`};
+
+/* ── SUPPRIMÉ : rendu 3D remplacé par vues Face + Dessus ── */
+function iso3D(){} // kept for compat, unused
+
+function iso3D_unused(canvas, shape){
+  const svg = document.getElementById('prevSvg2');
+  if(!svg) return;
+  const W=220, H=210;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+
+  const s=shape;
+  /* Auto-fit: figure out bounding box in world units then pick a scale */
+  const worldW = s.w || s.l || 40;
+  const worldD = s.d || 30;
+  const worldH = (s.legH||0)+(s.bodyH||s.h||s.seatH||0)+(s.backH||0)+(s.frameH||0)+(s.headH||0)+(s.topH||0) || 40;
+  /* Cabinet projection: x→right, y→depth (oblique 30°), z→up */
+  const ANG = Math.PI/6;
+  const CA = Math.cos(ANG)*0.5, SA = Math.sin(ANG)*0.5;
+  /* Screen bounding box at scale=1 */
+  const screenW = worldW + worldD * CA;
+  const screenH = worldH + worldD * SA;
+  /* Fit into (W-40) × (H-44) with 20px margin on each side */
+  const SCALE = Math.min((W-50)/screenW, (H-44)/screenH);
+  /* Origin: bottom-left of front face */
+  const OX = 22;
+  const OY = H - 22 - worldD * SA * SCALE;
+
+  const px=(x,y)=> OX + x*SCALE + y*CA*SCALE;
+  const py=(x,y,z)=> OY - z*SCALE + y*SA*SCALE;
+
+  /* colour palette per face */
+  const faces={
+    top:   (base)=>lighten(base,+38),
+    front: (base)=>base,
+    side:  (base)=>lighten(base,-28),
+  };
+  function lighten(hex,amt){
+    let r=parseInt(hex.slice(1,3),16)+amt,
+        g=parseInt(hex.slice(3,5),16)+amt,
+        b=parseInt(hex.slice(5,7),16)+amt;
+    r=Math.max(0,Math.min(255,r)); g=Math.max(0,Math.min(255,g)); b=Math.max(0,Math.min(255,b));
+    return `rgb(${r},${g},${b})`;
+  }
+
+  /* SVG polygon helper */
+  function poly(pts, fill, strokeC='#2d3a2e', sw=0.8){
+    return `<polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="${fill}" stroke="${strokeC}" stroke-width="${sw}" stroke-linejoin="round"/>`;
+  }
+  /* draw one isometric box */
+  function box(x,y,z,w,d,h,base){
+    // front face (y=0 face)
+    const f=poly([
+      [px(x,0),py(x,0,z)],[px(x+w,0),py(x+w,0,z)],
+      [px(x+w,0),py(x+w,0,z+h)],[px(x,0),py(x,0,z+h)]
+    ], faces.front(base));
+    // side face (x+w, depth)
+    const s=poly([
+      [px(x+w,0),py(x+w,0,z)],[px(x+w,d),py(x+w,d,z)],
+      [px(x+w,d),py(x+w,d,z+h)],[px(x+w,0),py(x+w,0,z+h)]
+    ], faces.side(base));
+    // top face
+    const t=poly([
+      [px(x,0),py(x,0,z+h)],[px(x+w,0),py(x+w,0,z+h)],
+      [px(x+w,d),py(x+w,d,z+h)],[px(x,d),py(x,d,z+h)]
+    ], faces.top(base));
+    return f+s+t;
+  }
+
+  let out='';
+
+  if(s.type==='commode'){
+    if(s.legH>0){
+      out+=box(4,0,0,6,s.d,s.legH,'#6b7c52');
+      out+=box(s.w-10,0,0,6,s.d,s.legH,'#6b7c52');
+    }
+    out+=box(0,0,s.legH,s.w,s.d,s.bodyH,'#8a9e6a');
+    const dh=s.bodyH/s.drawers;
+    for(let i=0;i<s.drawers;i++){
+      const zy=s.legH+i*dh+1, dhi=dh-2;
+      out+=`<line x1="${px(2,0)}" y1="${py(2,0,zy)}" x2="${px(s.w-2,0)}" y2="${py(s.w-2,0,zy)}" stroke="#3d4e3a" stroke-width="0.6"/>`;
+      out+=`<line x1="${px(2,0)}" y1="${py(2,0,zy+dhi)}" x2="${px(s.w-2,0)}" y2="${py(s.w-2,0,zy+dhi)}" stroke="#3d4e3a" stroke-width="0.6"/>`;
+      const mx=px(s.w/2,0), my=py(s.w/2,0,zy+dhi/2);
+      out+=`<circle cx="${mx}" cy="${my}" r="2.5" fill="#c4a35a"/>`;
+    }
+  }
+  else if(s.type==='sofa'){
+    if(s.legH>0){
+      for(const [lx,ly] of [[2,1],[s.w-8,1],[2,s.d-4],[s.w-8,s.d-4]])
+        out+=box(lx,ly,0,6,3,s.legH,'#3d4e3a');
+    }
+    out+=box(0,0,s.legH,s.w,s.d,s.seatH,'#6b7c52');
+    out+=box(0,0,s.legH+s.seatH,s.w,s.backD,s.backH,'#6b7c52');
+    out+=box(0,0,s.legH,s.armW,s.d,s.seatH+s.armH,'#4a5e3a');
+    out+=box(s.w-s.armW,0,s.legH,s.armW,s.d,s.seatH+s.armH,'#4a5e3a');
+    const cw=(s.w-s.armW*2)/3;
+    for(let i=1;i<3;i++){
+      const cx=s.armW+i*cw;
+      out+=`<line x1="${px(cx,0)}" y1="${py(cx,0,s.legH)}" x2="${px(cx,s.d)}" y2="${py(cx,s.d,s.legH+s.seatH)}" stroke="#3d4e3a" stroke-width="0.5"/>`;
+    }
+  }
+  else if(s.type==='bed'){
+    for(const [lx,ly] of [[2,2],[s.w-8,2],[2,s.l-6],[s.w-8,s.l-6]])
+      out+=box(lx,ly,0,6,4,s.legH,'#3d4e3a');
+    out+=box(0,0,s.legH,s.w,s.l,s.frameH,'#6b7c52');
+    out+=box(0,0,s.legH+s.frameH,s.w,s.headD,s.headH,'#4a5e3a');
+    out+=box(2,s.headD,s.legH+s.frameH,s.w-4,s.l-s.headD-2,s.mattH,'#f0eedf');
+    out+=box(4,s.headD+2,s.legH+s.frameH+s.mattH,(s.w/2)-6,12,4,'#e8ead8');
+    out+=box(s.w/2+2,s.headD+2,s.legH+s.frameH+s.mattH,(s.w/2)-6,12,4,'#e8ead8');
+  }
+  else if(s.type==='table'){
+    for(const [lx,ly] of [[2,2],[s.w-6,2],[2,s.l-6],[s.w-6,s.l-6]])
+      out+=box(lx,ly,0,4,4,s.legH,'#6b7c52');
+    out+=box(0,0,s.legH,s.w,s.l,s.topH,'#8c6e2f');
+  }
+  else if(s.type==='wardrobe'){
+    if(s.legH>0){
+      out+=box(4,0,0,6,s.d,s.legH,'#2d3a2e');
+      out+=box(s.w-10,0,0,6,s.d,s.legH,'#2d3a2e');
+    }
+    out+=box(0,0,s.legH,s.w,s.d,s.h,'#4a5e3a');
+    const dw=s.w/s.doors;
+    for(let i=1;i<s.doors;i++){
+      const dx=i*dw;
+      out+=`<line x1="${px(dx,0)}" y1="${py(dx,0,s.legH)}" x2="${px(dx,0)}" y2="${py(dx,0,s.legH+s.h)}" stroke="#2d3a2e" stroke-width="1"/>`;
+    }
+    for(let i=0;i<s.doors;i++){
+      const hx=i*dw+dw/2, hz=s.legH+s.h/2;
+      out+=`<circle cx="${px(hx,0)}" cy="${py(hx,0,hz)}" r="2.5" fill="#c4a35a"/>`;
+    }
+  }
+  else if(s.type==='shelf'){
+    out+=box(0,0,0,3,s.d,s.h,'#4a5e3a');
+    out+=box(s.w-3,0,0,3,s.d,s.h,'#4a5e3a');
+    const sh=s.h/s.shelves;
+    for(let i=0;i<=s.shelves;i++) out+=box(0,0,i*sh,s.w,s.d,2.5,'#6b7c52');
+  }
+  else if(s.type==='desk'){
+    out+=box(0,0,0,4,s.d,s.legH,'#6b7c52');
+    out+=box(s.w-20,0,0,20,s.d,s.legH,'#4a5e3a');
+    out+=box(0,0,s.legH,s.w,s.d,s.topH,'#8c6e2f');
+  }
+  else if(s.type==='armchair'){
+    for(const [lx,ly] of [[2,1],[s.w-8,1],[2,s.d-4],[s.w-8,s.d-4]])
+      out+=box(lx,ly,0,5,3,s.legH,'#3d4e3a');
+    out+=box(0,0,s.legH,s.w,s.d,s.seatH,'#6b7c52');
+    out+=box(0,0,s.legH+s.seatH,s.w,s.backD,s.backH,'#4a5e3a');
+    out+=box(0,0,s.legH,s.armW,s.d,s.seatH+s.armH,'#4a5e3a');
+    out+=box(s.w-s.armW,0,s.legH,s.armW,s.d,s.seatH+s.armH,'#4a5e3a');
+  }
+  else if(s.type==='chair'){
+    for(const [lx,ly] of [[1,1],[s.w-5,1]])
+      out+=box(lx,ly,0,4,3,s.seatH,'#6b7c52');
+    for(const [lx,ly] of [[1,s.d-4],[s.w-5,s.d-4]])
+      out+=box(lx,ly,0,4,3,s.seatH+s.seatThk+s.backH,'#6b7c52');
+    out+=box(0,0,s.seatH,s.w,s.d,s.seatThk,'#8a9e6a');
+    out+=box(0,s.d-4,s.seatH+s.seatThk,s.w,4,s.backH,'#6b7c52');
+  }
+  else if(s.type==='ctable'){
+    for(const [lx,ly] of [[s.w*.12,s.d*.15],[s.w*.78,s.d*.15],[s.w*.12,s.d*.7],[s.w*.78,s.d*.7]])
+      out+=box(lx,ly,0,4,4,s.legH,'#6b7c52');
+    out+=box(0,0,s.legH,s.w,s.d,s.topH,'#8c6e2f');
+  }
+  else { out+=box(0,0,0,s.w||30,s.d||20,s.bodyH||s.h||40,'#6b7c52'); }
+
+  /* dimension annotation lines */
+  const totH=(s.legH||0)+(s.bodyH||s.h||s.seatH+s.seatThk+s.backH||s.frameH+s.headH||s.topH+s.legH||40);
+  const WW=s.w||s.l||worldW, DD=s.d||worldD;
+
+  /* L arrow — along front base, below floor */
+  const la1x=px(0,0), la1y=py(0,0,0)+8, la2x=px(WW,0), la2y=py(WW,0,0)+8;
+  out+=`<line x1="${la1x}" y1="${la1y}" x2="${la2x}" y2="${la2y}" stroke="#3B8BD4" stroke-width="1.2" marker-end="url(#arL)" marker-start="url(#arLS)"/>`;
+  out+=`<text x="${(la1x+la2x)/2}" y="${(la1y+la2y)/2+8}" text-anchor="middle" font-size="9" font-weight="600" fill="#3B8BD4" font-family="DM Sans,sans-serif">L</text>`;
+
+  /* P arrow — along depth edge, offset right */
+  const pa1x=px(WW,0)+6, pa1y=py(WW,0,0)+3, pa2x=px(WW,DD)+6, pa2y=py(WW,DD,0)+3;
+  out+=`<line x1="${pa1x}" y1="${pa1y}" x2="${pa2x}" y2="${pa2y}" stroke="#1D9E75" stroke-width="1.2" marker-end="url(#arP)" marker-start="url(#arPS)"/>`;
+  out+=`<text x="${(pa1x+pa2x)/2+9}" y="${(pa1y+pa2y)/2+4}" text-anchor="start" font-size="9" font-weight="600" fill="#1D9E75" font-family="DM Sans,sans-serif">P</text>`;
+
+  /* H arrow — vertical left edge */
+  const ha1x=px(0,0)-8, ha1y=py(0,0,0), ha2x=px(0,0)-8, ha2y=py(0,0,totH);
+  out+=`<line x1="${ha1x}" y1="${ha1y}" x2="${ha2x}" y2="${ha2y}" stroke="#E8593C" stroke-width="1.2" marker-end="url(#arH)" marker-start="url(#arHS)"/>`;
+  out+=`<text x="${ha1x-5}" y="${(ha1y+ha2y)/2+3}" text-anchor="middle" font-size="9" font-weight="600" fill="#E8593C" font-family="DM Sans,sans-serif">H</text>`;
+
+  /* floor shadow */
+  const shadow=`<polygon points="${px(0,0)},${py(0,0,0)} ${px(WW,0)},${py(WW,0,0)} ${px(WW,DD)},${py(WW,DD,0)} ${px(0,DD)},${py(0,DD,0)}" fill="rgba(45,58,46,.07)" stroke="none"/>`;
+
+  svg.innerHTML=`<defs>
+    <marker id="arL" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 1L5 3L0 5" fill="none" stroke="#3B8BD4" stroke-width="1.2"/></marker>
+    <marker id="arLS" viewBox="0 0 6 6" refX="1" refY="3" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 1L5 3L0 5" fill="none" stroke="#3B8BD4" stroke-width="1.2"/></marker>
+    <marker id="arP" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 1L5 3L0 5" fill="none" stroke="#1D9E75" stroke-width="1.2"/></marker>
+    <marker id="arPS" viewBox="0 0 6 6" refX="1" refY="3" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 1L5 3L0 5" fill="none" stroke="#1D9E75" stroke-width="1.2"/></marker>
+    <marker id="arH" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 1L5 3L0 5" fill="none" stroke="#E8593C" stroke-width="1.2"/></marker>
+    <marker id="arHS" viewBox="0 0 6 6" refX="1" refY="3" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 1L5 3L0 5" fill="none" stroke="#E8593C" stroke-width="1.2"/></marker>
+  </defs>${shadow}${out}`;
+}
+
+/* ── VUE DE FACE (élévation frontale) ── */
+const facePreviews={
+  commode:(v)=>{
+    const CX=110,BY=192,bw=Math.min(158,38+v.w*0.85),bh=Math.min(118,18+v.h*0.65);
+    const leg=Math.min(14,2+(v.pl||0)*0.6),rows=v.dr||3,rh=(bh-leg-4)/rows,bx=CX-bw/2;
+    let s=`<rect x="${bx}" y="${BY-bh}" width="${bw}" height="${bh-leg}" rx="3" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    for(let i=0;i<rows;i++){const dy=BY-bh+4+i*rh+2;s+=`<rect x="${bx+5}" y="${dy}" width="${bw-10}" height="${rh-4}" rx="2" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;s+=`<circle cx="${CX}" cy="${dy+rh/2-2}" r="2.5" fill="#9aab7a"/>`;}
+    for(const ox of[bx+4,bx+bw-12])s+=`<rect x="${ox}" y="${BY-leg}" width="8" height="${leg}" rx="2" fill="#9aab7a"/>`;
+    s+=dimLine(bx,BY+6,bx+bw,BY+6,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx-8,BY-bh,bx-8,BY-leg,'H',v.h,'cm','#E8593C');
+    return s;
+  },
+  canape:(v)=>{
+    const CX=110,BY=192,bw=Math.min(158,48+(v.w||220)*0.37),bh=Math.min(62,18+(v.h||80)*0.42);
+    const back=14,arm=10,leg=Math.min(10,2+(v.pl||10)*0.5),bx=CX-bw/2;
+    let s=`<rect x="${bx}" y="${BY-bh}" width="${bw}" height="${bh-leg}" rx="4" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx}" y="${BY-bh}" width="${bw}" height="${back}" rx="3" fill="#f0eedf" stroke="#6b7c52" stroke-width="1"/>`;
+    s+=`<rect x="${bx}" y="${BY-bh+back}" width="${arm}" height="${bh-back-leg}" rx="3" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=`<rect x="${bx+bw-arm}" y="${BY-bh+back}" width="${arm}" height="${bh-back-leg}" rx="3" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    const seats=3,sw=(bw-arm*2)/seats;
+    for(let i=0;i<seats;i++)s+=`<rect x="${bx+arm+i*sw+2}" y="${BY-bh+back+3}" width="${sw-4}" height="${bh-back-leg-6}" rx="3" fill="#e8f0d8" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    for(const ox of[bx+arm/2-3,bx+bw-arm/2-5])s+=`<rect x="${ox}" y="${BY-leg}" width="6" height="${leg}" rx="2" fill="#9aab7a"/>`;
+    s+=dimLine(bx,BY+6,bx+bw,BY+6,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx-8,BY-bh,bx-8,BY-leg,'H',v.h,'cm','#E8593C');
+    return s;
+  },
+  lit:(v)=>{
+    const CX=110,BY=192,bw=Math.min(148,38+(v.w||160)*0.48),ht=Math.min(68,18+(v.ht||110)*0.38),bl=36,bx=CX-bw/2;
+    let s=`<rect x="${bx}" y="${BY-bl}" width="${bw}" height="${bl}" rx="3" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx}" y="${BY-bl-ht}" width="${bw}" height="${ht}" rx="4" fill="#f0eedf" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx+8}" y="${BY-bl+4}" width="${bw/2-12}" height="${bl-8}" rx="3" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=`<rect x="${CX+4}" y="${BY-bl+4}" width="${bw/2-12}" height="${bl-8}" rx="3" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=dimLine(bx,BY+6,bx+bw,BY+6,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx-8,BY-bl-ht,bx-8,BY,'H',v.ht||110,'cm','#E8593C');
+    return s;
+  },
+  table:(v)=>{
+    const CX=110,BY=192,bw=Math.min(160,38+(v.l||160)*0.56),bh=Math.min(108,28+(v.h||75)*0.76),top=5,bx=CX-bw/2;
+    let s=`<rect x="${bx}" y="${BY-bh}" width="${bw}" height="${top}" rx="2" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    for(const ox of[bx+4,bx+bw-12])s+=`<rect x="${ox}" y="${BY-bh+top}" width="8" height="${bh-top}" rx="2" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=dimLine(bx,BY+6,bx+bw,BY+6,'L',v.l||160,'cm','#1D9E75');
+    s+=dimLine(bx-8,BY-bh,bx-8,BY,'H',v.h,'cm','#E8593C');
+    return s;
+  },
+  armoire:(v)=>{
+    const CX=110,BY=192,bw=Math.min(148,36+(v.w||150)*0.52),bh=Math.min(138,28+(v.h||220)*0.40),leg=Math.min(8,1+(v.pl||0)*0.35),np=v.pr||2,pw=bw/np,bx=CX-bw/2;
+    let s=`<rect x="${bx}" y="${BY-bh}" width="${bw}" height="${bh-leg}" rx="3" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    for(let i=0;i<np;i++){s+=`<rect x="${bx+i*pw+2}" y="${BY-bh+4}" width="${pw-4}" height="${bh-leg-8}" rx="2" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;s+=`<circle cx="${bx+i*pw+pw/2}" cy="${BY-bh/2}" r="3.5" fill="#c4a35a"/>`;}
+    for(const ox of[bx+4,bx+bw-12])s+=`<rect x="${ox}" y="${BY-leg}" width="8" height="${leg}" rx="2" fill="#9aab7a"/>`;
+    s+=dimLine(bx,BY+6,bx+bw,BY+6,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx-8,BY-bh,bx-8,BY-leg,'H',v.h,'cm','#E8593C');
+    return s;
+  },
+  bureau:(v)=>{
+    const CX=110,BY=192,bw=Math.min(148,38+(v.w||120)*0.72),bh=Math.min(88,18+(v.h||75)*0.68),top=4,bx=CX-bw/2;
+    let s=`<rect x="${bx}" y="${BY-bh}" width="${bw}" height="${top}" rx="2" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx+bw-28}" y="${BY-bh+top}" width="26" height="${bh-top}" rx="2" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    for(let i=0;i<(v.dr||1);i++)s+=`<rect x="${bx+bw-26}" y="${BY-bh+top+4+i*11}" width="22" height="7" rx="1" fill="white" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    for(const ox of[bx+2,bx+16])s+=`<rect x="${ox}" y="${BY-bh+top}" width="5" height="${bh-top}" rx="2" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=dimLine(bx,BY+6,bx+bw,BY+6,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx-8,BY-bh,bx-8,BY,'H',v.h,'cm','#E8593C');
+    return s;
+  },
+  etagere:(v)=>{
+    const CX=110,BY=192,bw=Math.min(148,38+(v.w||100)*0.67),bh=Math.min(138,28+(v.h||180)*0.42),ns=v.ne||5,sh=(bh-4)/ns,bx=CX-bw/2;
+    let s=`<rect x="${bx}" y="${BY-bh}" width="5" height="${bh}" rx="2" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=`<rect x="${bx+bw-5}" y="${BY-bh}" width="5" height="${bh}" rx="2" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    for(let i=0;i<=ns;i++)s+=`<rect x="${bx}" y="${BY-bh+i*sh}" width="${bw}" height="3" rx="1" fill="white" stroke="#6b7c52" stroke-width="0.5"/>`;
+    s+=dimLine(bx,BY+6,bx+bw,BY+6,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx-8,BY-bh,bx-8,BY,'H',v.h,'cm','#E8593C');
+    return s;
+  },
+  fauteuil:(v)=>{
+    const CX=110,BY=192,bw=Math.min(108,28+(v.w||75)*0.68),bh=Math.min(88,18+(v.h||90)*0.58),back=Math.round(bh*0.44),leg=Math.min(10,1+(v.pl||12)*0.38),bx=CX-bw/2;
+    let s=`<rect x="${bx+12}" y="${BY-bh+back}" width="${bw-24}" height="${bh-back-leg}" rx="4" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx}" y="${BY-bh}" width="${bw}" height="${back}" rx="4" fill="#f0eedf" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx}" y="${BY-bh+back}" width="12" height="${bh-back-leg}" rx="3" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=`<rect x="${bx+bw-12}" y="${BY-bh+back}" width="12" height="${bh-back-leg}" rx="3" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    for(const ox of[bx+14,bx+bw-20])s+=`<rect x="${ox}" y="${BY-leg}" width="6" height="${leg}" rx="2" fill="#9aab7a"/>`;
+    s+=dimLine(bx,BY+6,bx+bw,BY+6,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx-8,BY-bh,bx-8,BY-leg,'H',v.h,'cm','#E8593C');
+    return s;
+  },
+  chaise:(v)=>{
+    const CX=110,BY=192,bw=Math.min(88,18+(v.w||45)*1.05),bh=Math.min(108,18+(v.h||88)*0.72),seat=Math.round(bh*((v.ha||46)/(v.h||88))),back=Math.round(bh*((v.hd||42)/(v.h||88))),bx=CX-bw/2;
+    let s=`<rect x="${bx}" y="${BY-seat}" width="${bw}" height="${Math.max(3,seat*0.3)}" rx="2" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx+5}" y="${BY-seat-back}" width="${bw-10}" height="${back}" rx="3" fill="#f0eedf" stroke="#6b7c52" stroke-width="1.2"/>`;
+    const lh=seat*0.7;
+    for(const ox of[bx+5,bx+bw-10])s+=`<line x1="${ox}" y1="${BY-seat+seat*0.3}" x2="${ox-2}" y2="${BY}" stroke="#6b7c52" stroke-width="2.5" stroke-linecap="round"/>`;
+    s+=dimLine(bx,BY+6,bx+bw,BY+6,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx-8,BY-seat-back,bx-8,BY,'H',v.h,'cm','#E8593C');
+    return s;
+  },
+  tbasse:(v)=>{
+    const CX=110,BY=192,bw=Math.min(158,48+(v.l||120)*0.62),bh=Math.min(48,8+(v.h||40)*0.68),top=Math.max(3,Math.min(9,(v.ep||3)*1.4)),bx=CX-bw/2;
+    let s=`<rect x="${bx}" y="${BY-bh}" width="${bw}" height="${top}" rx="2" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    const leg=bh-top;
+    for(const ox of[bx+8,bx+bw-14])s+=`<rect x="${ox}" y="${BY-leg}" width="6" height="${leg}" rx="2" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=dimLine(bx,BY+6,bx+bw,BY+6,'L',v.l||120,'cm','#1D9E75');
+    s+=dimLine(bx-8,BY-bh,bx-8,BY,'H',v.h,'cm','#E8593C');
+    return s;
+  }
+};
+
+/* ── VUE DE DESSUS (plan) ── */
+const topPreviews={
+  commode:(v)=>{
+    const CX=110,CY=100,bw=Math.min(160,36+v.w*0.85),bd=Math.min(80,16+(v.d||45)*0.9),bx=CX-bw/2,by=CY-bd/2;
+    let s=`<rect x="${bx}" y="${by}" width="${bw}" height="${bd}" rx="3" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    const rows=v.dr||3,rw=(bw-10)/rows;
+    for(let i=0;i<rows;i++)s+=`<rect x="${bx+5+i*rw}" y="${by+4}" width="${rw-4}" height="${bd-8}" rx="2" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=dimLine(bx,by+bd+14,bx+bw,by+bd+14,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx+bw+10,by,bx+bw+10,by+bd,'P',v.d||45,'cm','#1D9E75');
+    return s;
+  },
+  canape:(v)=>{
+    const CX=110,CY=100,bw=Math.min(160,46+(v.w||220)*0.35),bd=Math.min(90,14+(v.d||60)*0.9),bx=CX-bw/2,by=CY-bd/2;
+    let s=`<rect x="${bx}" y="${by}" width="${bw}" height="${bd}" rx="4" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx}" y="${by}" width="${bw}" height="10" rx="2" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=`<rect x="${bx}" y="${by+10}" width="10" height="${bd-10}" rx="2" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=`<rect x="${bx+bw-10}" y="${by+10}" width="10" height="${bd-10}" rx="2" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    const seats=3,sw=(bw-20)/seats;
+    for(let i=0;i<seats;i++)s+=`<rect x="${bx+10+i*sw+2}" y="${by+13}" width="${sw-4}" height="${bd-23}" rx="3" fill="#e8f0d8" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=dimLine(bx,by+bd+14,bx+bw,by+bd+14,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx+bw+10,by,bx+bw+10,by+bd,'P',v.d||60,'cm','#1D9E75');
+    return s;
+  },
+  lit:(v)=>{
+    const CX=110,CY=100,bw=Math.min(140,36+(v.w||160)*0.46),bd=Math.min(130,30+(v.l||200)*0.46),bx=CX-bw/2,by=CY-bd/2;
+    let s=`<rect x="${bx}" y="${by}" width="${bw}" height="${bd}" rx="3" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx}" y="${by}" width="${bw}" height="12" rx="3" fill="#4a5e3a" stroke="#2d3a2e" stroke-width="0.8"/>`;
+    s+=`<rect x="${bx+5}" y="${by+16}" width="${bw/2-8}" height="28" rx="3" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=`<rect x="${CX+3}" y="${by+16}" width="${bw/2-8}" height="28" rx="3" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=dimLine(bx,by+bd+14,bx+bw,by+bd+14,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx+bw+10,by,bx+bw+10,by+bd,'P',v.l||200,'cm','#1D9E75');
+    return s;
+  },
+  table:(v)=>{
+    const CX=110,CY=100,bw=Math.min(160,36+(v.l||160)*0.54),bd=Math.min(90,14+(v.w||90)*0.54),bx=CX-bw/2,by=CY-bd/2;
+    let s=`<rect x="${bx}" y="${by}" width="${bw}" height="${bd}" rx="3" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    for(const [px2,py2] of[[bx+3,by+3],[bx+bw-9,by+3],[bx+3,by+bd-9],[bx+bw-9,by+bd-9]])
+      s+=`<rect x="${px2}" y="${py2}" width="6" height="6" rx="1" fill="#9aab7a" stroke="#6b7c52" stroke-width="0.5"/>`;
+    s+=dimLine(bx,by+bd+14,bx+bw,by+bd+14,'L',v.l||160,'cm','#1D9E75');
+    s+=dimLine(bx+bw+10,by,bx+bw+10,by+bd,'P',v.w,'cm','#3B8BD4');
+    return s;
+  },
+  armoire:(v)=>{
+    const CX=110,CY=100,bw=Math.min(158,34+(v.w||150)*0.50),bd=Math.min(60,12+(v.d||58)*0.55),np=v.pr||2,bx=CX-bw/2,by=CY-bd/2;
+    let s=`<rect x="${bx}" y="${by}" width="${bw}" height="${bd}" rx="3" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    const dw=bw/np;
+    for(let i=0;i<np;i++){
+      const arc=`<path d="M${bx+i*dw+dw/2},${by+4} A${dw/2-4},${bd-8} 0 0 1 ${bx+(i+1)*dw-2},${by+bd/2}" fill="none" stroke="#c8d4a8" stroke-width="0.8" stroke-dasharray="3,2"/>`;
+      s+=arc;
+      s+=`<circle cx="${bx+i*dw+dw/2}" cy="${by+bd/2}" r="2.5" fill="#c4a35a"/>`;
+    }
+    s+=dimLine(bx,by+bd+14,bx+bw,by+bd+14,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx+bw+10,by,bx+bw+10,by+bd,'P',v.d||58,'cm','#1D9E75');
+    return s;
+  },
+  bureau:(v)=>{
+    const CX=110,CY=100,bw=Math.min(155,34+(v.w||120)*0.69),bd=Math.min(70,12+(v.d||60)*0.65),bx=CX-bw/2,by=CY-bd/2;
+    let s=`<rect x="${bx}" y="${by}" width="${bw}" height="${bd}" rx="3" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx+bw-28}" y="${by+2}" width="26" height="${bd-4}" rx="2" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    for(let i=0;i<(v.dr||1);i++)s+=`<line x1="${bx+bw-28}" y1="${by+2+(bd-4)/(v.dr||1)*(i+0.5)}" x2="${bx+bw-2}" y2="${by+2+(bd-4)/(v.dr||1)*(i+0.5)}" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=dimLine(bx,by+bd+14,bx+bw,by+bd+14,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx+bw+10,by,bx+bw+10,by+bd,'P',v.d||60,'cm','#1D9E75');
+    return s;
+  },
+  etagere:(v)=>{
+    const CX=110,CY=100,bw=Math.min(156,34+(v.w||100)*0.65),bd=Math.min(40,8+(v.d||28)*0.55),bx=CX-bw/2,by=CY-bd/2;
+    let s=`<rect x="${bx}" y="${by}" width="${bw}" height="${bd}" rx="2" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx}" y="${by}" width="5" height="${bd}" rx="1" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=`<rect x="${bx+bw-5}" y="${by}" width="5" height="${bd}" rx="1" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=dimLine(bx,by+bd+14,bx+bw,by+bd+14,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx+bw+10,by,bx+bw+10,by+bd,'P',v.d||28,'cm','#1D9E75');
+    return s;
+  },
+  fauteuil:(v)=>{
+    const CX=110,CY=100,bw=Math.min(108,26+(v.w||75)*0.66),bd=Math.min(98,24+(v.d||80)*0.78),bx=CX-bw/2,by=CY-bd/2;
+    let s=`<rect x="${bx+10}" y="${by+12}" width="${bw-20}" height="${bd-12}" rx="4" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx}" y="${by}" width="${bw}" height="12" rx="3" fill="#f0eedf" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx}" y="${by+12}" width="10" height="${bd-12}" rx="3" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=`<rect x="${bx+bw-10}" y="${by+12}" width="10" height="${bd-12}" rx="3" fill="#f0eedf" stroke="#c8d4a8" stroke-width="0.5"/>`;
+    s+=dimLine(bx,by+bd+14,bx+bw,by+bd+14,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx+bw+10,by,bx+bw+10,by+bd,'P',v.d||80,'cm','#1D9E75');
+    return s;
+  },
+  chaise:(v)=>{
+    const CX=110,CY=105,bw=Math.min(88,16+(v.w||45)*1.02),bd=Math.min(88,16+(v.d||48)*0.98),bx=CX-bw/2,by=CY-bd/2;
+    let s=`<rect x="${bx}" y="${by}" width="${bw}" height="${bd*0.7}" rx="2" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    s+=`<rect x="${bx+2}" y="${by-10}" width="${bw-4}" height="10" rx="2" fill="#f0eedf" stroke="#6b7c52" stroke-width="1"/>`;
+    for(const [px2,py2] of[[bx,by+bd*0.7],[bx+bw-5,by+bd*0.7],[bx,by+bd*0.7+10],[bx+bw-5,by+bd*0.7+10]])
+      s+=`<circle cx="${px2+2.5}" cy="${py2+2.5}" r="3" fill="#9aab7a" stroke="#6b7c52" stroke-width="0.5"/>`;
+    s+=dimLine(bx,by+bd+14,bx+bw,by+bd+14,'L',v.w,'cm','#3B8BD4');
+    s+=dimLine(bx+bw+10,by,bx+bw+10,by+bd,'P',v.d||48,'cm','#1D9E75');
+    return s;
+  },
+  tbasse:(v)=>{
+    const CX=110,CY=100,bw=Math.min(160,44+(v.l||120)*0.60),bd=Math.min(100,20+(v.w||60)*0.72),bx=CX-bw/2,by=CY-bd/2;
+    let s=`<rect x="${bx}" y="${by}" width="${bw}" height="${bd}" rx="6" fill="white" stroke="#6b7c52" stroke-width="1.2"/>`;
+    for(const [px2,py2] of[[bx+5,by+5],[bx+bw-11,by+5],[bx+5,by+bd-11],[bx+bw-11,by+bd-11]])
+      s+=`<circle cx="${px2+3}" cy="${py2+3}" r="3.5" fill="#9aab7a" stroke="#6b7c52" stroke-width="0.5"/>`;
+    s+=dimLine(bx,by+bd+14,bx+bw,by+bd+14,'L',v.l||120,'cm','#1D9E75');
+    s+=dimLine(bx+bw+10,by,bx+bw+10,by+bd,'P',v.w,'cm','#3B8BD4');
+    return s;
+  }
+};
+
+/* ── COTE ANNOTEE helper ── */
+function dimLine(x1,y1,x2,y2,label,val,unit,color){
+  const mid_x=(x1+x2)/2, mid_y=(y1+y2)/2;
+  const isH=(Math.abs(x2-x1)>Math.abs(y2-y1));
+  const tx=isH?mid_x:x1-5, ty=isH?y1+9:mid_y+4;
+  return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="1" stroke-dasharray="none"/>
+<line x1="${x1}" y1="${y1-4}" x2="${x1}" y2="${y1+4}" stroke="${color}" stroke-width="1"/>
+<line x1="${x2}" y1="${y2-4}" x2="${x2}" y2="${y2+4}" stroke="${color}" stroke-width="1"/>
+<text x="${tx}" y="${ty}" text-anchor="middle" font-size="9" font-weight="600" fill="${color}" font-family="DM Sans,sans-serif">${label} ${val}${unit}</text>`;
+}
+
+let previewMode='face';
+
+function setMode(mode){
+  previewMode=mode;
+  const bf=document.getElementById('btnFace');
+  const bt=document.getElementById('btnTop');
+  if(mode==='face'){
+    bf.style.background='var(--k4)'; bf.style.color='var(--k10)';
+    bt.style.background='transparent'; bt.style.color='var(--muted)';
+    document.getElementById('prevModeLabel').textContent='Vue de face';
+  } else {
+    bt.style.background='var(--k4)'; bt.style.color='var(--k10)';
+    bf.style.background='transparent'; bf.style.color='var(--muted)';
+    document.getElementById('prevModeLabel').textContent='Vue de dessus';
+  }
+  renderPreview2();
+}
+
+function renderPreview2(){
+  const svg=document.getElementById('prevSvg2');
+  if(!svg) return;
+  if(previewMode==='face'){
+    svg.setAttribute('viewBox','0 0 220 210');
+    const fn=facePreviews[cur.id];
+    svg.innerHTML=`<line x1="5" y1="192" x2="215" y2="192" stroke="#dde8c0" stroke-width="0.8"/>${fn?fn(vals):''}`;
+  } else {
+    svg.setAttribute('viewBox','0 0 220 210');
+    const fn=topPreviews[cur.id];
+    svg.innerHTML=fn?fn(vals):'';
+  }
+}
+
+/* ── HERO CAROUSEL ── */
+const heroTypes=[
+  {id:'commode',label:'Commode',type:'Rangement',dims:[{lbl:'Largeur',color:'#3B8BD4',pct:55,val:'80 cm'},{lbl:'Profondeur',color:'#1D9E75',pct:40,val:'45 cm'},{lbl:'Hauteur',color:'#E8593C',pct:65,val:'90 cm'}]},
+  {id:'canape',label:'Canapé 3 places',type:'Salon',dims:[{lbl:'Largeur',color:'#3B8BD4',pct:72,val:'220 cm'},{lbl:'Profondeur',color:'#1D9E75',pct:50,val:'95 cm'},{lbl:'Hauteur',color:'#E8593C',pct:52,val:'82 cm'}]},
+  {id:'lit',label:'Lit double',type:'Chambre',dims:[{lbl:'Larg. matelas',color:'#3B8BD4',pct:68,val:'160 cm'},{lbl:'Long. matelas',color:'#1D9E75',pct:78,val:'200 cm'},{lbl:'Tête de lit',color:'#E8593C',pct:62,val:'110 cm'}]},
+  {id:'armoire',label:'Armoire 2 portes',type:'Rangement',dims:[{lbl:'Largeur',color:'#3B8BD4',pct:60,val:'150 cm'},{lbl:'Hauteur',color:'#E8593C',pct:82,val:'220 cm'},{lbl:'Profondeur',color:'#1D9E75',pct:46,val:'58 cm'}]},
+  {id:'bureau',label:'Bureau corner',type:'Bureau',dims:[{lbl:'Largeur',color:'#3B8BD4',pct:50,val:'120 cm'},{lbl:'Profondeur',color:'#1D9E75',pct:48,val:'60 cm'},{lbl:'Hauteur plan',color:'#E8593C',pct:44,val:'75 cm'}]},
+  {id:'tbasse',label:'Table basse',type:'Salon',dims:[{lbl:'Longueur',color:'#1D9E75',pct:58,val:'120 cm'},{lbl:'Largeur',color:'#3B8BD4',pct:46,val:'60 cm'},{lbl:'Hauteur',color:'#E8593C',pct:22,val:'40 cm'}]},
+];
+let heroIdx=0, heroTimer=null, heroCanvas=null;
+
+function buildHeroCanvas(typeId, dims){
+  const cv=document.createElement('canvas');
+  cv.width=130; cv.height=130;
+  const baseVals={};
+  dims.forEach(d=>{
+    if(d.lbl.includes('Largeur')) baseVals.w=parseFloat(d.val);
+    if(d.lbl.includes('Profondeur')) baseVals.d=parseFloat(d.val);
+    if(d.lbl.includes('Hauteur')) baseVals.h=parseFloat(d.val);
+    if(d.lbl.includes('Long')) baseVals.l=parseFloat(d.val);
+    if(d.lbl.includes('Tête')) baseVals.ht=parseFloat(d.val);
+    if(d.lbl.includes('matelas')) baseVals.w=parseFloat(d.val);
+  });
+  if(!baseVals.d) baseVals.d=50;
+  if(!baseVals.h) baseVals.h=80;
+  const shape=buildShape(typeId, baseVals);
+  const origOx=110-10, origOy=210-30;
+  // smaller canvas - adjust origin
+  function iso3DHero(canvas, shape){
+    const ctx=canvas.getContext('2d');
+    const W=canvas.width, H=canvas.height;
+    ctx.clearRect(0,0,W,H);
+    const ox=W/2-5, oy=H-18;
+    const isoX=(x,y)=>ox+(x-y)*Math.cos(Math.PI/6)*0.85;
+    const isoY=(x,y,z)=>oy-(x+y)*Math.sin(Math.PI/6)*0.85-z;
+    function face(pts,fill,stroke){ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i][0],pts[i][1]);ctx.closePath();ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=stroke||'rgba(0,0,0,.18)';ctx.lineWidth=0.7;ctx.stroke();}
+    function hexToRgb(hex){return{r:parseInt(hex.slice(1,3),16),g:parseInt(hex.slice(3,5),16),b:parseInt(hex.slice(5,7),16)};}
+    function box(x,y,z,w,d,h,baseColor){const c=hexToRgb(baseColor);const top=`rgb(${Math.min(255,c.r+40)},${Math.min(255,c.g+40)},${Math.min(255,c.b+30)})`;const left=`rgb(${c.r},${c.g},${c.b})`;const right=`rgb(${Math.max(0,c.r-35)},${Math.max(0,c.g-35)},${Math.max(0,c.b-25)})`;const edge='rgba(0,0,0,.2)';face([[isoX(x+w,y),isoY(x+w,y,z)],[isoX(x+w,y+d),isoY(x+w,y+d,z)],[isoX(x+w,y+d),isoY(x+w,y+d,z+h)],[isoX(x+w,y),isoY(x+w,y,z+h)]],right,edge);face([[isoX(x,y+d),isoY(x,y+d,z)],[isoX(x+w,y+d),isoY(x+w,y+d,z)],[isoX(x+w,y+d),isoY(x+w,y+d,z+h)],[isoX(x,y+d),isoY(x,y+d,z+h)]],left,edge);face([[isoX(x,y),isoY(x,y,z+h)],[isoX(x+w,y),isoY(x+w,y,z+h)],[isoX(x+w,y+d),isoY(x+w,y+d,z+h)],[isoX(x,y+d),isoY(x,y+d,z+h)]],top,edge);}
+    const s=shape;
+    if(s.type==='box_simple'){box(0,0,s.legH,s.w,s.d,s.bodyH,s.color);if(s.legH>0){const lw=3;box(0,0,0,lw,lw,s.legH,'#6b7c52');box(s.w-lw,0,0,lw,lw,s.legH,'#6b7c52');box(0,s.d-lw,0,lw,lw,s.legH,'#6b7c52');box(s.w-lw,s.d-lw,0,lw,lw,s.legH,'#6b7c52');}if(s.drawers>0){const dh=s.bodyH/s.drawers;for(let i=0;i<s.drawers;i++){const zy=s.legH+i*dh+dh*0.5;ctx.beginPath();ctx.strokeStyle='rgba(196,163,90,.7)';ctx.lineWidth=1;ctx.moveTo(isoX(s.w,0),isoY(s.w,0,zy));ctx.lineTo(isoX(s.w,s.d),isoY(s.w,s.d,zy));ctx.stroke();const mx=(isoX(s.w,0)+isoX(s.w,s.d))/2,my=(isoY(s.w,0,zy)+isoY(s.w,s.d,zy))/2;ctx.beginPath();ctx.arc(mx,my,2,0,Math.PI*2);ctx.fillStyle='#c4a35a';ctx.fill();}}}
+    else if(s.type==='sofa'){box(0,0,s.legH,s.w,s.d,s.seatH,s.color);box(0,0,s.legH+s.seatH,s.w,s.backD,s.backH,s.color);box(0,0,s.legH,s.armW,s.d,s.seatH+s.armH,s.colorDark);box(s.w-s.armW,0,s.legH,s.armW,s.d,s.seatH+s.armH,s.colorDark);}
+    else if(s.type==='bed'){box(0,0,s.legH,s.w,s.l,s.frameH,s.color);box(0,0,s.legH+s.frameH,s.w,s.headD,s.headH,s.colorDark);box(2,s.headD,s.legH+s.frameH,s.w-4,s.l-s.headD-2,s.mattH,'#f0eedf');}
+    else if(s.type==='table'){box(0,0,s.legH,s.w,s.l,s.topH,s.color);const lw=3;box(0,0,0,lw,lw,s.legH,'#6b7c52');box(s.w-lw,0,0,lw,lw,s.legH,'#6b7c52');box(0,s.l-lw,0,lw,lw,s.legH,'#6b7c52');box(s.w-lw,s.l-lw,0,lw,lw,s.legH,'#6b7c52');}
+    else if(s.type==='wardrobe'){box(0,0,s.legH,s.w,s.d,s.h,s.color);const np=s.doors||2,dw=s.w/np;for(let i=1;i<np;i++){ctx.beginPath();ctx.strokeStyle='rgba(0,0,0,.2)';ctx.lineWidth=0.8;ctx.moveTo(isoX(i*dw,s.d),isoY(i*dw,s.d,s.legH));ctx.lineTo(isoX(i*dw,s.d),isoY(i*dw,s.d,s.legH+s.h));ctx.stroke();}for(let i=0;i<np;i++){const hx=i*dw+dw/2;ctx.beginPath();ctx.arc(isoX(hx,s.d),isoY(hx,s.d,s.legH+s.h/2),2.5,0,Math.PI*2);ctx.fillStyle='#c4a35a';ctx.fill();}}
+    else if(s.type==='shelf'){box(0,0,0,3,s.d,s.h,s.color);box(s.w-3,0,0,3,s.d,s.h,s.color);const ns=s.shelves,sh=s.h/ns;for(let i=0;i<=ns;i++)box(0,0,i*sh,s.w,s.d,2,s.colorLight);}
+    else if(s.type==='desk'){box(0,0,s.legH,s.w,s.d,s.topH,s.color);box(0,0,0,3,s.d,s.legH,'#6b7c52');box(s.w-18,0,0,18,s.d,s.legH,s.colorDark);}
+    else if(s.type==='armchair'){box(0,0,s.legH,s.w,s.d,s.seatH,s.color);box(0,0,s.legH+s.seatH,s.w,s.backD,s.backH,s.colorDark);box(0,0,s.legH,s.armW,s.d,s.seatH+s.armH,s.colorDark);box(s.w-s.armW,0,s.legH,s.armW,s.d,s.seatH+s.armH,s.colorDark);}
+    else if(s.type==='chair'){box(0,0,s.seatH,s.w,s.d,s.seatThk,s.color);box(0,0,s.seatH+s.seatThk,s.w,3,s.backH,s.colorDark);box(0,0,0,3,3,s.seatH,'#6b7c52');box(s.w-3,0,0,3,3,s.seatH,'#6b7c52');}
+    else if(s.type==='ctable'){box(0,s.d*0.2,s.legH,s.w,s.d*0.6,s.topH,s.color);const lw=3;box(s.w*0.15,0,0,lw,lw,s.legH,'#6b7c52');box(s.w*0.85-lw,0,0,lw,lw,s.legH,'#6b7c52');box(s.w*0.15,s.d-lw,0,lw,lw,s.legH,'#6b7c52');box(s.w*0.85-lw,s.d-lw,0,lw,lw,s.legH,'#6b7c52');}
+  }
+  iso3DHero(cv, shape);
+  return cv;
+}
+
+function renderHeroCarousel(){
+  const stage=document.getElementById('hvcStage');
+  const dots=document.getElementById('hvcDots');
+  const sliders=document.getElementById('hvSliders');
+  if(!stage) return;
+  stage.innerHTML='';
+  dots.innerHTML='';
+
+  heroTypes.forEach((t,i)=>{
+    const cv=buildHeroCanvas(t.id, t.dims);
+    cv.className='iso-svg hvc-iso';
+
+    const info=document.createElement('div');
+    info.className='hvc-info';
+    info.innerHTML=`<div class="hvc-type">${t.type}</div><div class="hvc-name">${t.label}</div><div class="hvc-dims">${t.dims.map(d=>`<div class="hvc-dim-row"><span class="hvc-dim-dot" style="background:${d.color}"></span><span class="hvc-dim-lbl">${d.lbl}</span><div class="hvc-dim-bar"><div class="hvc-dim-fill" style="background:${d.color};width:${d.pct}%"></div></div><span class="hvc-dim-val">${d.val}</span></div>`).join('')}</div>`;
+
+    const card=document.createElement('div');
+    card.className='hvc-card'+(i===heroIdx?' active':'');
+    card.id='hvcCard'+i;
+    card.appendChild(cv);
+    card.appendChild(info);
+    stage.appendChild(card);
+
+    const dot=document.createElement('div');
+    dot.className='hvc-dot'+(i===heroIdx?' on':'');
+    dot.onclick=()=>goHero(i);
+    dots.appendChild(dot);
+  });
+
+  // update btn text
+  const btn=document.querySelector('.hv-btn');
+  if(btn) btn.textContent=`Rechercher ce ${heroTypes[heroIdx].label.toLowerCase()} →`;
+}
+
+function goHero(idx){
+  const prev=heroIdx;
+  heroIdx=idx;
+  const cards=document.querySelectorAll('.hvc-card');
+  const dotsEl=document.querySelectorAll('.hvc-dot');
+  cards[prev].classList.remove('active');
+  cards[prev].classList.add('leaving');
+  setTimeout(()=>cards[prev].classList.remove('leaving'),500);
+  cards[heroIdx].classList.add('active');
+  dotsEl.forEach((d,i)=>d.classList.toggle('on',i===heroIdx));
+  const btn=document.querySelector('.hv-btn');
+  if(btn) btn.textContent=`Rechercher ce ${heroTypes[heroIdx].label.toLowerCase()} →`;
+  clearInterval(heroTimer);
+  heroTimer=setInterval(()=>goHero((heroIdx+1)%heroTypes.length),3500);
+}
+
+function startHeroCarousel(){
+  renderHeroCarousel();
+  heroTimer=setInterval(()=>goHero((heroIdx+1)%heroTypes.length),3500);
+}
+
+let cur=types[0],vals={};
+
+function initSelector(){
+  const grid=document.getElementById('typeGrid2');
+  types.forEach(t=>{
+    const btn=document.createElement('div');
+    btn.className='tg-btn'+(t.id===cur.id?' on':'');
+    btn.innerHTML=(svgIcons[t.id]||'')+t.label;
+    btn.onclick=()=>selectType2(t.id);
+    grid.appendChild(btn);
+  });
+  selectType2(cur.id);
+}
+
+function selectType2(id){
+  cur=types.find(t=>t.id===id);
+  vals={};
+  cur.dims.forEach(d=>{vals[d.id]=d.val});
+  document.querySelectorAll('.tg-btn').forEach((b,i)=>{b.classList.toggle('on',types[i].id===id)});
+  document.getElementById('dimTitle2').textContent='Dimensions — '+cur.label;
+  renderDims2();renderPreview2();renderResults2();
+}
+
+function renderDims2(){
+  const c=document.getElementById('dimContainer2');
+  c.innerHTML='';
+  cur.dims.forEach(d=>{
+    c.innerHTML+=`<div class="dim-row2"><div class="dr2-head"><span class="dr2-label"><span class="dr2-dot" style="background:${d.color}"></span>${d.label}</span><span class="dr2-val" id="v2_${d.id}">${vals[d.id]}${d.unit}</span></div><div class="dr2-range"><span class="dr2-bound">${d.min}${d.unit}</span><input type="range" step="1" min="${d.min}" max="${d.max}" value="${vals[d.id]}" style="accent-color:${d.color}" oninput="updateDim2('${d.id}',this.value,'${d.unit}')"><span class="dr2-bound r">${d.max}${d.unit}</span></div></div>`;
+  });
+}
+
+function updateDim2(id,v,unit){
+  vals[id]=parseInt(v);
+  document.getElementById('v2_'+id).textContent=v+unit;
+  renderPreview2();
+  renderResults2();
+}
+
+
+
+function renderResults2(){
+  const grid=document.getElementById('resGrid2');
+  const label=document.getElementById('resCount2');
+  const wv=vals['w']||vals['l']||0,hv=vals['h']||0;
+  const matches=cur.products.filter(p=>{
+    const pw=p['w']||p['l']||[0,9999],ph=p['h']||[0,9999];
+    return (wv===0||(wv>=pw[0]-20&&wv<=pw[1]+20))&&(hv===0||(hv>=ph[0]-20&&hv<=ph[1]+20));
+  });
+  label.textContent=matches.length+' meuble'+(matches.length>1?'s':'')+' trouvé'+(matches.length>1?'s':'');
+  grid.innerHTML=matches.length?matches.map(p=>`<div class="res-card"><div class="res-img">${svgIcons[cur.id]||''}</div><div class="res-body"><div class="res-name">${p.name}</div><div class="res-site">${p.site}</div><div class="res-price">${p.price}</div><a class="res-btn" href="${p.url}" target="_blank">Voir le produit →</a></div></div>`).join(''):`<div style="grid-column:1/-1;font-size:13px;color:#999;padding:8px 0">Aucun meuble ne correspond — ajustez les dimensions.</div>`;
+}
+
+function doSearch2(){
+  const parts=cur.dims.map(d=>`${d.label}: ${vals[d.id]}${d.unit}`).join(', ');
+  alert('Recherche : '+cur.label+'\n'+parts+'\n\n→ En production, cette recherche interrogerait votre base Supabase en temps réel.');
+}
+
+/* ── SHOPPABLE ROOM ── */
+let activeTip2=null;
+function toggleTip2(n){
+  const tip=document.getElementById('r2tt'+n);
+  const hs=document.getElementById('r2hs'+n);
+  const wrap=document.getElementById('roomWrap2');
+  if(activeTip2===n){tip.classList.remove('show');hs.classList.remove('act');activeTip2=null;return;}
+  for(let i=1;i<=5;i++){document.getElementById('r2tt'+i).classList.remove('show');document.getElementById('r2hs'+i).classList.remove('act');document.getElementById('r2pc'+i).classList.remove('hl');}
+  const wrapRect=wrap.getBoundingClientRect(),hsRect=hs.getBoundingClientRect();
+  const relX=hsRect.left-wrapRect.left,relY=hsRect.top-wrapRect.top,wrapW=wrapRect.width;
+  let left=relX+22,top=relY-90;
+  if(left+195>wrapW-8)left=relX-205;
+  if(top<5)top=5;
+  tip.style.left=left+'px';tip.style.top=top+'px';
+  tip.classList.add('show');hs.classList.add('act');
+  document.getElementById('r2pc'+n).classList.add('hl');
+  activeTip2=n;
+}
+function hlHs2(n){
+  for(let i=1;i<=5;i++){document.getElementById('r2tt'+i).classList.remove('show');document.getElementById('r2hs'+i).classList.remove('act');document.getElementById('r2pc'+i).classList.remove('hl');}
+  document.getElementById('r2pc'+n).classList.add('hl');document.getElementById('r2hs'+n).classList.add('act');
+}
+document.getElementById('roomWrap2').addEventListener('click',function(e){
+  if(!e.target.closest('.hotspot')&&!e.target.closest('.tt')){
+    for(let i=1;i<=5;i++){document.getElementById('r2tt'+i).classList.remove('show');document.getElementById('r2hs'+i).classList.remove('act');}
+    activeTip2=null;
+  }
+});
+
+/* ── CAT FILTER ── */
+function filterCat(el,cat){
+  document.querySelectorAll('.ci').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+}
+
+/* INIT */
+initSelector();
+startHeroCarousel();
+</script>
+</body>
+</html>
