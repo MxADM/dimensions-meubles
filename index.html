@@ -598,6 +598,17 @@ input:checked + .dim-toggle-box{background:var(--c,var(--k5));opacity:1}
 
   <!-- ─── LISTING ─── -->
   <div>
+
+  <!-- ─── SECTION AMAZON DISPONIBLE ─── -->
+  <div id="amazonSection" style="margin-bottom:24px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div style="background:var(--gold);color:var(--k1);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase">🛒 Disponible maintenant</div>
+      <span style="font-size:13px;color:var(--muted)">Produits avec liens Amazon actifs</span>
+    </div>
+    <div class="prod-grid-cat" id="amazonGrid" style="grid-template-columns:repeat(3,1fr)"></div>
+  </div>
+  <div style="height:1px;background:rgba(154,171,122,.2);margin-bottom:24px"></div>
+
     <!-- Header listing -->
     <div class="listing-header">
       <div class="lh-count"><strong id="prodCount">24</strong> meubles trouvés</div>
@@ -1044,9 +1055,10 @@ input:checked + .dim-toggle-box{background:var(--c,var(--k5));opacity:1}
 <!-- ═══ ENSEIGNES ═══ -->
 <div class="banner-strip">
   <div class="bs-inner">
-    <div class="bs-title">Enseignes partenaires prévues</div>
+    <div class="bs-title">Enseignes partenaires</div>
 
     <div class="bs-grid">
+      <a href="https://www.amazon.fr/s?k=meuble&tag=mxadm-21" target="_blank" rel="noopener sponsored" class="bs-card" style="border-color:var(--gold)"><div class="bs-name" style="color:var(--gold)">Amazon ★</div><div class="bs-sub">Disponible maintenant</div><div class="bs-arr" style="color:var(--gold)">→</div></a>
       <div class="bs-card" style="cursor:default"><div class="bs-name">IKEA</div><div class="bs-sub">Scandinave · Budget</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
       <div class="bs-card" style="cursor:default"><div class="bs-name">Maisons du Monde</div><div class="bs-sub">Déco · Variété</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
       <div class="bs-card" style="cursor:default"><div class="bs-name">Camif</div><div class="bs-sub">Made in France</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
@@ -1133,103 +1145,127 @@ input:checked + .dim-toggle-box{background:var(--c,var(--k5));opacity:1}
 // Photos Unsplash — libres de droits
 const PRODUCTS = [
   // CANAPÉS
-  {id:'canape-naxos', cat:'Canapés', catFull:'Canapés & Fauteuils', name:'Canapé 3 places tissu kaki', shop:'À venir', shopKey:'camif', url:'#', price:899, priceStr:'dès 899 €', l:220, h:82, p:95, badge:'popular', badgeLabel:'Coup de cœur', desc:'Canapé 3 places en tissu déhoussable. Confort durable, pieds chêne massif.',
+  {id:'canape-naxos', cat:'Canapés', catFull:'Canapés & Fauteuils', name:'Canapé 3 places tissu kaki', shop:'Amazon', shopKey:'camif', url:'https://www.amazon.fr/s?k=canap%C3%A9+3+places+tissu+d%C3%A9houssable&tag=mxadm-21', price:899, priceStr:'dès 899 €', l:220, h:82, p:95, badge:'popular', badgeLabel:'Coup de cœur', desc:'Canapé 3 places en tissu déhoussable. Confort durable, pieds chêne massif.',
     photo:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=450&fit=crop&auto=format',
     dims:[['L. Totale','220 cm','#3B8BD4'],['P. Assise','58 cm','#1D9E75'],['H. Totale','82 cm','#E8593C'],['H. Assise','44 cm','#BA7517']],
     features:[['Matière','Tissu déhoussable'],['Structure','Bois massif'],['Tiroirs','—'],['Pieds','Chêne massif'],['Garantie','2 ans'],['Livraison','Offerte']]},
-  {id:'canape-oslo', cat:'Canapés', catFull:'Canapés & Fauteuils', name:'Canapé 2 places scandinave', shop:'À venir', shopKey:'ikea', url:'#', price:499, priceStr:'499 €', l:180, h:80, p:88,
+  {id:'canape-oslo', cat:'Canapés', catFull:'Canapés & Fauteuils', name:'Canapé 2 places scandinave', shop:'Amazon', shopKey:'ikea', url:'https://www.amazon.fr/s?k=canap%C3%A9+2+places+scandinave&tag=mxadm-21', price:499, priceStr:'499 €', l:180, h:80, p:88,
     photo:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=450&fit=crop&auto=format',
     dims:[['L. Totale','180 cm','#3B8BD4'],['Profondeur','88 cm','#1D9E75'],['Hauteur','80 cm','#E8593C']],
     features:[['Places','2 places'],['Style','Scandinave'],['Pieds','Métal noir'],['Montage','À assembler'],['Garantie','10 ans'],['Livraison','Offerte']]},
-  {id:'fauteuil-velvet', cat:'Canapés', catFull:'Canapés & Fauteuils', name:'Fauteuil velours vert', shop:'À venir', shopKey:'mdm', url:'#', price:329, priceStr:'329 €', l:75, h:88, p:80,
+  {id:'fauteuil-velvet', cat:'Canapés', catFull:'Canapés & Fauteuils', name:'Fauteuil velours vert', shop:'Amazon', shopKey:'mdm', url:'https://www.amazon.fr/s?k=fauteuil+velours+salon&tag=mxadm-21', price:329, priceStr:'329 €', l:75, h:88, p:80,
     photo:'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','75 cm','#3B8BD4'],['Profondeur','80 cm','#1D9E75'],['Hauteur','88 cm','#E8593C']],
     features:[['Couleur','Kaki'],['Matière','Velours'],['Pieds','Laiton'],['Style','Contemporain'],['Garantie','2 ans'],['Livraison','Sur RDV']]},
   // TABLES
-  {id:'table-stornas', cat:'Tables', catFull:'Tables à manger', name:'Table bois massif extensible', shop:'À venir', shopKey:'ikea', url:'#', price:799, priceStr:'799 €', l:204, h:74, p:90, badge:'popular', badgeLabel:'Populaire',
+  {id:'table-stornas', cat:'Tables', catFull:'Tables à manger', name:'Table bois massif extensible', shop:'Amazon', shopKey:'ikea', url:'https://www.amazon.fr/s?k=table+%C3%A0+manger+bois+massif+extensible&tag=mxadm-21', price:799, priceStr:'799 €', l:204, h:74, p:90, badge:'popular', badgeLabel:'Populaire',
     photo:'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=600&h=450&fit=crop&auto=format',
     dims:[['L. Min','147 cm','#1D9E75'],['L. Max','204 cm','#1D9E75'],['Largeur','90 cm','#3B8BD4'],['Hauteur','74 cm','#E8593C']],
     features:[['Matière','Acacia massif'],['Finition','Huilée'],['Places','6 à 8'],['Rallonge','Intégrée'],['Garantie','10 ans'],['Livraison','En kit']]},
-  {id:'table-ronde-180', cat:'Tables', catFull:'Tables à manger', name:'Table ronde 4 à 6 couverts', shop:'À venir', shopKey:'laredoute', url:'#', price:449, priceStr:'449 €', l:160, h:76, p:120,
+  {id:'table-ronde-180', cat:'Tables', catFull:'Tables à manger', name:'Table ronde 4 à 6 couverts', shop:'Amazon', shopKey:'laredoute', url:'https://www.amazon.fr/s?k=table+ronde+extensible+salle+%C3%A0+manger&tag=mxadm-21', price:449, priceStr:'449 €', l:160, h:76, p:120,
     photo:'https://images.unsplash.com/photo-1604578762246-41134e37f9cc?w=600&h=450&fit=crop&auto=format',
     dims:[['Diamètre','120 cm','#3B8BD4'],['Hauteur','76 cm','#E8593C'],['Rallongée','160 cm','#1D9E75']],
     features:[['Matière','Chêne MDF'],['Forme','Ronde / ovale'],['Places','4 à 6'],['Rallonge','Papillon'],['Garantie','2 ans'],['Livraison','Offerte']]},
-  {id:'table-basse-acacia', cat:'Tables basses', catFull:'Tables basses', name:'Table basse bois naturel', shop:'À venir', shopKey:'but', url:'#', price:249, priceStr:'249 €', l:120, h:40, p:65,
+  {id:'table-basse-acacia', cat:'Tables basses', catFull:'Tables basses', name:'Table basse bois naturel', shop:'Amazon', shopKey:'but', url:'https://www.amazon.fr/s?k=table+basse+bois+naturel+salon&tag=mxadm-21', price:249, priceStr:'249 €', l:120, h:40, p:65,
     photo:'https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?w=600&h=450&fit=crop&auto=format',
     dims:[['Longueur','120 cm','#1D9E75'],['Largeur','65 cm','#3B8BD4'],['Hauteur','40 cm','#E8593C']],
     features:[['Matière','Acacia'],['Style','Naturel'],['Plateau','2 tons'],['Pieds','Épingle'],['Garantie','1 an'],['Livraison','Offerte']]},
   // LITS
-  {id:'lit-josephine', cat:'Lits', catFull:'Lits & Literie', name:'Lit 160×200 tête capitonnée', shop:'À venir', shopKey:'mdm', url:'#', price:549, priceStr:'549 €', l:200, h:110, p:165, badge:'new', badgeLabel:'Nouveau',
+  {id:'lit-josephine', cat:'Lits', catFull:'Lits & Literie', name:'Lit 160×200 tête capitonnée', shop:'Amazon', shopKey:'mdm', url:'https://www.amazon.fr/s?k=lit+160x200+t%C3%AAte+de+lit+capitonn%C3%A9e&tag=mxadm-21', price:549, priceStr:'549 €', l:200, h:110, p:165, badge:'new', badgeLabel:'Nouveau',
     photo:'https://images.unsplash.com/photo-1505693314120-0d443867891c?w=600&h=450&fit=crop&auto=format',
     dims:[['Larg. matelas','160 cm','#3B8BD4'],['Long. matelas','200 cm','#1D9E75'],['Haut. tête de lit','110 cm','#E8593C'],['Haut. cadre','35 cm','#BA7517']],
     features:[['Matière','Bois massif'],['Tête de lit','Capitonnée'],['Matelas inclus','Non'],['Coffre','Non'],['Garantie','2 ans'],['Livraison','Offerte']]},
-  {id:'lit-coffre-180', cat:'Lits', catFull:'Lits & Literie', name:'Lit coffre 180×200 rangement', shop:'À venir', shopKey:'conforama', url:'#', price:699, priceStr:'699 €', l:200, h:100, p:185,
-    photo:'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?w=600&h=450&fit=crop&auto=format',
+  {id:'lit-coffre-180', cat:'Lits', catFull:'Lits & Literie', name:'Lit coffre 180×200 rangement', shop:'Amazon', shopKey:'conforama', url:'https://www.amazon.fr/s?k=lit+coffre+180x200+rangement&tag=mxadm-21', price:699, priceStr:'699 €', l:200, h:100, p:185,
+    photo:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','185 cm','#3B8BD4'],['Longueur','205 cm','#1D9E75'],['Hauteur','100 cm','#E8593C']],
     features:[['Matelas','180×200'],['Coffre','Intégré'],['Ouverture','Hydraulique'],['Matière','Tissu'],['Garantie','3 ans'],['Livraison','Sur RDV']]},
   // ARMOIRES
-  {id:'armoire-velvet', cat:'Armoires', catFull:'Armoires & Dressings', name:'Armoire 2 portes poignées dorées', shop:'À venir', shopKey:'alinea', url:'#', price:689, priceStr:'689 €', l:150, h:220, p:58,
+  {id:'armoire-velvet', cat:'Armoires', catFull:'Armoires & Dressings', name:'Armoire 2 portes poignées dorées', shop:'Amazon', shopKey:'alinea', url:'https://www.amazon.fr/s?k=armoire+2+portes+chambre&tag=mxadm-21', price:689, priceStr:'689 €', l:150, h:220, p:58,
     photo:'https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','150 cm','#3B8BD4'],['Profondeur','58 cm','#1D9E75'],['Hauteur','220 cm','#E8593C']],
     features:[['Portes','2 battantes'],['Intérieur','Équipé'],['Poignées','Dorées'],['Finition','Laqué mat'],['Garantie','2 ans'],['Livraison','Sur RDV']]},
-  {id:'dressing-modulable', cat:'Armoires', catFull:'Armoires & Dressings', name:'Dressing modulable 3 portes', shop:'À venir', shopKey:'ikea', url:'#', price:350, priceStr:'dès 350 €', l:200, h:236, p:58,
+  {id:'dressing-modulable', cat:'Armoires', catFull:'Armoires & Dressings', name:'Dressing modulable 3 portes', shop:'Amazon', shopKey:'ikea', url:'https://www.amazon.fr/s?k=dressing+modulable+penderie&tag=mxadm-21', price:350, priceStr:'dès 350 €', l:200, h:236, p:58,
     photo:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','200 cm','#3B8BD4'],['Profondeur','58 cm','#1D9E75'],['Hauteur','236 cm','#E8593C']],
     features:[['Nb portes','3 coulissantes'],['Intérieur','Personnalisable'],['Montage','À assembler'],['Matière','Mélaminé'],['Garantie','10 ans'],['Livraison','En kit']]},
   // BIBLIOTHÈQUES
-  {id:'biblio-modular', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Bibliothèque métal noir 220 cm', shop:'À venir', shopKey:'habitat', url:'#', price:445, priceStr:'445 €', l:100, h:220, p:28,
+  {id:'biblio-modular', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Bibliothèque métal noir 220 cm', shop:'Amazon', shopKey:'habitat', url:'https://www.amazon.fr/s?k=biblioth%C3%A8que+m%C3%A9tal+noir+%C3%A9tag%C3%A8res&tag=mxadm-21', price:445, priceStr:'445 €', l:100, h:220, p:28,
     photo:'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','100 cm','#3B8BD4'],['Profondeur','28 cm','#1D9E75'],['Hauteur','220 cm','#E8593C'],['Nb étagères','5','#BA7517']],
     features:[['Matière','Métal / MDF'],['Étagères','5 ajustables'],['Style','Industriel'],['Couleur','Noir mat'],['Garantie','2 ans'],['Livraison','Offerte']]},
-  {id:'biblio-billy-xl', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Bibliothèque blanche 5 étagères', shop:'À venir', shopKey:'ikea', url:'#', price:129, priceStr:'129 €', l:80, h:202, p:28,
+  {id:'biblio-billy-xl', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Bibliothèque blanche 5 étagères', shop:'Amazon', shopKey:'ikea', url:'https://www.amazon.fr/s?k=biblioth%C3%A8que+blanche+%C3%A9tag%C3%A8res&tag=mxadm-21', price:129, priceStr:'129 €', l:80, h:202, p:28,
     photo:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=450&fit=crop&auto=format&hue=200&sat=-60',
     dims:[['Largeur','80 cm','#3B8BD4'],['Profondeur','28 cm','#1D9E75'],['Hauteur','202 cm','#E8593C']],
     features:[['Couleur','Blanc'],['Étagères','5 ajustables'],['Extension','Possible'],['Matière','MDF'],['Garantie','10 ans'],['Livraison','En kit']]},
   // BUREAUX
-  {id:'bureau-oak', cat:'Bureaux', catFull:'Bureaux', name:'Bureau chêne avec caissons', shop:'À venir', shopKey:'laredoute', url:'#', price:319, oldPrice:399, priceStr:'319 €', badge:'promo', badgeLabel:'Promo −20%', l:120, h:75, p:60,
+  {id:'bureau-oak', cat:'Bureaux', catFull:'Bureaux', name:'Bureau chêne avec caissons', shop:'Amazon', shopKey:'laredoute', url:'https://www.amazon.fr/s?k=bureau+ch%C3%AAne+tiroirs+scandinave&tag=mxadm-21', price:319, oldPrice:399, priceStr:'319 €', badge:'promo', badgeLabel:'Promo −20%', l:120, h:75, p:60,
     photo:'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','120 cm','#3B8BD4'],['Profondeur','60 cm','#1D9E75'],['Hauteur','75 cm','#E8593C']],
     features:[['Matière','MDF / Chêne'],['Caissons','2 tiroirs'],['Style','Scandinave'],['Montage','À assembler'],['Garantie','1 an'],['Promo','-20%']]},
-  {id:'bureau-gaming', cat:'Bureaux', catFull:'Bureaux', name:'Bureau large 160 cm télétravail', shop:'À venir', shopKey:'conforama', url:'#', price:249, priceStr:'249 €', l:160, h:75, p:80,
+  {id:'bureau-gaming', cat:'Bureaux', catFull:'Bureaux', name:'Bureau large 160 cm télétravail', shop:'Amazon', shopKey:'conforama', url:'https://www.amazon.fr/s?k=bureau+large+160+cm+t%C3%A9l%C3%A9travail&tag=mxadm-21', price:249, priceStr:'249 €', l:160, h:75, p:80,
     photo:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','160 cm','#3B8BD4'],['Profondeur','80 cm','#1D9E75'],['Hauteur','75 cm','#E8593C']],
     features:[['Gestion câbles','Oui'],['Matière','MDF noir'],['Pieds','Métal réglable'],['Charge max','80 kg'],['Garantie','2 ans'],['Livraison','Sur RDV']]},
   // COMMODES
-  {id:'commode-5-tiroirs', cat:'Commodes', catFull:'Commodes', name:'Commode 5 tiroirs bois massif', shop:'À venir', shopKey:'camif', url:'#', price:389, priceStr:'389 €', l:80, h:100, p:42,
+  {id:'commode-5-tiroirs', cat:'Commodes', catFull:'Commodes', name:'Commode 5 tiroirs bois massif', shop:'Amazon', shopKey:'camif', url:'https://www.amazon.fr/s?k=commode+5+tiroirs+bois&tag=mxadm-21', price:389, priceStr:'389 €', l:80, h:100, p:42,
     photo:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','80 cm','#3B8BD4'],['Profondeur','42 cm','#1D9E75'],['Hauteur','100 cm','#E8593C'],['Tiroirs','5','#BA7517']],
     features:[['Matière','Bois massif'],['Tiroirs','5'],['Poignées','Laiton'],['Fabrication','France'],['Garantie','2 ans'],['Livraison','Offerte']]},
-  {id:'commode-basse', cat:'Commodes', catFull:'Commodes', name:'Commode 3 tiroirs blanc mat', shop:'À venir', shopKey:'ikea', url:'#', price:199, priceStr:'199 €', l:96, h:72, p:50,
+  {id:'commode-basse', cat:'Commodes', catFull:'Commodes', name:'Commode 3 tiroirs blanc mat', shop:'Amazon', shopKey:'ikea', url:'https://www.amazon.fr/s?k=commode+3+tiroirs+blanc+chambre&tag=mxadm-21', price:199, priceStr:'199 €', l:96, h:72, p:50,
     photo:'https://images.unsplash.com/photo-1551298370-9d3d53740c72?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','96 cm','#3B8BD4'],['Profondeur','50 cm','#1D9E75'],['Hauteur','72 cm','#E8593C']],
     features:[['Matière','MDF blanc'],['Tiroirs','3 larges'],['Pieds','Bois massif'],['Montage','À assembler'],['Garantie','10 ans'],['Livraison','En kit']]},
   // TABLE BASSE
-  {id:'tbasse-marbre', cat:'Tables basses', catFull:'Tables basses', name:'Table basse marbre & laiton', shop:'À venir', shopKey:'westwing', url:'#', price:580, priceStr:'580 €', l:100, h:38, p:55,
+  {id:'tbasse-marbre', cat:'Tables basses', catFull:'Tables basses', name:'Table basse marbre & laiton', shop:'Amazon', shopKey:'westwing', url:'https://www.amazon.fr/s?k=table+basse+marbre+laiton&tag=mxadm-21', price:580, priceStr:'580 €', l:100, h:38, p:55,
     photo:'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=600&h=450&fit=crop&auto=format',
     dims:[['Longueur','100 cm','#1D9E75'],['Largeur','55 cm','#3B8BD4'],['Hauteur','38 cm','#E8593C']],
     features:[['Plateau','Marbre blanc'],['Pieds','Laiton brossé'],['Style','Luxe'],['Charge max','30 kg'],['Garantie','2 ans'],['Livraison','Offerte']]},
   // CHAISES
-  {id:'chaise-velvet-6', cat:'Chaises', catFull:'Chaises & Tabourets', name:'Lot 6 chaises velours kaki', shop:'À venir', shopKey:'laredoute', url:'#', price:299, priceStr:'299 €', l:44, h:88, p:54,
+  {id:'chaise-velvet-6', cat:'Chaises', catFull:'Chaises & Tabourets', name:'Lot 6 chaises velours kaki', shop:'Amazon', shopKey:'laredoute', url:'https://www.amazon.fr/s?k=lot+6+chaises+velours+salle+%C3%A0+manger&tag=mxadm-21', price:299, priceStr:'299 €', l:44, h:88, p:54,
     photo:'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','44 cm','#3B8BD4'],['Profondeur','54 cm','#1D9E75'],['Hauteur','88 cm','#E8593C']],
     features:[['Lot','6 chaises'],['Matière','Velours'],['Couleur','Kaki'],['Structure','Métal'],['Garantie','2 ans'],['Livraison','Offerte']]},
-  {id:'tabouret-bar', cat:'Chaises', catFull:'Chaises & Tabourets', name:'Tabouret de bar réglable', shop:'À venir', shopKey:'but', url:'#', price:89, priceStr:'89 €', l:40, h:80, p:40,
+  {id:'tabouret-bar', cat:'Chaises', catFull:'Chaises & Tabourets', name:'Tabouret de bar réglable', shop:'Amazon', shopKey:'but', url:'https://www.amazon.fr/s?k=tabouret+de+bar+r%C3%A9glable&tag=mxadm-21', price:89, priceStr:'89 €', l:40, h:80, p:40,
     photo:'https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','40 cm','#3B8BD4'],['Profondeur','40 cm','#1D9E75'],['Hauteur min','65 cm','#E8593C'],['Hauteur max','82 cm','#E8593C']],
     features:[['Réglable','Oui'],['Matière','Métal / PU'],['Pivotant','Oui'],['Repose-pieds','Intégré'],['Garantie','1 an'],['Livraison','Offerte']]},
   // EXTRAS
-  {id:'meuble-tv-velvet', cat:'Commodes', catFull:'Meubles TV & Rangements', name:'Meuble TV 140 cm 2 portes', shop:'À venir', shopKey:'alinea', url:'#', price:389, priceStr:'389 €', l:140, h:50, p:42,
+  {id:'meuble-tv-velvet', cat:'Commodes', catFull:'Meubles TV & Rangements', name:'Meuble TV 140 cm 2 portes', shop:'Amazon', shopKey:'alinea', url:'https://www.amazon.fr/s?k=meuble+tv+140+cm+portes&tag=mxadm-21', price:389, priceStr:'389 €', l:140, h:50, p:42,
     photo:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','140 cm','#3B8BD4'],['Profondeur','42 cm','#1D9E75'],['Hauteur','50 cm','#E8593C']],
     features:[['Portes','2 battantes'],['Câble','Passe-câble'],['Matière','MDF laqué'],['Pieds','Métal noir'],['Garantie','2 ans'],['Livraison','Offerte']]},
-  {id:'etagere-leaning', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Étagère inclinée 5 niveaux', shop:'À venir', shopKey:'lm', url:'#', price:89, priceStr:'89 €', l:60, h:170, p:24,
+  {id:'etagere-leaning', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Étagère inclinée 5 niveaux', shop:'Amazon', shopKey:'lm', url:'https://www.amazon.fr/s?k=%C3%A9tag%C3%A8re+inclin%C3%A9e+5+niveaux&tag=mxadm-21', price:89, priceStr:'89 €', l:60, h:170, p:24,
     photo:'https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','60 cm','#3B8BD4'],['Profondeur','24 cm','#1D9E75'],['Hauteur','170 cm','#E8593C']],
     features:[['Style','Incliné'],['Matière','Métal / MDF'],['Niveaux','5'],['Couleur','Noir'],['Garantie','2 ans'],['Livraison','Offerte']]},
-  {id:'rangement-cube', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Étagère cube 3×3 modulable', shop:'À venir', shopKey:'made', url:'#', price:195, priceStr:'195 €', l:108, h:108, p:32,
+  {id:'rangement-cube', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Étagère cube 3×3 modulable', shop:'Amazon', shopKey:'made', url:'https://www.amazon.fr/s?k=%C3%A9tag%C3%A8re+cube+modulable+cases&tag=mxadm-21', price:195, priceStr:'195 €', l:108, h:108, p:32,
     photo:'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&h=450&fit=crop&auto=format',
     dims:[['Largeur','108 cm','#3B8BD4'],['Profondeur','32 cm','#1D9E75'],['Hauteur','108 cm','#E8593C']],
-    features:[['Casiers','9 cases'],['Matière','Contreplaqué'],['Modulable','Oui'],['Style','Scandinave'],['Garantie','2 ans'],['Livraison','Offerte']]}
+    features:[['Casiers','9 cases'],['Matière','Contreplaqué'],['Modulable','Oui'],['Style','Scandinave'],['Garantie','2 ans'],['Livraison','Offerte']]},
+{id:'vasagle-sommier-90-190-35', cat:'Lits', catFull:'Lits & Literie', name:'Sommier coffre métal noir 90×190', shop:'Amazon', shopKey:'amazon', url:'https://www.amazon.fr/dp/B0DQCJ3HXY?tag=mxadm-21', price:39.09, priceStr:'39,09 €', l:190, h:36, p:90,
+    photo:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&h=450&fit=crop&auto=format',
+    dims:[['Longueur','190 cm','#1D9E75'],['Largeur','90 cm','#3B8BD4'],['Hauteur','36 cm','#E8593C']],
+    features:[['Marque','VASAGLE'],['Matière','Métal noir'],['Rangement','Dessous de lit'],['Montage','À assembler'],['Garantie','2 ans'],['Livraison','Amazon']]},
+  {id:'vasagle-sommier-90-190-40', cat:'Lits', catFull:'Lits & Literie', name:'Sommier coffre métal noir 90×190 haut', shop:'Amazon', shopKey:'amazon', url:'https://www.amazon.fr/dp/B0FM2SVDLQ?tag=mxadm-21', price:45.99, priceStr:'45,99 €', l:190, h:41, p:90,
+    photo:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&h=450&fit=crop&auto=format',
+    dims:[['Longueur','190 cm','#1D9E75'],['Largeur','90 cm','#3B8BD4'],['Hauteur','41 cm','#E8593C']],
+    features:[['Marque','VASAGLE'],['Matière','Métal noir'],['Rangement','Dessous de lit'],['Montage','À assembler'],['Garantie','2 ans'],['Livraison','Amazon']]},
+  {id:'vasagle-sommier-140-190-35', cat:'Lits', catFull:'Lits & Literie', name:'Sommier coffre métal noir 140×190', shop:'Amazon', shopKey:'amazon', url:'https://www.amazon.fr/dp/B0DQCJT895?tag=mxadm-21', price:59.99, priceStr:'59,99 €', l:190, h:36, p:140,
+    photo:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&h=450&fit=crop&auto=format',
+    dims:[['Longueur','190 cm','#1D9E75'],['Largeur','140 cm','#3B8BD4'],['Hauteur','36 cm','#E8593C']],
+    features:[['Marque','VASAGLE'],['Matière','Métal noir'],['Rangement','Dessous de lit'],['Montage','À assembler'],['Garantie','2 ans'],['Livraison','Amazon']]},
+  {id:'vasagle-sommier-160-200-35', cat:'Lits', catFull:'Lits & Literie', name:'Sommier coffre métal noir 160×200', shop:'Amazon', shopKey:'amazon', url:'https://www.amazon.fr/dp/B0DQ8FN5X2?tag=mxadm-21', price:69.99, priceStr:'69,99 €', l:200, h:36, p:160,
+    photo:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&h=450&fit=crop&auto=format',
+    dims:[['Longueur','200 cm','#1D9E75'],['Largeur','160 cm','#3B8BD4'],['Hauteur','36 cm','#E8593C']],
+    features:[['Marque','VASAGLE'],['Matière','Métal noir'],['Rangement','Dessous de lit'],['Montage','À assembler'],['Garantie','2 ans'],['Livraison','Amazon']]},
+  {id:'vasagle-sommier-160-200-40', cat:'Lits', catFull:'Lits & Literie', name:'Sommier coffre métal noir 160×200 haut', shop:'Amazon', shopKey:'amazon', url:'https://www.amazon.fr/dp/B0FLXBWC93?tag=mxadm-21', price:75.99, priceStr:'75,99 €', l:200, h:41, p:160,
+    photo:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&h=450&fit=crop&auto=format',
+    dims:[['Longueur','200 cm','#1D9E75'],['Largeur','160 cm','#3B8BD4'],['Hauteur','41 cm','#E8593C']],
+    features:[['Marque','VASAGLE'],['Matière','Métal noir'],['Rangement','Dessous de lit'],['Montage','À assembler'],['Garantie','2 ans'],['Livraison','Amazon']]},
+  {id:'vasagle-sommier-180-200-35', cat:'Lits', catFull:'Lits & Literie', name:'Sommier coffre métal noir 180×200', shop:'Amazon', shopKey:'amazon', url:'https://www.amazon.fr/dp/B0FLX8K6PN?tag=mxadm-21', price:75.99, priceStr:'75,99 €', l:200, h:36, p:180,
+    photo:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&h=450&fit=crop&auto=format',
+    dims:[['Longueur','200 cm','#1D9E75'],['Largeur','180 cm','#3B8BD4'],['Hauteur','36 cm','#E8593C']],
+    features:[['Marque','VASAGLE'],['Matière','Métal noir'],['Rangement','Dessous de lit'],['Montage','À assembler'],['Garantie','2 ans'],['Livraison','Amazon']]}
 ];
 
 /* ════════════════════════════════════════════
@@ -1283,7 +1319,9 @@ function renderGrid(){
         <div class="card-desc-cat">${p.desc||''}</div>
         <div class="card-footer-cat">
           <div class="card-price-cat">${p.priceStr}${p.oldPrice?`<small>${p.oldPrice} €</small>`:''}</div>
-          <button class="card-cta" onclick="event.stopPropagation();openModal('${p.id}')">Voir ce meuble</button>
+          <a class="card-cta" href="${p.url}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()" style="${p.url==='#'?'opacity:.5;pointer-events:none':''}">
+          ${p.url!=='#' ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg> Voir sur Amazon' : 'Bientôt disponible'}
+        </a>
         </div>
       </div>
     </div>
@@ -1337,12 +1375,23 @@ function openModal(id){
   document.getElementById('mDesc').textContent = p.desc||'Description complète disponible lors du lancement officiel du site.';
   document.getElementById('mPrice').textContent = p.priceStr;
   const cta = document.getElementById('mCta');
-  cta.href = '#';
-  cta.textContent = '🔗 Lien enseigne disponible au lancement';
-  cta.style.background = 'var(--k5)';
-  cta.style.opacity = '.7';
-  cta.style.cursor = 'default';
-  cta.onclick = (e) => e.preventDefault();
+  if(p.url && p.url !== '#'){
+    cta.href = p.url;
+    cta.setAttribute('target','_blank');
+    cta.setAttribute('rel','noopener sponsored');
+    cta.textContent = '🛒 Voir sur Amazon →';
+    cta.style.background = '';
+    cta.style.opacity = '';
+    cta.style.cursor = '';
+    cta.onclick = null;
+  } else {
+    cta.href = '#';
+    cta.textContent = '🔗 Lien bientôt disponible';
+    cta.style.background = 'var(--k5)';
+    cta.style.opacity = '.7';
+    cta.style.cursor = 'default';
+    cta.onclick = (e) => e.preventDefault();
+  }
   document.getElementById('mDims').innerHTML = (p.dims||[]).map(d=>`<div class="modal-dim-row"><span class="modal-dim-label"><span class="modal-dim-dot" style="background:${d[2]}"></span>${d[0]}</span><span class="modal-dim-val" style="color:${d[2]}">${d[1]}</span></div>`).join('');
   document.getElementById('mFeatures').innerHTML = (p.features||[]).map(f=>`<div class="modal-feat"><div class="modal-feat-label">${f[0]}</div><div class="modal-feat-val">${f[1]}</div></div>`).join('');
   const imgEl = document.getElementById('mImg');
@@ -2131,12 +2180,75 @@ function applyDimToolSearch(){
 let sbFilterActive = false;
 let sbFilterL = 300, sbFilterH = 300, sbFilterP = 150;
 
+/* ── Grille produits Amazon disponibles ── */
+function renderAmazonGrid(){
+  const amazonProducts = PRODUCTS.filter(p => p.shopKey === 'amazon');
+  const grid = document.getElementById('amazonGrid');
+  if(!grid) return;
+  if(amazonProducts.length === 0){
+    grid.style.display = 'none';
+    document.getElementById('amazonSection').style.display = 'none';
+    return;
+  }
+  grid.innerHTML = amazonProducts.map(p => `
+    <div class="card-cat-item" onclick="openModal('${p.id}')" style="border-color:rgba(196,163,90,.4)">
+      <div class="card-dims-banner">
+        <div class="cdb-item"><div class="cdb-axis">Larg.</div><div class="cdb-val">${p.p}<span class="cdb-unit"> cm</span></div></div>
+        <div class="cdb-item"><div class="cdb-axis">Long.</div><div class="cdb-val">${p.l}<span class="cdb-unit"> cm</span></div></div>
+        <div class="cdb-item"><div class="cdb-axis">Haut.</div><div class="cdb-val">${p.h}<span class="cdb-unit"> cm</span></div></div>
+      </div>
+      <div class="card-img-zone" style="background:#e8ead8">
+        <img src="${p.photo}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0" onerror="this.style.display='none'">
+        <div class="card-badge-wrap"><span class="card-badge popular">Amazon</span></div>
+      </div>
+      <div class="card-body-cat">
+        <div class="card-cat-label">${p.catFull}</div>
+        <div class="card-name-cat">${p.name}</div>
+        <div class="card-footer-cat" style="margin-top:auto;padding-top:10px;border-top:1px solid rgba(154,171,122,.15)">
+          <div class="card-price-cat">${p.priceStr}</div>
+          <a class="card-cta" href="${p.url}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()" style="background:var(--gold);color:var(--k1)">
+            🛒 Amazon
+          </a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
 /* INIT — deferred to ensure DOM is ready */
 document.addEventListener('DOMContentLoaded', function(){
+  initDimFiltersFromProducts();
   cfgInitRanges('commode');
   cfgBuildPanel();
   renderGrid();
+  renderAmazonGrid();
 });
+
+/* ── Calcule les min/max réels des produits pour les filtres sidebar ── */
+function initDimFiltersFromProducts(){
+  const maxL = Math.max(...PRODUCTS.map(p=>p.l));
+  const maxH = Math.max(...PRODUCTS.map(p=>p.h));
+  const maxP = Math.max(...PRODUCTS.map(p=>p.p));
+
+  // Sidebar sliders — met à jour les valeurs max
+  ['sbLslider','sbHslider','sbPslider'].forEach((id,i)=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    const val = [maxL, maxH, maxP][i];
+    el.max = val + 20;
+    el.value = val + 20;
+  });
+  document.getElementById('sbLval') && (document.getElementById('sbLval').textContent = (maxL+20)+' cm');
+  document.getElementById('sbHval') && (document.getElementById('sbHval').textContent = (maxH+20)+' cm');
+  document.getElementById('sbPval') && (document.getElementById('sbPval').textContent = (maxP+20)+' cm');
+
+  // Globals de filtre
+  sbFilterL = maxL + 20;
+  sbFilterH = maxH + 20;
+  sbFilterP = maxP + 20;
+}
+
+
 
 /* ── GUIDES TOGGLE ── */
 function toggleGuide(id, btn){
