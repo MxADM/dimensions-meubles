@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dimensions-Meubles — Trouvez le meuble exact à vos dimensions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --k1:#1e2a1f;--k2:#2d3a2e;--k3:#3d4e3a;--k4:#4a5e3a;--k5:#6b7c52;
+  --k6:#8a9e6a;--k7:#9aab7a;--k8:#c8d4a8;--k9:#dde8c0;--k10:#f0eedf;
+  --k11:#f7f5ec;--gold:#c4a35a;--gold2:#8c6e2f;--text:#1a2018;--muted:#5a6a50;
+  --sidebar:280px;--card-radius:6px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+input[type=number]{-moz-appearance:textfield}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--k11);color:var(--text);overflow-x:hidden}
+
+/* ═══ NAV ═══ */
+nav{background:var(--k1);position:sticky;top:0;z-index:200;border-bottom:2px solid var(--gold)}
+.nav-inner{max-width:1600px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--k10);text-decoration:none;letter-spacing:-.5px;flex-shrink:0;display:flex;flex-direction:column;gap:0}
+.logo span{color:var(--gold)}
+.logo sub{font-size:10px;font-weight:400;font-family:'DM Sans',sans-serif;color:var(--k7);letter-spacing:.05em;display:block;margin-top:-3px}
+.nav-links{display:flex;gap:24px}
+.nav-links a{color:var(--k8);font-size:12.5px;font-weight:400;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-search{flex:1;max-width:400px;display:flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:4px;overflow:hidden}
+.nav-search input{flex:1;padding:10px 16px;background:transparent;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--k10);caret-color:var(--gold)}
+.nav-search input::placeholder{color:rgba(200,212,168,.5)}
+.nav-search button{background:var(--gold);color:var(--k1);border:none;padding:0 18px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.04em;transition:background .2s;flex-shrink:0}
+.nav-search button:hover{background:var(--gold2)}
+.nav-cta{background:var(--gold);color:var(--k1);padding:9px 18px;border-radius:3px;font-size:12px;font-weight:600;text-decoration:none;letter-spacing:.04em;transition:background .2s;flex-shrink:0}
+.nav-cta:hover{background:var(--gold2);color:var(--k10)}
+
+/* ═══ HERO COMPACT ═══ */
+.hero-compact{background:var(--k2);padding:40px 32px 36px;position:relative;overflow:hidden;border-bottom:1px solid rgba(196,163,90,.2)}
+.hero-compact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 5% 50%,rgba(74,94,58,.4) 0%,transparent 60%),radial-gradient(ellipse 30% 80% at 95% 50%,rgba(196,163,90,.06) 0%,transparent 60%)}
+.hero-inner{max-width:1600px;margin:0 auto;position:relative;display:flex;align-items:center;gap:60px;flex-wrap:wrap}
+.hero-text{flex:0 0 auto}
+.hero-badge{display:inline-block;background:rgba(196,163,90,.15);border:1px solid rgba(196,163,90,.3);color:var(--gold);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:14px}
+.hero-text h1{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,46px);font-weight:800;color:var(--k10);line-height:1.1;margin-bottom:8px}
+.hero-text h1 em{font-style:italic;color:var(--k7)}
+.hero-text p{color:var(--k8);font-size:14px;font-weight:300;line-height:1.6;max-width:380px}
+.hero-dim-bar{flex:1;min-width:300px;background:rgba(255,255,255,.05);border:1px solid rgba(196,163,90,.2);border-radius:8px;padding:20px 24px}
+.hdb-title{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--k7);margin-bottom:16px}
+.hdb-sliders{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+.hds-label{font-size:10px;color:var(--k8);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;display:flex;justify-content:space-between}
+.hds-val{font-size:14px;font-weight:600;color:var(--gold)}
+.hds-range{width:100%;accent-color:var(--gold);cursor:pointer}
+.hdb-actions{display:flex;gap:10px;align-items:center}
+.hdb-btn{background:var(--gold);color:var(--k1);border:none;padding:10px 24px;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s;flex-shrink:0}
+.hdb-btn:hover{background:var(--gold2)}
+.hdb-reset{background:transparent;border:none;color:var(--k7);font-size:12px;cursor:pointer;text-decoration:underline;font-family:'DM Sans',sans-serif}
+.hero-stats{display:flex;gap:28px;margin-top:20px}
+.stat{border-left:2px solid var(--k5);padding-left:14px}
+.stat-n{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--k10)}
+.stat-l{font-size:11px;color:var(--k7);letter-spacing:.04em;margin-top:1px}
+
+/* ═══ CAT STRIP ═══ */
+.cat-strip{background:var(--k3);border-bottom:1px solid rgba(255,255,255,.07);overflow-x:auto;scrollbar-width:none}
+.cat-strip::-webkit-scrollbar{display:none}
+.cat-inner{max-width:1600px;margin:0 auto;padding:0 32px;display:flex;gap:0}
+.ci{flex-shrink:0;padding:12px 20px;color:var(--k8);font-size:12px;font-weight:400;letter-spacing:.06em;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;text-transform:uppercase}
+.ci:hover,.ci.on{color:var(--k10);border-bottom-color:var(--gold);background:rgba(255,255,255,.04)}
+
+/* ═══ LAYOUT CATALOGUE ═══ */
+.catalogue{max-width:1600px;margin:0 auto;padding:28px 32px;display:grid;grid-template-columns:var(--sidebar) 1fr;gap:24px;align-items:start}
+
+/* ═══ SIDEBAR ═══ */
+.sidebar{position:sticky;top:82px;background:white;border:1px solid rgba(154,171,122,.2);border-radius:var(--card-radius);overflow:hidden}
+.sb-section{border-bottom:1px solid rgba(154,171,122,.15)}
+.sb-section:last-child{border-bottom:none}
+.sb-head{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;background:var(--k11)}
+.sb-head-title{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--k2)}
+.sb-head-arrow{font-size:11px;color:var(--muted);transition:transform .2s}
+.sb-head.open .sb-head-arrow{transform:rotate(180deg)}
+.sb-body{padding:0 18px 16px;display:none}
+.sb-body.open{display:block}
+
+/* Sliders sidebar */
+.sb-dim{margin-top:14px}
+.sb-dim-row{margin-bottom:14px}
+.sb-dim-label{font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.sb-dim-val{font-size:13px;font-weight:600;color:var(--k2)}
+.sb-dim-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}
+.sb-range-wrap{display:flex;gap:6px;align-items:center}
+.sb-range{flex:1;accent-color:var(--k4);cursor:pointer}
+.sb-bound{font-size:10px;color:#bbb;min-width:24px;text-align:center}
+
+/* Checkboxes */
+.sb-checks{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.sb-check{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:13px;color:var(--text)}
+.sb-check input{accent-color:var(--k4);width:14px;height:14px;cursor:pointer;flex-shrink:0}
+.sb-check-label{flex:1}
+.sb-check-count{font-size:11px;color:var(--muted)}
+
+/* Price range */
+.sb-price{display:flex;gap:8px;margin-top:12px;align-items:center}
+.sb-price input{width:72px;padding:7px 10px;border:1px solid rgba(154,171,122,.3);border-radius:4px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--k11);color:var(--text)}
+.sb-price-sep{color:var(--muted);font-size:13px}
+.sb-apply{display:block;width:100%;margin-top:12px;padding:9px;background:var(--k4);color:var(--k10);border:none;border-radius:4px;font-size:12px;font-weight:600;letter-spacing:.06em;cursor:pointer;text-transform:uppercase;transition:background .2s;font-family:'DM Sans',sans-serif}
+.sb-apply:hover{background:var(--k2)}
+
+/* ═══ LISTING HEADER ═══ */
+.listing-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.lh-count{font-size:13px;color:var(--muted)}
+.lh-count strong{color:var(--text);font-weight:600}
+.lh-sort{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.lh-sort select{padding:6px 10px;border:1px solid rgba(154,171,122,.3);border-radius:4px;background:white;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text);cursor:pointer;outline:none}
+.lh-view{display:flex;gap:4px}
+.lh-view button{width:30px;height:30px;border:1px solid rgba(154,171,122,.3);background:white;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .15s}
+.lh-view button.on{background:var(--k4);border-color:var(--k4);color:white}
+
+/* Active filters */
+.active-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.af-tag{display:inline-flex;align-items:center;gap:5px;background:var(--k9);color:var(--k2);border-radius:20px;padding:4px 10px 4px 12px;font-size:11px;font-weight:500}
+.af-tag button{background:none;border:none;color:var(--k4);cursor:pointer;font-size:14px;line-height:1;padding:0;display:flex;align-items:center}
+.af-clear{font-size:11px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;font-family:'DM Sans',sans-serif}
+
+/* ═══ PRODUCT GRID — CATALOGUE ═══ */
+.prod-grid-cat{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+/* ═══ CARD CATALOGUE ═══ */
+.card-cat-item{background:white;border:1px solid rgba(154,171,122,.2);border-radius:var(--card-radius);overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s,border-color .18s;cursor:pointer}
+.card-cat-item:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(45,58,46,.1);border-color:var(--k7)}
+
+/* Dim banner — l'élément le plus important */
+.card-dims-banner{background:var(--k2);padding:10px 14px;display:flex;gap:0;flex-wrap:nowrap;overflow:hidden}
+.cdb-item{flex:1;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+.cdb-item:last-child{border-right:none}
+.cdb-axis{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--k7);margin-bottom:2px}
+.cdb-val{font-size:17px;font-weight:700;color:var(--k10);line-height:1;font-family:'Playfair Display',serif}
+.cdb-unit{font-size:9px;color:var(--k8);font-weight:400;font-family:'DM Sans',sans-serif}
+
+/* Image zone */
+.card-img-zone{aspect-ratio:4/3;background:var(--k11);overflow:hidden;position:relative;display:block}
+.card-img-zone svg{width:80%;height:80%;display:block}
+.card-badge-wrap{position:absolute;top:8px;left:8px;display:flex;gap:5px;flex-direction:column}
+.card-badge{display:inline-block;padding:3px 9px;border-radius:3px;font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.card-badge.new{background:var(--k4);color:var(--k10)}
+.card-badge.promo{background:#c45a5a;color:white}
+.card-badge.popular{background:var(--gold);color:var(--k1)}
+.card-site-pill{position:absolute;top:8px;right:8px;background:rgba(30,42,31,.8);color:var(--k8);font-size:10px;padding:3px 8px;border-radius:10px;backdrop-filter:blur(4px)}
+
+/* Card body */
+.card-body-cat{padding:12px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card-cat-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--k5)}
+.card-name-cat{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
+.card-desc-cat{font-size:12px;color:var(--muted);line-height:1.5;flex:1}
+.card-footer-cat{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px;padding-top:10px;border-top:1px solid rgba(154,171,122,.15)}
+.card-price-cat{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--k2)}
+.card-price-cat small{font-size:12px;font-weight:400;color:var(--muted);text-decoration:line-through;font-family:'DM Sans',sans-serif;margin-left:4px}
+.card-cta{display:inline-block;padding:7px 14px;background:var(--k4);color:var(--k10);border-radius:3px;font-size:11px;font-weight:600;text-decoration:none;letter-spacing:.04em;transition:background .15s;white-space:nowrap;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.card-cta:hover{background:var(--k2)}
+.card-cta.secondary{background:var(--k9);color:var(--k2)}
+.card-cta.secondary:hover{background:var(--k8)}
+
+/* ═══ LIST VIEW MODE ═══ */
+.prod-grid-cat.list-mode{grid-template-columns:1fr}
+.prod-grid-cat.list-mode .card-cat-item{flex-direction:row;max-height:120px}
+.prod-grid-cat.list-mode .card-dims-banner{flex-direction:column;gap:0;min-width:110px;justify-content:center;padding:10px 14px}
+.prod-grid-cat.list-mode .cdb-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;display:flex;align-items:center;gap:8px;padding:3px 0}
+.prod-grid-cat.list-mode .cdb-item:last-child{border-bottom:none}
+.prod-grid-cat.list-mode .cdb-axis{margin-bottom:0;min-width:14px}
+.prod-grid-cat.list-mode .card-img-zone{width:100px;min-width:100px;aspect-ratio:unset;border-radius:0}
+.prod-grid-cat.list-mode .card-body-cat{flex-direction:row;align-items:center;gap:16px;padding:12px 16px}
+.prod-grid-cat.list-mode .card-cat-label,.prod-grid-cat.list-mode .card-desc-cat{display:none}
+.prod-grid-cat.list-mode .card-name-cat{font-size:13px}
+.prod-grid-cat.list-mode .card-footer-cat{margin-top:0;padding-top:0;border-top:none;flex-shrink:0}
+
+/* ═══ PAGINATION ═══ */
+.pagination{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:28px;padding-top:24px;border-top:1px solid rgba(154,171,122,.15)}
+.pg-btn{width:36px;height:36px;border:1px solid rgba(154,171,122,.3);background:white;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--text);transition:all .15s;font-family:'DM Sans',sans-serif}
+.pg-btn:hover,.pg-btn.on{background:var(--k4);border-color:var(--k4);color:white}
+.pg-btn.disabled{opacity:.4;cursor:not-allowed}
+.pg-btn.disabled:hover{background:white;color:var(--text);border-color:rgba(154,171,122,.3)}
+
+/* ═══ BANNER / ENSEIGNES ═══ */
+.banner-strip{background:var(--k2);padding:36px 32px;margin-top:40px}
+.bs-inner{max-width:1600px;margin:0 auto}
+.bs-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--k10);margin-bottom:20px}
+.bs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.bs-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:12px 16px;text-decoration:none;transition:background .2s,border-color .2s;display:flex;flex-direction:column;gap:3px}
+.bs-card:hover{background:rgba(255,255,255,.12);border-color:var(--gold)}
+.bs-name{font-size:13px;font-weight:600;color:var(--k10)}
+.bs-sub{font-size:11px;color:var(--k7)}
+.bs-arr{font-size:11px;color:var(--gold);margin-top:4px}
+
+/* ═══ SHOPPABLE ROOM ═══ */
+.room-section{padding:48px 32px;background:var(--k11)}
+.rs-inner{max-width:1600px;margin:0 auto}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;gap:20px}
+.sh-left{}
+.sh-eye{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--k5);margin-bottom:6px}
+.sh-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--k2);line-height:1.1}
+.sh-link{color:var(--k4);font-size:13px;font-weight:500;text-decoration:none;border-bottom:1px solid var(--k7);padding-bottom:2px;white-space:nowrap;transition:color .2s}
+.sh-link:hover{color:var(--gold2)}
+.room-wrap{position:relative;margin-bottom:24px;border-radius:10px;overflow:hidden}
+.room-svg-el{width:100%;display:block}
+.hotspot{position:absolute;transform:translate(-50%,-50%);cursor:pointer;z-index:10}
+.hs-ring{width:28px;height:28px;border-radius:50%;background:rgba(30,42,31,.85);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s}
+.hotspot:hover .hs-ring,.hotspot.act .hs-ring{transform:scale(1.2);background:var(--gold)}
+.hs-n{font-size:11px;font-weight:700;color:var(--gold);line-height:1}
+.hotspot.act .hs-n{color:var(--k1)}
+.tt{position:absolute;background:white;border:1px solid rgba(154,171,122,.3);border-radius:8px;padding:12px;width:190px;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:20;opacity:0;pointer-events:none;transition:opacity .2s;font-size:12px}
+.tt.show{opacity:1;pointer-events:auto}
+.tt-svg{width:64px;height:48px;margin-bottom:7px}
+.tt-cat{font-size:10px;color:var(--muted);margin-bottom:2px;font-weight:500}
+.tt-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;line-height:1.3}
+.tt-price{font-size:12px;color:var(--k4);font-weight:600;margin-bottom:7px}
+.tt-link{display:block;text-align:center;padding:6px;background:var(--k4);color:var(--k10);border-radius:4px;text-decoration:none;font-size:11px;font-weight:600;transition:background .15s}
+.tt-link:hover{background:var(--k2)}
+.room-products{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:16px}
+.rp-card{background:white;border:1px solid rgba(154,171,122,.2);border-radius:5px;overflow:hidden;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.rp-card:hover,.rp-card.hl{border-color:var(--k5);box-shadow:0 4px 12px rgba(45,58,46,.1)}
+.rp-img{background:var(--k11);padding:8px;display:flex;align-items:center;justify-content:center;height:60px}
+.rp-img svg{width:auto;height:100%;max-width:80px}
+.rp-body{padding:8px 10px}
+.rp-num{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:5px;margin-bottom:2px}
+.badge-n{display:inline-flex;width:14px;height:14px;align-items:center;justify-content:center;background:var(--gold);color:var(--k1);border-radius:50%;font-size:9px;font-weight:700;flex-shrink:0}
+.rp-name{font-size:11px;font-weight:500;color:var(--text);line-height:1.3;margin-bottom:3px}
+.rp-price{font-size:12px;font-weight:700;color:var(--k2);margin-bottom:4px}
+.rp-link{display:block;font-size:10px;color:var(--k4);font-weight:600;text-decoration:none;text-align:center;padding:4px;background:var(--k9);border-radius:3px;transition:background .15s}
+.rp-link:hover{background:var(--k8)}
+.room-budget{margin-top:14px;background:var(--k2);border-radius:5px;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+.rb-label{font-size:12px;color:var(--k8)}
+.rb-val{font-size:14px;font-weight:600;color:var(--gold);font-family:'Playfair Display',serif}
+
+/* ═══ GUIDES ═══ */
+.guides-section{padding:48px 32px;background:white}
+.gs-inner{max-width:1600px;margin:0 auto}
+.guides-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:28px}
+.guide-card{background:var(--k11);border:1px solid rgba(154,171,122,.2);border-radius:8px;overflow:hidden;transition:box-shadow .2s,transform .2s}
+.guide-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
+.guide-img{height:120px;display:flex;align-items:center;justify-content:center;font-size:42px}
+.guide-body{padding:16px 18px}
+.guide-cat{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--k5);margin-bottom:6px}
+.guide-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.3}
+.guide-dim-hint{font-size:11px;color:var(--k5);font-weight:500}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--k1);color:var(--k8);padding:48px 32px 24px}
+.footer-inner{max-width:1600px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:40px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.07)}
+.footer-brand .logo{margin-bottom:12px}
+.footer-brand p{font-size:13px;color:var(--k7);line-height:1.65;max-width:280px}
+.footer-col h4{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--k7);margin-bottom:14px}
+.footer-col a{display:block;font-size:13px;color:var(--k8);text-decoration:none;margin-bottom:8px;transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted)}
+.footer-aff{background:rgba(196,163,90,.1);border:1px solid rgba(196,163,90,.2);border-radius:4px;padding:8px 14px;font-size:11px;color:var(--k8);line-height:1.5;margin-top:16px}
+
+/* ═══ MODALE PRODUIT ═══ */
+.modal-overlay{position:fixed;inset:0;background:rgba(30,42,31,.7);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:white;border-radius:10px;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.modal-header{background:var(--k2);padding:24px 28px;border-radius:10px 10px 0 0;position:relative}
+.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.1);border:none;color:var(--k10);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.modal-close:hover{background:rgba(255,255,255,.2)}
+.modal-cat{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--k7);margin-bottom:6px}
+.modal-site{font-size:11px;color:var(--gold);margin-bottom:6px}
+.modal-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--k10);line-height:1.2}
+.modal-body{padding:24px 28px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.modal-img{background:var(--k11);border-radius:6px;display:flex;align-items:center;justify-content:center;min-height:200px;border:1px solid rgba(154,171,122,.2)}
+.modal-img svg{width:75%;height:auto;display:block}
+.modal-info{}
+.modal-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px}
+.modal-dims{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;background:var(--k11);border-radius:5px;padding:12px 14px}
+.modal-dim-row{display:flex;align-items:center;justify-content:space-between;font-size:13px}
+.modal-dim-label{color:var(--muted);display:flex;align-items:center;gap:6px}
+.modal-dim-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.modal-dim-val{font-weight:700;font-size:15px}
+.modal-price{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--k2);margin-bottom:12px}
+.modal-features{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px}
+.modal-feat{background:var(--k11);border-radius:4px;padding:8px 10px}
+.modal-feat-label{font-size:10px;color:var(--muted);font-weight:500;margin-bottom:2px;text-transform:uppercase;letter-spacing:.06em}
+.modal-feat-val{font-size:12px;font-weight:600;color:var(--text)}
+.modal-cta{display:block;text-align:center;padding:12px;background:var(--gold);color:var(--k1);border-radius:4px;text-decoration:none;font-size:14px;font-weight:700;letter-spacing:.04em;transition:background .2s}
+.modal-cta:hover{background:var(--gold2);color:var(--k10)}
+
+/* ═══ DIM SELECTOR SECTION ═══ */
+.dim-section{background:white;padding:48px 32px}
+.ds-inner{max-width:1600px;margin:0 auto}
+.type-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;margin-bottom:24px}
+.tg-btn{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 4px;background:var(--k11);border:1px solid rgba(154,171,122,.25);border-radius:5px;cursor:pointer;transition:all .15s;font-size:11px;color:var(--muted);font-family:'DM Sans',sans-serif}
+.tg-btn:hover{background:var(--k9);border-color:var(--k7)}
+.tg-btn.on{background:white;border:1.5px solid var(--k4);color:var(--k2);font-weight:500}
+.tg-btn svg{width:34px;height:34px}
+.dim-panel{display:grid;grid-template-columns:.85fr 1.6fr;gap:20px;align-items:start}
+.dp-title{font-size:14px;font-weight:600;color:var(--k2);margin-bottom:16px}
+.dim-row2{margin-bottom:12px}
+.dim-toggle{display:inline-flex;align-items:center;cursor:pointer;margin-right:6px;flex-shrink:0}
+.dim-toggle-box{width:15px;height:15px;border-radius:4px;border:1.5px solid var(--c,var(--k5));display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;background:transparent;transition:all .15s;opacity:.4}
+input:checked + .dim-toggle-box{background:var(--c,var(--k5));opacity:1}
+.dr2-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.dr2-label{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dr2-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.dr2-val{font-size:12px;font-weight:500;color:var(--text);min-width:52px;text-align:right}
+.dr2-range{display:flex;align-items:center;gap:6px}
+.dr2-range input[type=range]{flex:1;accent-color:var(--k4)}
+.dr2-bound{font-size:10px;color:#aaa;min-width:26px}
+.dp-right{background:var(--k11);border:1px solid rgba(154,171,122,.2);border-radius:6px;padding:16px;display:flex;flex-direction:column}
+.dp-preview-title{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-weight:500}
+.preview-box{background:var(--k11);border:1px solid rgba(154,171,122,.3);border-radius:8px;padding:10px 8px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.preview-box::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(107,124,82,.15) 1px,transparent 1px);background-size:16px 16px;pointer-events:none;z-index:0}
+.preview-label{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--k5);text-align:center;margin-bottom:6px;position:relative;z-index:1}
+.dim-search-btn{background:var(--k2);color:var(--k10);border:none;padding:10px 22px;border-radius:3px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s;margin-top:14px}
+.dim-search-btn:hover{background:var(--k4)}
+.res-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.res-card{background:white;border:1px solid rgba(154,171,122,.2);border-radius:5px;overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s}
+.res-card:hover{border-color:var(--k5);transform:translateY(-2px)}
+.res-img{aspect-ratio:4/3;background:var(--k11);display:flex;align-items:center;justify-content:center}
+.res-img svg{width:75%;height:75%}
+.res-body{padding:10px 12px}
+.res-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px}
+.res-site{font-size:10px;color:var(--muted);margin-bottom:5px}
+.res-price{font-size:13px;font-weight:700;color:var(--k2);margin-bottom:6px}
+.res-btn{display:block;text-align:center;padding:6px;background:var(--k9);color:var(--k2);border-radius:3px;font-size:11px;font-weight:500;text-decoration:none;transition:background .15s}
+.res-btn:hover{background:var(--k8)}
+
+/* ═══ OUTIL DIMENSION SIDEBAR — styles ═══ */
+@keyframes dimToolPop{
+  0%{opacity:0;transform:scaleY(.85) translateY(-8px)}
+  60%{transform:scaleY(1.03) translateY(1px)}
+  100%{opacity:1;transform:scaleY(1) translateY(0)}
+}
+@keyframes sbDimPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(74,94,58,0)}
+  50%{box-shadow:0 0 0 6px rgba(74,94,58,.18)}
+}
+#sbDimSection.popped{animation:sbDimPulse .6s ease}
+#sbDimSection.popped .sb-head{background:rgba(196,163,90,.12);transition:background .4s}
+#dimTool{transform-origin:top center;transition:opacity .25s}
+#dimTool.popping{animation:dimToolPop .35s cubic-bezier(.34,1.56,.64,1) both}
+
+/* Double-range slider dans la sidebar */
+.sb-dim-range{background:var(--k11);border:1px solid rgba(154,171,122,.2);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+.sb-dim-range-top{display:flex;align-items:center;gap:7px}
+.sb-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sb-dim-lbl{font-size:11px;color:var(--muted);font-weight:500;flex:1}
+.sb-dim-vals{display:flex;align-items:center;gap:4px}
+.sb-val-box{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:3px 6px;border-radius:4px;border:1.5px solid rgba(154,171,122,.3);background:var(--k11);width:52px;text-align:center;color:var(--k2);-webkit-appearance:none;appearance:none;-moz-appearance:textfield}
+.sb-val-box:focus{outline:none;border-color:var(--k5);background:white}
+.sb-val-sep{font-size:10px;color:var(--k8)}
+.sb-val-unit{font-size:10px;color:var(--muted)}
+.sb-range-dbl{position:relative;height:18px;display:flex;align-items:center;margin-top:2px}
+.sb-range-track{position:absolute;left:0;right:0;height:3px;border-radius:2px;background:rgba(154,171,122,.25)}
+.sb-range-fill{position:absolute;height:3px;border-radius:2px;background:var(--k4)}
+.sb-range-dbl input[type=range]{position:absolute;width:100%;height:3px;background:transparent;-webkit-appearance:none;pointer-events:none;margin:0}
+.sb-range-dbl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:white;border:2px solid var(--k4);pointer-events:all;cursor:pointer;box-shadow:0 1px 3px rgba(74,90,48,.2)}
+.sb-range-dbl input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:white;border:2px solid var(--k4);pointer-events:all;cursor:pointer}
+.sb-stepper-pill{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;background:var(--k11);border:1px solid rgba(154,171,122,.2)}
+.sb-step-btn{width:20px;height:20px;border-radius:50%;border:1px solid rgba(154,171,122,.3);background:white;color:var(--k4);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;font-family:'DM Sans',sans-serif;line-height:1;flex-shrink:0}
+.sb-step-btn:hover{background:var(--k9)}
+.sb-step-val{font-size:13px;font-weight:600;color:var(--text);min-width:18px;text-align:center}
+.sb-seg-pill{display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:7px;background:var(--k11);border:1px solid rgba(154,171,122,.2)}
+.sb-seg-ctrl{display:flex;background:rgba(154,171,122,.2);border-radius:5px;padding:2px;gap:1px;margin-left:auto}
+.sb-seg-btn{padding:2px 7px;border-radius:3px;border:none;background:transparent;font-size:10px;font-weight:500;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap}
+.sb-seg-btn.active{background:white;color:var(--text)}
+.sb-tog-pill{display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:7px;background:var(--k11);border:1px solid rgba(154,171,122,.2)}
+.sb-tog-ctrl{display:flex;background:rgba(154,171,122,.2);border-radius:5px;padding:2px;gap:1px;margin-left:auto}
+.sb-tog-btn{padding:2px 10px;border-radius:3px;border:none;background:transparent;font-size:10px;font-weight:500;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.sb-tog-btn.active{background:white;color:var(--text)}
+.sb-sec-lbl{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--k5);margin:2px 0 4px}
+@media(max-width:1100px){
+  .catalogue{grid-template-columns:240px 1fr}
+  --sidebar:240px;
+  .prod-grid-cat{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:900px){
+  .catalogue{grid-template-columns:1fr;padding:20px}
+  .sidebar{position:static}
+  .prod-grid-cat{grid-template-columns:repeat(2,1fr)}
+  .hero-inner{flex-direction:column;gap:28px}
+  .room-products{grid-template-columns:repeat(3,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .type-grid{grid-template-columns:repeat(5,1fr)}
+  .dim-panel{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .nav-search{display:none}
+  .prod-grid-cat{grid-template-columns:1fr}
+  .hdb-sliders{grid-template-columns:1fr 1fr}
+  .room-products{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr}
+  .modal-body{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="40 30 220 115" height="34" style="display:block;flex-shrink:0">
+        <path fill="#f7f5ec" d="M 76.46875 116.238281 L 86.355469 116.238281 C 90.816406 116.238281 94.9375 115.539062 98.71875 114.140625 C 102.5 112.746094 105.792969 110.769531 108.605469 108.214844 C 111.417969 105.664062 113.597656 102.628906 115.152344 99.109375 C 116.699219 95.59375 117.476562 91.765625 117.476562 87.621094 C 117.476562 83.480469 116.699219 79.648438 115.152344 76.128906 C 113.597656 72.613281 111.417969 69.578125 108.605469 67.023438 C 105.792969 64.472656 102.5 62.5 98.71875 61.097656 C 94.9375 59.703125 90.816406 59.003906 86.355469 59.003906 L 76.46875 59.003906 Z M 53.054688 138.203125 L 53.054688 37.035156 L 86.355469 37.035156 C 97.117188 37.035156 106.644531 39.203125 114.933594 43.539062 C 123.222656 47.875 129.695312 53.824219 134.347656 61.390625 C 139 68.953125 141.328125 77.699219 141.328125 87.621094 C 141.328125 97.449219 139 106.167969 134.347656 113.78125 C 129.695312 121.390625 123.222656 127.363281 114.933594 131.699219 C 106.644531 136.035156 97.117188 138.203125 86.355469 138.203125 Z"/>
+        <path fill="#f7f5ec" d="M 228.3125 37.035156 L 201.117188 76.925781 L 174.0625 37.035156 L 148.324219 37.035156 L 148.324219 138.199219 L 171.738281 138.199219 L 171.738281 73.167969 L 201.257812 115.945312 L 230.636719 73.167969 L 230.636719 88.089844 L 254.050781 88.089844 L 254.050781 37.035156 Z"/>
+        <path fill="#c4a35a" d="M 254.050781 138.199219 L 230.636719 138.199219 L 230.636719 95.082031 L 254.050781 95.082031 Z"/>
+        <path fill="#354433" d="M 241.617188 100.609375 L 230.636719 100.609375 L 230.636719 99.613281 L 241.617188 99.613281 Z"/>
+        <path fill="#354433" d="M 241.617188 111.800781 L 230.636719 111.800781 L 230.636719 110.804688 L 241.617188 110.804688 Z"/>
+        <path fill="#354433" d="M 235.980469 107.324219 L 230.636719 107.324219 L 230.636719 106.328125 L 235.980469 106.328125 Z"/>
+        <path fill="#354433" d="M 235.980469 102.847656 L 230.636719 102.847656 L 230.636719 101.851562 L 235.980469 101.851562 Z"/>
+        <path fill="#354433" d="M 235.980469 105.078125 L 230.636719 105.078125 L 230.636719 104.082031 L 235.980469 104.082031 Z"/>
+        <path fill="#354433" d="M 235.980469 109.566406 L 230.636719 109.566406 L 230.636719 108.566406 L 235.980469 108.566406 Z"/>
+        <path fill="#354433" d="M 241.617188 123.03125 L 230.636719 123.03125 L 230.636719 122.03125 L 241.617188 122.03125 Z"/>
+        <path fill="#354433" d="M 235.980469 118.554688 L 230.636719 118.554688 L 230.636719 117.554688 L 235.980469 117.554688 Z"/>
+        <path fill="#354433" d="M 235.980469 114.078125 L 230.636719 114.078125 L 230.636719 113.078125 L 235.980469 113.078125 Z"/>
+        <path fill="#354433" d="M 235.980469 116.308594 L 230.636719 116.308594 L 230.636719 115.3125 L 235.980469 115.3125 Z"/>
+        <path fill="#354433" d="M 235.980469 120.792969 L 230.636719 120.792969 L 230.636719 119.796875 L 235.980469 119.796875 Z"/>
+        <path fill="#354433" d="M 241.617188 134.234375 L 230.636719 134.234375 L 230.636719 133.238281 L 241.617188 133.238281 Z"/>
+        <path fill="#354433" d="M 235.980469 129.757812 L 230.636719 129.757812 L 230.636719 128.761719 L 235.980469 128.761719 Z"/>
+        <path fill="#354433" d="M 235.980469 125.28125 L 230.636719 125.28125 L 230.636719 124.285156 L 235.980469 124.285156 Z"/>
+        <path fill="#354433" d="M 235.980469 127.511719 L 230.636719 127.511719 L 230.636719 126.515625 L 235.980469 126.515625 Z"/>
+        <path fill="#354433" d="M 235.980469 132 L 230.636719 132 L 230.636719 131 L 235.980469 131 Z"/>
+      </svg>
+      <span style="font-size:9px;font-weight:400;font-family:'DM Sans',sans-serif;color:#9aab7a;letter-spacing:.08em">dimensions-meubles.fr</span>
+    </a>
+    <div class="nav-links">
+      <a href="#catalogue">Catalogue</a>
+      <a href="#recherche">Par dimension</a>
+      <a href="#inspiration">Inspiration</a>
+      <a href="#guides">Guides</a>
+    </div>
+    <div class="nav-search">
+      <input type="text" placeholder="Chercher un meuble…" id="navSearch">
+      <button>Chercher</button>
+    </div>
+    <a href="#catalogue" class="nav-cta">Trouver par taille →</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO COMPACT ═══ -->
+<section class="hero-compact">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">✦ Le 1er comparateur par dimensions</div>
+      <h1>Le meuble exact<br>à <em>vos dimensions</em></h1>
+      <p>Entrez largeur, hauteur, profondeur — trouvez parmi 12 enseignes françaises le meuble qui rentre exactement.</p>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-n">12+</div><div class="stat-l">Enseignes</div></div>
+        <div class="stat"><div class="stat-n">50k+</div><div class="stat-l">Produits</div></div>
+        <div class="stat"><div class="stat-n">10</div><div class="stat-l">Catégories</div></div>
+      </div>
+    </div>
+    <div class="hero-dim-bar">
+      <div class="hdb-title">🔍 Chercher par dimension exacte</div>
+      <div class="hdb-sliders">
+        <div>
+          <div class="hds-label">Largeur max <span class="hds-val" id="hLval">80 cm</span></div>
+          <input type="range" class="hds-range" min="20" max="300" value="80" id="hLslider" oninput="document.getElementById('hLval').textContent=this.value+' cm'">
+        </div>
+        <div>
+          <div class="hds-label">Hauteur max <span class="hds-val" id="hHval">180 cm</span></div>
+          <input type="range" class="hds-range" min="20" max="300" value="180" id="hHslider" oninput="document.getElementById('hHval').textContent=this.value+' cm'">
+        </div>
+        <div>
+          <div class="hds-label">Profondeur max <span class="hds-val" id="hPval">50 cm</span></div>
+          <input type="range" class="hds-range" min="10" max="150" value="50" id="hPslider" oninput="document.getElementById('hPval').textContent=this.value+' cm'">
+        </div>
+      </div>
+      <div class="hdb-actions">
+        <button class="hdb-btn" onclick="applyHeroDimSearch()">Afficher les meubles correspondants →</button>
+        <button class="hdb-reset" onclick="resetHeroDims()">Réinitialiser</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CAT STRIP ═══ -->
+<div class="cat-strip">
+  <div class="cat-inner" id="catStrip">
+    <div class="ci on" onclick="filterCat(this,'Tous')">Tous</div>
+    <div class="ci" onclick="filterCat(this,'Canapés')">Canapés</div>
+    <div class="ci" onclick="filterCat(this,'Tables')">Tables</div>
+    <div class="ci" onclick="filterCat(this,'Chaises')">Chaises</div>
+    <div class="ci" onclick="filterCat(this,'Lits')">Lits</div>
+    <div class="ci" onclick="filterCat(this,'Armoires')">Armoires</div>
+    <div class="ci" onclick="filterCat(this,'Bibliothèques')">Bibliothèques</div>
+    <div class="ci" onclick="filterCat(this,'Bureaux')">Bureaux</div>
+    <div class="ci" onclick="filterCat(this,'Fauteuils')">Fauteuils</div>
+    <div class="ci" onclick="filterCat(this,'Commodes')">Commodes</div>
+    <div class="ci" onclick="filterCat(this,'Tables basses')">Tables basses</div>
+    <div class="ci" onclick="filterCat(this,'Jardin')">Jardin</div>
+  </div>
+</div>
+
+<!-- ═══ CATALOGUE PRINCIPAL ═══ -->
+<div class="catalogue" id="catalogue">
+
+  <!-- ─── SIDEBAR ─── -->
+  <aside class="sidebar" id="mainSidebar">
+
+    <!-- 1. CATÉGORIE en premier -->
+    <div class="sb-section">
+      <div class="sb-head open" onclick="toggleSb(this)">
+        <span class="sb-head-title">🪑 Catégorie</span>
+        <span class="sb-head-arrow">▼</span>
+      </div>
+      <div class="sb-body open">
+        <div class="sb-checks" id="catChecks">
+          <label class="sb-check"><input type="checkbox" onchange="onCatChange(this)" data-cat="Canapés" data-type="canape"> <span class="sb-check-label">Canapés &amp; Fauteuils</span><span class="sb-check-count">12</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="onCatChange(this)" data-cat="Tables" data-type="table"> <span class="sb-check-label">Tables à manger</span><span class="sb-check-count">9</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="onCatChange(this)" data-cat="Lits" data-type="lit"> <span class="sb-check-label">Lits &amp; Literie</span><span class="sb-check-count">7</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="onCatChange(this)" data-cat="Armoires" data-type="armoire"> <span class="sb-check-label">Armoires &amp; Dressings</span><span class="sb-check-count">8</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="onCatChange(this)" data-cat="Bureaux" data-type="bureau"> <span class="sb-check-label">Bureaux</span><span class="sb-check-count">5</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="onCatChange(this)" data-cat="Bibliothèques" data-type="etagere"> <span class="sb-check-label">Bibliothèques</span><span class="sb-check-count">6</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="onCatChange(this)" data-cat="Tables basses" data-type="tbasse"> <span class="sb-check-label">Tables basses</span><span class="sb-check-count">4</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="onCatChange(this)" data-cat="Commodes" data-type="commode"> <span class="sb-check-label">Commodes</span><span class="sb-check-count">5</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. DIMENSIONS — outil v4 intégré avec animation pop -->
+    <div class="sb-section" id="sbDimSection">
+      <div class="sb-head open" onclick="toggleSb(this)" id="sbDimHead">
+        <span class="sb-head-title">📐 Dimensions</span>
+        <span class="sb-head-arrow">▼</span>
+      </div>
+      <div class="sb-body open" id="sbDimBody">
+        <!-- Hint avant sélection catégorie -->
+        <div id="dimHint" style="padding:20px 14px;text-align:center;color:var(--muted);font-size:12px;line-height:1.7">
+          <div style="font-size:28px;margin-bottom:8px">☝️</div>
+          <strong style="color:var(--k4);display:block;margin-bottom:4px">Sélectionnez une catégorie</strong>
+          pour affiner par dimensions exactes
+        </div>
+        <!-- Outil dimensions (caché jusqu'à sélection catégorie) -->
+        <div id="dimTool" style="display:none">
+          <div style="padding:10px 14px 4px;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--k5)" id="dimToolLabel">Dimensions</div>
+          <div id="dimLeftPanel" style="padding:0 14px 8px;display:flex;flex-direction:column;gap:8px"></div>
+
+          <div style="padding:0 14px 14px">
+            <button onclick="applyDimToolSearch()" style="width:100%;padding:10px;background:var(--k4);color:var(--k10);border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s" onmouseover="this.style.background='var(--k2)'" onmouseout="this.style.background='var(--k4)'">Filtrer les résultats →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. ENSEIGNE -->
+    <div class="sb-section">
+      <div class="sb-head open" onclick="toggleSb(this)">
+        <span class="sb-head-title">🏪 Enseigne</span>
+        <span class="sb-head-arrow">▼</span>
+      </div>
+      <div class="sb-body open">
+        <div class="sb-checks">
+          <label class="sb-check"><input type="checkbox" onchange="renderGrid()" data-shop="ikea"> <span class="sb-check-label">IKEA</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="renderGrid()" data-shop="mdm"> <span class="sb-check-label">Maisons du Monde</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="renderGrid()" data-shop="camif"> <span class="sb-check-label">Camif</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="renderGrid()" data-shop="laredoute"> <span class="sb-check-label">La Redoute</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="renderGrid()" data-shop="but"> <span class="sb-check-label">BUT</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="renderGrid()" data-shop="alinea"> <span class="sb-check-label">Alinéa</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="renderGrid()" data-shop="habitat"> <span class="sb-check-label">Habitat</span></label>
+          <label class="sb-check"><input type="checkbox" onchange="renderGrid()" data-shop="conforama"> <span class="sb-check-label">Conforama</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. BUDGET -->
+    <div class="sb-section">
+      <div class="sb-head" onclick="toggleSb(this)">
+        <span class="sb-head-title">💶 Budget</span>
+        <span class="sb-head-arrow">▼</span>
+      </div>
+      <div class="sb-body">
+        <div class="sb-price">
+          <input type="number" placeholder="Min" id="sbPrixMin" value="0">
+          <span class="sb-price-sep">—</span>
+          <input type="number" placeholder="Max" id="sbPrixMax" value="2000">
+        </div>
+        <button class="sb-apply" onclick="renderGrid()">Appliquer</button>
+      </div>
+    </div>
+
+    <!-- 5. MATIÈRE -->
+    <div class="sb-section">
+      <div class="sb-head" onclick="toggleSb(this)">
+        <span class="sb-head-title">🪵 Matière</span>
+        <span class="sb-head-arrow">▼</span>
+      </div>
+      <div class="sb-body">
+        <div class="sb-checks">
+          <label class="sb-check"><input type="checkbox" data-mat="bois"> <span class="sb-check-label">Bois massif</span></label>
+          <label class="sb-check"><input type="checkbox" data-mat="mdf"> <span class="sb-check-label">MDF / Panneau</span></label>
+          <label class="sb-check"><input type="checkbox" data-mat="metal"> <span class="sb-check-label">Métal</span></label>
+          <label class="sb-check"><input type="checkbox" data-mat="tissu"> <span class="sb-check-label">Tissu / Velours</span></label>
+          <label class="sb-check"><input type="checkbox" data-mat="rotin"> <span class="sb-check-label">Rotin / Osier</span></label>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ─── LISTING ─── -->
+  <div>
+    <!-- Header listing -->
+    <div class="listing-header">
+      <div class="lh-count"><strong id="prodCount">24</strong> meubles trouvés</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="lh-sort">
+          <span>Trier :</span>
+          <select id="sortSelect" onchange="renderGrid()">
+            <option value="pertinence">Pertinence</option>
+            <option value="prix-asc">Prix croissant</option>
+            <option value="prix-desc">Prix décroissant</option>
+            <option value="taille-asc">Taille croissante</option>
+          </select>
+        </div>
+        <div class="lh-view">
+          <button class="on" id="viewGrid" onclick="setView('grid')" title="Grille">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="0" y="0" width="6" height="6"/><rect x="8" y="0" width="6" height="6"/><rect x="0" y="8" width="6" height="6"/><rect x="8" y="8" width="6" height="6"/></svg>
+          </button>
+          <button id="viewList" onclick="setView('list')" title="Liste">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="0" y="0" width="14" height="3"/><rect x="0" y="5.5" width="14" height="3"/><rect x="0" y="11" width="14" height="3"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active filters -->
+    <div class="active-filters" id="activeFilters"></div>
+
+    <!-- Grid -->
+    <div class="prod-grid-cat" id="prodGrid"></div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <button class="pg-btn disabled">‹</button>
+      <button class="pg-btn on">1</button>
+      <button class="pg-btn">2</button>
+      <button class="pg-btn">3</button>
+      <span style="color:var(--muted);font-size:13px;padding:0 4px">…</span>
+      <button class="pg-btn">8</button>
+      <button class="pg-btn">›</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ OUTIL DIMENSION CONFIGURATEUR ═══ -->
+<style>
+.cfg-wrap{background:white;border:1px solid rgba(154,171,122,.2);border-radius:12px;overflow:hidden}
+.cfg-hdr{background:var(--k11);padding:18px 24px;border-bottom:1px solid rgba(154,171,122,.15)}
+.cfg-hdr-lbl{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--k5);margin-bottom:12px}
+.cfg-type-row{display:flex;gap:8px;flex-wrap:wrap}
+.cfg-type-btn{padding:7px 16px;border-radius:20px;border:1.5px solid rgba(154,171,122,.35);background:white;font-size:12px;font-weight:500;color:var(--k4);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.cfg-type-btn:hover{border-color:var(--k5);background:var(--k11)}
+.cfg-type-btn.active{background:var(--k2);color:var(--k10);border-color:var(--k2)}
+.cfg-body{display:grid;grid-template-columns:320px 1px 1fr;align-items:stretch;min-height:420px}
+.cfg-dvd{background:rgba(154,171,122,.15)}
+.cfg-left{padding:20px;display:flex;flex-direction:column;gap:9px;overflow-y:auto;max-height:600px}
+.cfg-sec-lbl{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--k5);margin:4px 0 2px}
+.cfg-dim-range{background:var(--k11);border:1px solid rgba(154,171,122,.2);border-radius:9px;padding:11px 13px;display:flex;flex-direction:column;gap:8px}
+.cfg-dim-range-top{display:flex;align-items:center;gap:8px}
+.cfg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cfg-dim-lbl{font-size:12px;color:var(--muted);font-weight:500;flex:1}
+.cfg-dim-vals{display:flex;align-items:center;gap:5px}
+.cfg-val-box{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:3px 6px;border-radius:4px;border:1.5px solid rgba(154,171,122,.3);background:var(--k11);width:52px;text-align:center;color:var(--text);-webkit-appearance:none;appearance:none;-moz-appearance:textfield}
+.cfg-val-box:focus{outline:none;border-color:var(--k5);background:white}
+.cfg-val-sep{font-size:10px;color:var(--k8)}
+.cfg-val-unit{font-size:10px;color:var(--muted)}
+.cfg-range-dbl{position:relative;height:20px;display:flex;align-items:center}
+.cfg-range-track{position:absolute;left:0;right:0;height:3px;border-radius:2px;background:rgba(154,171,122,.25)}
+.cfg-range-fill{position:absolute;height:3px;border-radius:2px;background:var(--k4)}
+.cfg-range-dbl input[type=range]{position:absolute;width:100%;height:3px;background:transparent;-webkit-appearance:none;pointer-events:none;margin:0}
+.cfg-range-dbl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:white;border:2.5px solid var(--k4);pointer-events:all;cursor:pointer;box-shadow:0 1px 4px rgba(74,90,48,.2)}
+.cfg-range-dbl input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:white;border:2px solid var(--k4);pointer-events:all;cursor:pointer}
+.cfg-stepper{display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:9px;background:var(--k11);border:1px solid rgba(154,171,122,.2)}
+.cfg-step-btn{width:24px;height:24px;border-radius:50%;border:1px solid rgba(154,171,122,.35);background:white;color:var(--k4);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;font-family:'DM Sans',sans-serif;line-height:1;flex-shrink:0}
+.cfg-step-btn:hover{background:var(--k9)}
+.cfg-step-val{font-size:14px;font-weight:600;color:var(--text);min-width:22px;text-align:center}
+.cfg-seg{display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:9px;background:var(--k11);border:1px solid rgba(154,171,122,.2)}
+.cfg-seg-ctrl{display:flex;background:rgba(154,171,122,.2);border-radius:6px;padding:2px;gap:2px;margin-left:auto}
+.cfg-seg-btn{padding:4px 10px;border-radius:4px;border:none;background:transparent;font-size:11px;font-weight:500;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap}
+.cfg-seg-btn.active{background:white;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.cfg-tog{display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:9px;background:var(--k11);border:1px solid rgba(154,171,122,.2)}
+.cfg-tog-ctrl{display:flex;background:rgba(154,171,122,.2);border-radius:6px;padding:2px;gap:2px;margin-left:auto}
+.cfg-tog-btn{padding:4px 12px;border-radius:4px;border:none;background:transparent;font-size:11px;font-weight:500;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.cfg-tog-btn.active{background:white;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.cfg-search-btn{background:var(--k2);color:var(--k10);border:none;padding:11px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s;margin-top:4px}
+.cfg-search-btn:hover{background:var(--k4)}
+.cfg-right{padding:24px 32px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--k11);position:relative;overflow:hidden}
+.cfg-right::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(107,124,82,.14) 1px,transparent 1px);background-size:16px 16px;pointer-events:none}
+.cfg-svg-wrap{position:relative;z-index:1;width:100%;max-width:520px}
+/* Cotes glissables */
+.cfg-cote-hit{cursor:ew-resize;transition:opacity .15s;user-select:none}
+.cfg-cote-hit.dragging text{font-size:14px}
+.cfg-cote-hit:hover text{opacity:.7}
+/* Tooltip valeur pendant drag */
+.cfg-drag-tooltip{position:absolute;background:var(--k2);color:white;font-size:12px;font-weight:700;padding:4px 10px;border-radius:5px;pointer-events:none;display:none;z-index:20;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.cfg-drag-tooltip.show{display:block}
+.cfg-hint{font-size:11px;color:var(--muted);text-align:center;margin-top:8px;font-style:italic;position:relative;z-index:1}
+/* Résultats */
+.cfg-results{padding:24px;border-top:1px solid rgba(154,171,122,.15)}
+.cfg-res-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.cfg-res-count{font-size:13px;color:var(--muted)}
+.cfg-res-count strong{color:var(--text);font-weight:600}
+.cfg-res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.cfg-res-card{background:white;border:1px solid rgba(154,171,122,.2);border-radius:8px;overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s,box-shadow .15s}
+.cfg-res-card:hover{border-color:var(--k5);transform:translateY(-2px);box-shadow:0 6px 16px rgba(45,58,46,.1)}
+.cfg-res-img{aspect-ratio:4/3;overflow:hidden;position:relative;background:var(--k11)}
+.cfg-res-img img{width:100%;height:100%;object-fit:cover;display:block}
+.cfg-res-body{padding:10px 12px}
+.cfg-res-dims{display:flex;gap:4px;margin-bottom:5px;flex-wrap:wrap}
+.cfg-res-dim{font-size:10px;font-weight:600;background:var(--k2);color:var(--k10);padding:2px 7px;border-radius:3px}
+.cfg-res-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px;line-height:1.3}
+.cfg-res-price{font-size:13px;font-weight:700;color:var(--k2)}
+.cfg-res-cta{display:block;text-align:center;padding:6px;background:var(--k9);color:var(--k2);border-radius:4px;font-size:11px;font-weight:600;text-decoration:none;margin-top:6px;cursor:pointer;transition:background .15s;border:none;width:100%;font-family:'DM Sans',sans-serif}
+.cfg-res-cta:hover{background:var(--k8)}
+@media(max-width:900px){.cfg-body{grid-template-columns:1fr}.cfg-dvd{display:none}.cfg-right{min-height:320px}}
+</style>
+
+<section class="dim-section" id="recherche" style="background:white;padding:48px 32px">
+  <div style="max-width:1600px;margin:0 auto">
+    <div class="sh" style="margin-bottom:28px">
+      <div class="sh-left">
+        <div class="sh-eye">Outil exclusif</div>
+        <div class="sh-title">Configurateur de dimensions</div>
+      </div>
+      <a href="#catalogue" class="sh-link">Voir tous les résultats →</a>
+    </div>
+
+    <div class="cfg-wrap">
+      <!-- Header : sélecteur de type SANS aperçu -->
+      <div class="cfg-hdr">
+        <div class="cfg-hdr-lbl">Type de meuble</div>
+        <div class="cfg-type-row" id="cfgTypeRow">
+          <button class="cfg-type-btn active" onclick="cfgSetType('commode',this)">Commode</button>
+          <button class="cfg-type-btn" onclick="cfgSetType('table',this)">Table</button>
+          <button class="cfg-type-btn" onclick="cfgSetType('canape',this)">Canapé</button>
+          <button class="cfg-type-btn" onclick="cfgSetType('armoire',this)">Armoire</button>
+          <button class="cfg-type-btn" onclick="cfgSetType('bureau',this)">Bureau</button>
+          <button class="cfg-type-btn" onclick="cfgSetType('lit',this)">Lit</button>
+          <button class="cfg-type-btn" onclick="cfgSetType('etagere',this)">Étagère</button>
+          <button class="cfg-type-btn" onclick="cfgSetType('tbasse',this)">Table basse</button>
+        </div>
+      </div>
+
+      <!-- Body : contrôles gauche + grand SVG interactif droit -->
+      <div class="cfg-body">
+        <div class="cfg-left" id="cfgLeft"></div>
+        <div class="cfg-dvd"></div>
+        <div class="cfg-right" style="position:relative">
+          <div class="cfg-svg-wrap" style="position:relative">
+            <svg id="cfgSvg" width="100%" viewBox="0 0 480 560" style="display:block;overflow:visible">
+              <defs>
+                <marker id="cfgmH" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1l7 4-7 4" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round"/></marker>
+                <marker id="cfgmL" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1l7 4-7 4" fill="none" stroke="#2c5f8a" stroke-width="1.5" stroke-linecap="round"/></marker>
+                <marker id="cfgmP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1l7 4-7 4" fill="none" stroke="#1a6b4a" stroke-width="1.5" stroke-linecap="round"/></marker>
+              </defs>
+              <text id="cfgLblF" x="240" y="18" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#6b7c52" letter-spacing="3">FACE</text>
+              <g id="cfgShapeG"></g>
+              <text id="cfgLblD" x="240" y="0" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#6b7c52" letter-spacing="3">DESSUS</text>
+              <g id="cfgTopG"></g>
+              <!-- Cote H — cliquable -->
+              <g id="cfgCH" class="cfg-cote-hit" style="cursor:ns-resize" onmousedown="cfgStartDrag(event,'H')" ontouchstart="cfgStartDrag(event,'H')">
+                <rect id="cfgBgH" rx="3" fill="rgba(192,57,43,.08)" opacity="0" height="20" width="40" style="pointer-events:none"/>
+                <line id="cfgLH" stroke="#c0392b" stroke-width="1.3" stroke-dasharray="4 3" marker-start="url(#cfgmH)" marker-end="url(#cfgmH)"/>
+                <text id="cfgTH" font-family="DM Sans,sans-serif" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end" dominant-baseline="central" text-decoration="underline dotted"/>
+              </g>
+              <!-- Cote L face — cliquable -->
+              <g id="cfgCL" class="cfg-cote-hit" style="cursor:ew-resize" onmousedown="cfgStartDrag(event,'L')" ontouchstart="cfgStartDrag(event,'L')">
+                <rect id="cfgBgL" rx="3" fill="rgba(44,95,138,.08)" opacity="0" height="20" width="60" style="pointer-events:none"/>
+                <line id="cfgLL" stroke="#2c5f8a" stroke-width="1.3" stroke-dasharray="4 3" marker-start="url(#cfgmL)" marker-end="url(#cfgmL)"/>
+                <text id="cfgTL" font-family="DM Sans,sans-serif" font-size="12" font-weight="700" fill="#2c5f8a" text-anchor="middle" text-decoration="underline dotted"/>
+              </g>
+              <!-- Cote L dessus -->
+              <g id="cfgCL2">
+                <line id="cfgLL2" stroke="#2c5f8a" stroke-width="1.1" stroke-dasharray="4 3" marker-start="url(#cfgmL)" marker-end="url(#cfgmL)"/>
+                <text id="cfgTL2" font-family="DM Sans,sans-serif" font-size="11" font-weight="600" fill="#2c5f8a" text-anchor="middle"/>
+              </g>
+              <!-- Cote P — cliquable -->
+              <g id="cfgCP" class="cfg-cote-hit" style="cursor:ns-resize" onmousedown="cfgStartDrag(event,'P')" ontouchstart="cfgStartDrag(event,'P')">
+                <rect id="cfgBgP" rx="3" fill="rgba(26,107,74,.08)" opacity="0" height="20" width="40" style="pointer-events:none"/>
+                <line id="cfgLP" stroke="#1a6b4a" stroke-width="1.3" stroke-dasharray="4 3" marker-start="url(#cfgmP)" marker-end="url(#cfgmP)"/>
+                <text id="cfgTP" font-family="DM Sans,sans-serif" font-size="12" font-weight="700" fill="#1a6b4a" text-anchor="start" dominant-baseline="central" text-decoration="underline dotted"/>
+              </g>
+            </svg>
+            <!-- Tooltip valeur pendant drag -->
+            <div id="cfgDragTooltip" class="cfg-drag-tooltip"></div>
+          </div>
+          <div class="cfg-hint">↔ Glissez une cote pour modifier la dimension — ou ajustez les sliders</div>
+        </div>
+      </div>
+
+      <!-- Résultats -->
+      <div class="cfg-results">
+        <div class="cfg-res-header">
+          <div class="cfg-res-count">Meubles correspondants : <strong id="cfgResCount">—</strong></div>
+        </div>
+        <div class="cfg-res-grid" id="cfgResGrid">
+          <div style="grid-column:1/-1;text-align:center;padding:24px;color:var(--muted);font-size:13px">
+            Ajustez les dimensions ci-dessus et cliquez sur "Voir les meubles" pour afficher les résultats.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SHOPPABLE ROOM ═══ -->
+<section class="room-section" id="inspiration">
+  <div class="rs-inner">
+    <div class="sh">
+      <div class="sh-left">
+        <div class="sh-eye">Inspiration déco</div>
+        <div class="sh-title">Salon clé en main</div>
+      </div>
+      <a href="#" class="sh-link">Voir toutes les pièces →</a>
+    </div>
+    <div class="room-wrap" id="roomWrap2">
+      <svg class="room-svg-el" viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg">
+        <rect width="700" height="420" fill="#e8ead8"/>
+        <rect x="0" y="320" width="700" height="100" fill="#d4c9a8"/>
+        <rect x="0" y="0" width="700" height="320" fill="#edeade"/>
+        <rect x="0" y="315" width="700" height="8" fill="#c8b898" opacity=".6"/>
+        <rect x="180" y="0" width="340" height="280" fill="#ddd8c8" opacity=".35"/>
+        <rect x="220" y="30" width="120" height="150" fill="#c8c0a8" opacity=".25" rx="2"/>
+        <rect x="360" y="30" width="120" height="150" fill="#c8c0a8" opacity=".25" rx="2"/>
+        <line x1="180" y1="0" x2="180" y2="320" stroke="#b8a888" stroke-width=".8" opacity=".4"/>
+        <line x1="520" y1="0" x2="520" y2="320" stroke="#b8a888" stroke-width=".8" opacity=".4"/>
+        <rect x="0" y="0" width="3" height="420" fill="#b8a888" opacity=".35"/>
+        <rect x="697" y="0" width="3" height="420" fill="#b8a888" opacity=".35"/>
+        <rect x="60" y="210" width="220" height="110" rx="6" fill="#6b7c52"/>
+        <rect x="68" y="215" width="204" height="95" rx="4" fill="#8a9e6a"/>
+        <rect x="78" y="220" width="58" height="80" rx="4" fill="#c8d4a8" opacity=".7"/>
+        <rect x="142" y="220" width="58" height="80" rx="4" fill="#c8d4a8" opacity=".7"/>
+        <rect x="206" y="220" width="58" height="80" rx="4" fill="#c8d4a8" opacity=".7"/>
+        <rect x="60" y="175" width="220" height="38" rx="4" fill="#4a5e3a"/>
+        <rect x="75" y="319" width="14" height="5" rx="2" fill="#3d4a35"/>
+        <rect x="251" y="319" width="14" height="5" rx="2" fill="#3d4a35"/>
+        <rect x="100" y="267" width="160" height="5" rx="2" fill="#c4a35a" opacity=".5"/>
+        <rect x="390" y="245" width="180" height="75" rx="4" fill="#8c6e2f"/>
+        <rect x="398" y="250" width="164" height="63" rx="3" fill="#a08040"/>
+        <rect x="405" y="256" width="70" height="50" rx="3" fill="#c8b88a" opacity=".8"/>
+        <rect x="482" y="256" width="70" height="50" rx="3" fill="#c8b88a" opacity=".8"/>
+        <rect x="400" y="319" width="12" height="4" rx="2" fill="#6b5030"/>
+        <rect x="550" y="319" width="12" height="4" rx="2" fill="#6b5030"/>
+        <rect x="350" y="295" width="40" height="27" rx="3" fill="#4a5e3a"/>
+        <rect x="356" y="299" width="28" height="19" rx="2" fill="#6b7c52"/>
+        <circle cx="370" cy="308" r="4" fill="#2d3a2e"/>
+        <rect x="353" y="320" width="8" height="3" rx="1" fill="#3d4a35"/>
+        <rect x="374" y="320" width="8" height="3" rx="1" fill="#3d4a35"/>
+        <rect x="600" y="135" width="80" height="185" rx="4" fill="#4a5e3a"/>
+        <rect x="607" y="142" width="66" height="171" rx="3" fill="#6b7c52"/>
+        <rect x="613" y="148" width="54" height="76" rx="2" fill="#2d3a2e" opacity=".6"/>
+        <line x1="607" y1="224" x2="673" y2="224" stroke="#4a5e3a" stroke-width="2"/>
+        <line x1="607" y1="250" x2="673" y2="250" stroke="#4a5e3a" stroke-width="2"/>
+        <circle cx="640" cy="184" r="20" fill="#4a5e3a"/>
+        <circle cx="640" cy="184" r="14" fill="#6b7c52"/>
+        <ellipse cx="640" cy="184" rx="4" ry="10" fill="#9aab7a" opacity=".8"/>
+        <rect x="170" y="157" width="34" height="24" rx="12" fill="#c4a35a" opacity=".75"/>
+        <rect x="175" y="143" width="3" height="15" fill="#8c6e2f"/>
+        <ellipse cx="177" cy="140" rx="10" ry="7" fill="#f0eedf" opacity=".9"/>
+      </svg>
+      <div class="hotspot" style="left:50%;top:75%" id="r2hs1" onclick="toggleTip2(1)"><div class="hs-ring"><span class="hs-n">1</span></div></div>
+      <div class="hotspot" style="left:70%;top:71%" id="r2hs2" onclick="toggleTip2(2)"><div class="hs-ring"><span class="hs-n">2</span></div></div>
+      <div class="hotspot" style="left:53%;top:84%" id="r2hs3" onclick="toggleTip2(3)"><div class="hs-ring"><span class="hs-n">3</span></div></div>
+      <div class="hotspot" style="left:90%;top:58%" id="r2hs4" onclick="toggleTip2(4)"><div class="hs-ring"><span class="hs-n">4</span></div></div>
+      <div class="hotspot" style="left:25%;top:59%" id="r2hs5" onclick="toggleTip2(5)"><div class="hs-ring"><span class="hs-n">5</span></div></div>
+      <div class="tt" id="r2tt1"><div class="tt-svg"><svg viewBox="0 0 80 60"><rect x="5" y="18" width="70" height="30" rx="4" fill="#6b7c52"/><rect x="9" y="7" width="62" height="13" rx="3" fill="#4a5e3a"/><rect x="9" y="20" width="18" height="24" rx="3" fill="#9aab7a"/><rect x="31" y="20" width="18" height="24" rx="3" fill="#9aab7a"/><rect x="53" y="20" width="18" height="24" rx="3" fill="#9aab7a"/></svg></div><div class="tt-cat">Canapé · L.220 × H.82 × P.95 cm</div><div class="tt-name">Canapé 3P Naxos déhoussable</div><div class="tt-price">899 € · camif.fr</div><a class="tt-link" href="https://www.camif.fr" target="_blank">Voir sur Camif →</a></div>
+      <div class="tt" id="r2tt2"><div class="tt-svg"><svg viewBox="0 0 80 60"><rect x="8" y="22" width="64" height="18" rx="2" fill="#8c6e2f"/><rect x="12" y="25" width="24" height="12" rx="2" fill="#c8b88a"/><rect x="44" y="25" width="24" height="12" rx="2" fill="#c8b88a"/></svg></div><div class="tt-cat">Table basse · L.120 × H.40 × P.65 cm</div><div class="tt-name">Table basse Acacia bicolore</div><div class="tt-price">249 € · but.fr</div><a class="tt-link" href="https://www.but.fr" target="_blank">Voir sur BUT →</a></div>
+      <div class="tt" id="r2tt3"><div class="tt-svg"><svg viewBox="0 0 80 60"><rect x="18" y="12" width="44" height="34" rx="3" fill="#4a5e3a"/><rect x="22" y="16" width="16" height="26" rx="2" fill="#6b7c52"/><rect x="42" y="16" width="16" height="26" rx="2" fill="#6b7c52"/><circle cx="30" cy="29" r="2" fill="#c4a35a"/><circle cx="50" cy="29" r="2" fill="#c4a35a"/></svg></div><div class="tt-cat">Meuble TV · L.140 × H.50 × P.42 cm</div><div class="tt-name">Meuble TV Velvet 2 portes</div><div class="tt-price">389 € · alinea.fr</div><a class="tt-link" href="https://www.alinea.fr" target="_blank">Voir sur Alinéa →</a></div>
+      <div class="tt" id="r2tt4"><div class="tt-svg"><svg viewBox="0 0 80 60"><rect x="18" y="8" width="44" height="44" rx="3" fill="#4a5e3a"/><rect x="22" y="12" width="36" height="36" rx="2" fill="#6b7c52"/><line x1="22" y1="24" x2="58" y2="24" stroke="#4a5e3a" stroke-width="1.5"/><line x1="22" y1="36" x2="58" y2="36" stroke="#4a5e3a" stroke-width="1.5"/></svg></div><div class="tt-cat">Bibliothèque · L.80 × H.180 × P.28 cm</div><div class="tt-name">Bibliothèque 3 étagères Oslo</div><div class="tt-price">445 € · habitat.fr</div><a class="tt-link" href="https://www.habitat.fr" target="_blank">Voir sur Habitat →</a></div>
+      <div class="tt" id="r2tt5"><div class="tt-svg"><svg viewBox="0 0 80 60"><rect x="28" y="32" width="12" height="8" rx="5" fill="#c4a35a" opacity=".8"/><rect x="32" y="22" width="3" height="11" fill="#8c6e2f"/><ellipse cx="34" cy="19" rx="10" ry="7" fill="#f0eedf" opacity=".9"/></svg></div><div class="tt-cat">Luminaire · H.160 cm</div><div class="tt-name">Lampe de sol Kaki doré</div><div class="tt-price">129 € · maisonsdumonde.com</div><a class="tt-link" href="https://www.maisons-du-monde.com" target="_blank">Voir sur MDM →</a></div>
+    </div>
+    <div class="room-products">
+      <div class="rp-card" id="r2pc1" onclick="hlHs2(1)"><div class="rp-img"><svg viewBox="0 0 80 60"><rect x="5" y="18" width="70" height="30" rx="4" fill="#6b7c52"/><rect x="9" y="7" width="62" height="13" rx="3" fill="#4a5e3a"/></svg></div><div class="rp-body"><div class="rp-num"><span class="badge-n">1</span>Canapé</div><div class="rp-name">Naxos 3P · 220×82×95 cm</div><div class="rp-price">899 €</div><a class="rp-link" href="https://www.camif.fr" target="_blank">Camif →</a></div></div>
+      <div class="rp-card" id="r2pc2" onclick="hlHs2(2)"><div class="rp-img"><svg viewBox="0 0 80 60"><rect x="8" y="22" width="64" height="18" rx="2" fill="#8c6e2f"/><rect x="12" y="25" width="24" height="12" rx="2" fill="#c8b88a"/></svg></div><div class="rp-body"><div class="rp-num"><span class="badge-n">2</span>Table basse</div><div class="rp-name">Acacia · 120×40×65 cm</div><div class="rp-price">249 €</div><a class="rp-link" href="https://www.but.fr" target="_blank">BUT →</a></div></div>
+      <div class="rp-card" id="r2pc3" onclick="hlHs2(3)"><div class="rp-img"><svg viewBox="0 0 80 60"><rect x="18" y="12" width="44" height="34" rx="3" fill="#4a5e3a"/><rect x="22" y="16" width="16" height="26" rx="2" fill="#6b7c52"/></svg></div><div class="rp-body"><div class="rp-num"><span class="badge-n">3</span>Meuble TV</div><div class="rp-name">Velvet · 140×50×42 cm</div><div class="rp-price">389 €</div><a class="rp-link" href="https://www.alinea.fr" target="_blank">Alinéa →</a></div></div>
+      <div class="rp-card" id="r2pc4" onclick="hlHs2(4)"><div class="rp-img"><svg viewBox="0 0 80 60"><rect x="18" y="8" width="44" height="44" rx="3" fill="#4a5e3a"/><rect x="22" y="12" width="36" height="36" rx="2" fill="#6b7c52"/></svg></div><div class="rp-body"><div class="rp-num"><span class="badge-n">4</span>Bibliothèque</div><div class="rp-name">Oslo · 80×180×28 cm</div><div class="rp-price">445 €</div><a class="rp-link" href="https://www.habitat.fr" target="_blank">Habitat →</a></div></div>
+      <div class="rp-card" id="r2pc5" onclick="hlHs2(5)"><div class="rp-img"><svg viewBox="0 0 80 60"><rect x="28" y="32" width="12" height="8" rx="5" fill="#c4a35a"/><ellipse cx="34" cy="19" rx="10" ry="7" fill="#f0eedf" opacity=".9"/></svg></div><div class="rp-body"><div class="rp-num"><span class="badge-n">5</span>Luminaire</div><div class="rp-name">Lampe sol · H.160 cm</div><div class="rp-price">129 €</div><a class="rp-link" href="https://www.maisons-du-monde.com" target="_blank">MDM →</a></div></div>
+    </div>
+    <div class="room-budget">
+      <span class="rb-label">Budget total pour reproduire ce salon</span>
+      <span class="rb-val">2 111 € estimés</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GUIDES ═══ -->
+<style>
+.guide-card-full{background:white;border-radius:10px;overflow:hidden;border:1px solid rgba(154,171,122,.2);transition:box-shadow .2s,transform .2s}
+.guide-card-full:hover{box-shadow:0 8px 28px rgba(0,0,0,.09);transform:translateY(-2px)}
+.guide-img-full{height:140px;display:flex;align-items:center;justify-content:center;font-size:48px}
+.guide-body-full{padding:20px}
+.guide-cat-full{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--k5);margin-bottom:8px}
+.guide-title-full{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--text);margin-bottom:10px;line-height:1.3}
+.guide-intro{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:0}
+.guide-more{font-size:13px;color:var(--muted);line-height:1.65;margin-top:10px;display:none}
+.guide-more.open{display:block}
+.guide-dim-hint-full{font-size:12px;color:var(--k5);font-weight:500;margin-top:12px}
+.guide-toggle-btn{display:inline-flex;align-items:center;gap:6px;margin-top:14px;background:none;border:1px solid rgba(154,171,122,.4);color:var(--k4);font-size:12px;font-weight:600;padding:7px 14px;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s,color .2s}
+.guide-toggle-btn:hover{background:var(--k9);border-color:var(--k7)}
+.guide-toggle-btn .arr{transition:transform .2s;display:inline-block}
+.guide-toggle-btn.open .arr{transform:rotate(180deg)}
+</style>
+<section class="guides-section" id="guides" style="background:var(--k11);padding:48px 32px">
+  <div style="max-width:1600px;margin:0 auto">
+    <div class="sh">
+      <div class="sh-left"><div class="sh-eye">Guides & conseils</div><div class="sh-title">Bien choisir ses meubles</div></div>
+      <a href="#" class="sh-link">Tous les guides →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px">
+
+      <!-- Guide 1 -->
+      <article class="guide-card-full">
+        <div class="guide-img-full" style="background:linear-gradient(135deg,var(--k3),var(--k4))">🛋️</div>
+        <div class="guide-body-full">
+          <div class="guide-cat-full">Salon</div>
+          <h3 class="guide-title-full">Comment choisir la bonne taille de canapé pour son salon ?</h3>
+          <p class="guide-intro">La règle d'or : laissez au minimum 40 cm entre le canapé et la table basse, et 80 cm de passage autour des meubles. Un canapé 3 places fait en moyenne 220–240 cm de large.</p>
+          <div class="guide-more" id="g1more">
+            <p>Pour les petits espaces, privilégiez un modèle 2 places (140–180 cm) ou une méridienne compacte. La profondeur est souvent négligée : un canapé de 95 cm de profondeur convient pour s'allonger confortablement, mais 80–85 cm suffisent pour une assise classique.</p>
+            <p style="margin-top:8px">Mesurez aussi la hauteur sous l'entrée si vous habitez en appartement — pensez à démonter les pieds pour le passage ! En angle (canapé d'angle), comptez environ 250×180 cm d'emprise au sol. Dernier conseil : la hauteur d'assise (42–46 cm) conditionne le confort au quotidien, surtout pour les personnes de grande taille.</p>
+          </div>
+          <div class="guide-dim-hint-full">📐 Dimensions clés : L 140–280 cm · P 80–100 cm · H 75–95 cm</div>
+          <button class="guide-toggle-btn" onclick="toggleGuide('g1more',this)">En savoir plus <span class="arr">▼</span></button>
+        </div>
+      </article>
+
+      <!-- Guide 2 -->
+      <article class="guide-card-full">
+        <div class="guide-img-full" style="background:linear-gradient(135deg,var(--k2),var(--k3))">🛏️</div>
+        <div class="guide-body-full">
+          <div class="guide-cat-full">Chambre</div>
+          <h3 class="guide-title-full">Dimensions standards d'un lit : guide complet par taille de chambre</h3>
+          <p class="guide-intro">Un lit simple fait 90×190 ou 90×200 cm, un lit double 140×190 cm, un lit queen 160×200 cm et un lit king 180×200 cm. Prévoyez au minimum 60 cm de passage de chaque côté.</p>
+          <div class="guide-more" id="g2more">
+            <p>Pour une chambre de 10 m², optez pour un 140×190 avec chevets intégrés pour maximiser l'espace. Au-delà de 12 m², un 160×200 offre un confort optimal en couple. Pour une chambre de 9 m² ou moins, un lit 90×200 avec rangements en dessous est la solution idéale.</p>
+            <p style="margin-top:8px">N'oubliez pas la hauteur de la tête de lit : entre 80 et 140 cm selon les modèles — à vérifier par rapport à la fenêtre ou un tableau. La hauteur totale du lit (sommier + matelas compris) est généralement de 55–65 cm. Un lit coffre (avec rangements intégrés) ajoute environ 10–15 cm de hauteur supplémentaire.</p>
+          </div>
+          <div class="guide-dim-hint-full">📐 Dimensions clés : L 90–180 cm · Long. 190–200 cm · Tête 80–140 cm</div>
+          <button class="guide-toggle-btn" onclick="toggleGuide('g2more',this)">En savoir plus <span class="arr">▼</span></button>
+        </div>
+      </article>
+
+      <!-- Guide 3 -->
+      <article class="guide-card-full">
+        <div class="guide-img-full" style="background:linear-gradient(135deg,var(--k4),var(--k5))">🚪</div>
+        <div class="guide-body-full">
+          <div class="guide-cat-full">Rangement</div>
+          <h3 class="guide-title-full">Armoire ou dressing : quelle profondeur minimum pour vos vêtements ?</h3>
+          <p class="guide-intro">La profondeur minimum d'une armoire pour suspendre des vêtements est de 55 cm (cintres inclus). Idéalement, optez pour 58–62 cm. Pour les chaussures, 35 cm suffisent.</p>
+          <div class="guide-more" id="g3more">
+            <p>La hauteur standard est de 200–220 cm — une armoire de 220 cm permet une tringle haute + rangement chapeau. Pour les petits couloirs, des armoires de 35–40 cm de profondeur existent pour les vêtements pliés uniquement.</p>
+            <p style="margin-top:8px">Les armoires 2 portes font généralement 80–180 cm de large, les 3 portes 150–200 cm. Pour un dressing sur-mesure, prévoyez 240 cm de hauteur (jusqu'au plafond standard) pour maximiser le rangement. Les portes coulissantes nécessitent ≥ 20 cm de débord sur les côtés pour le rail.</p>
+          </div>
+          <div class="guide-dim-hint-full">📐 Dimensions clés : L 80–200 cm · P 35–65 cm · H 180–220 cm</div>
+          <button class="guide-toggle-btn" onclick="toggleGuide('g3more',this)">En savoir plus <span class="arr">▼</span></button>
+        </div>
+      </article>
+
+      <!-- Guide 4 -->
+      <article class="guide-card-full">
+        <div class="guide-img-full" style="background:linear-gradient(135deg,#3a4a5e,#2d3a4e)">🧊</div>
+        <div class="guide-body-full">
+          <div class="guide-cat-full">Électroménager</div>
+          <h3 class="guide-title-full">Réfrigérateur encastrable : les dimensions à connaître avant d'acheter</h3>
+          <p class="guide-intro">Les réfrigérateurs encastrables standard font 56 cm de large pour s'intégrer dans un meuble de 60 cm. Vérifiez toujours la profondeur hors-tout avec la porte ouverte (souvent 70–75 cm).</p>
+          <div class="guide-more" id="g4more">
+            <p>La hauteur est critique : les modèles sous-plan font 82 cm, les colonnes intégrées 177–178 cm pour s'adapter aux meubles hauts standard à 180 cm. Prévoyez 5 cm de jeu en hauteur pour la ventilation. Pour un frigo américain (side-by-side), comptez 90–95 cm de large minimum.</p>
+            <p style="margin-top:8px">Les réfrigérateurs à profondeur standard (65–70 cm) dépassent légèrement du plan de travail (60 cm). Si vous cherchez un modèle affleurant, optez pour un "frigo faible profondeur" (55–60 cm) — le volume utile sera réduit d'environ 20%. Pensez aussi au sens d'ouverture de la porte selon l'agencement de votre cuisine.</p>
+          </div>
+          <div class="guide-dim-hint-full">📐 Dimensions clés : L 55–95 cm · P 55–70 cm · H 82–210 cm</div>
+          <button class="guide-toggle-btn" onclick="toggleGuide('g4more',this)">En savoir plus <span class="arr">▼</span></button>
+        </div>
+      </article>
+
+      <!-- Guide 5 -->
+      <article class="guide-card-full">
+        <div class="guide-img-full" style="background:linear-gradient(135deg,#4a5e3a,#2d3a2e)">🍽️</div>
+        <div class="guide-body-full">
+          <div class="guide-cat-full">Salle à manger</div>
+          <h3 class="guide-title-full">Table à manger : combien de centimètres par convive ?</h3>
+          <p class="guide-intro">La règle universelle : comptez 60 cm de largeur par convive et 40 cm de profondeur pour poser les couverts confortablement. Une table 4 personnes mesure généralement 120×80 cm.</p>
+          <div class="guide-more" id="g5more">
+            <p>Pour 6 personnes, il faut au minimum 160×90 cm. Pour 8 convives, prévoyez 200×90 cm ou une table ronde de Ø 130 cm. La hauteur standard d'une table à manger est de 72–76 cm — à associer à des chaises dont la hauteur d'assise est de 44–48 cm pour un espace confortable (26–30 cm entre assise et dessous de table).</p>
+            <p style="margin-top:8px">N'oubliez pas la circulation autour de la table : comptez 80–90 cm derrière chaque chaise pour permettre de s'asseoir et se lever librement. Dans une pièce de 12 m², une table 6 personnes est le maximum confortable. Les tables extensibles sont idéales : 140 cm au quotidien, 200 cm pour les grandes occasions.</p>
+          </div>
+          <div class="guide-dim-hint-full">📐 Dimensions clés : L 120–240 cm · l 80–100 cm · H 72–76 cm</div>
+          <button class="guide-toggle-btn" onclick="toggleGuide('g5more',this)">En savoir plus <span class="arr">▼</span></button>
+        </div>
+      </article>
+
+      <!-- Guide 6 -->
+      <article class="guide-card-full">
+        <div class="guide-img-full" style="background:linear-gradient(135deg,#5e4a3a,#3a2e2d)">💻</div>
+        <div class="guide-body-full">
+          <div class="guide-cat-full">Bureau & Télétravail</div>
+          <h3 class="guide-title-full">Bureau à domicile : les dimensions ergonomiques pour travailler sans douleur</h3>
+          <p class="guide-intro">La hauteur standard d'un bureau est de 72–75 cm. Pour un usage ergonomique, votre hauteur de bureau idéale = hauteur coude assis + 2–3 cm. Un bureau réglable en hauteur (70–120 cm) est la solution universelle.</p>
+          <div class="guide-more" id="g6more">
+            <p>La profondeur minimum d'un bureau est de 60 cm pour poser un écran à bonne distance (50–70 cm de l'œil). Si vous travaillez avec deux écrans, prévoyez 80 cm de profondeur. La largeur minimum confortable est de 120 cm ; 160 cm si vous avez besoin d'espace pour des documents à côté de l'ordinateur.</p>
+            <p style="margin-top:8px">Pour un bureau d'angle (en L), l'emprise au sol est de l'ordre de 160×120 cm minimum. Ces modèles maximisent la surface de travail dans un coin de pièce. Si la hauteur sous plafond le permet, un bureau avec étagères au-dessus (bibliothèque intégrée) à partir de 180 cm libère de l'espace au sol. Pensez aussi à la gestion des câbles : optez pour un bureau avec passe-câbles intégré si vous avez plusieurs appareils.</p>
+          </div>
+          <div class="guide-dim-hint-full">📐 Dimensions clés : L 120–200 cm · P 60–90 cm · H 72–120 cm</div>
+          <button class="guide-toggle-btn" onclick="toggleGuide('g6more',this)">En savoir plus <span class="arr">▼</span></button>
+        </div>
+      </article>
+
+      <!-- Guide 7 -->
+      <article class="guide-card-full">
+        <div class="guide-img-full" style="background:linear-gradient(135deg,#3a5e4a,#2d4e3a)">📚</div>
+        <div class="guide-body-full">
+          <div class="guide-cat-full">Bibliothèque & Étagères</div>
+          <h3 class="guide-title-full">Bibliothèque : quelle hauteur entre les étagères selon ce que vous rangez ?</h3>
+          <p class="guide-intro">Pour des livres de poche, 20–22 cm entre les étagères suffisent. Pour des livres grand format, comptez 28–32 cm. Pour des classeurs ou boîtes de rangement, prévoyez 35–40 cm de hauteur libre.</p>
+          <div class="guide-more" id="g7more">
+            <p>La profondeur standard d'une bibliothèque est de 25–30 cm pour les livres, et 35–40 cm si vous voulez y ranger des objets déco en double rangée. La largeur optimale entre deux montants est de 80 cm maximum pour éviter le fléchissement des étagères sous le poids des livres (au-delà, optez pour une épaisseur de planche de 25 mm minimum).</p>
+            <p style="margin-top:8px">Une bibliothèque murale fixée au plafond maximise le stockage : jusqu'à 240 cm de haut dans un appartement standard. Pour les bibliothèques autoportantes, 200–220 cm est la hauteur la plus courante. Les bibliothèques modulables (type BILLY chez IKEA) permettent d'ajouter des extensions en hauteur. Comptez environ 30–40 livres par mètre linéaire d'étagère.</p>
+          </div>
+          <div class="guide-dim-hint-full">📐 Dimensions clés : L 60–120 cm · P 25–40 cm · H 80–240 cm · Étagères : 20–40 cm</div>
+          <button class="guide-toggle-btn" onclick="toggleGuide('g7more',this)">En savoir plus <span class="arr">▼</span></button>
+        </div>
+      </article>
+
+      <!-- Guide 8 -->
+      <article class="guide-card-full">
+        <div class="guide-img-full" style="background:linear-gradient(135deg,#5e5a3a,#4e4a2d)">🪴</div>
+        <div class="guide-body-full">
+          <div class="guide-cat-full">Mobilier extérieur</div>
+          <h3 class="guide-title-full">Terrasse et jardin : comment dimensionner son mobilier outdoor ?</h3>
+          <p class="guide-intro">Pour une terrasse de moins de 10 m², optez pour une table Ø 80–100 cm max et 2–4 chaises empilables. Pour 15–25 m², une table rectangulaire 160×90 cm avec 6 chaises s'intègre confortablement.</p>
+          <div class="guide-more" id="g8more">
+            <p>Prévoyez toujours 90 cm minimum entre la table et le mur ou la balustrade pour circuler chaise repoussée. Un transat mesure en moyenne 65×190 cm (+ espace de manœuvre). Pour un salon de jardin avec canapé, comptez un espace minimum de 300×250 cm.</p>
+            <p style="margin-top:8px">Les dimensions varient aussi selon les matériaux : le teck (lourd, stable) et l'aluminium (léger, déplaçable facilement) sont les plus courants. Pour un balcon de 4–6 m², une table pliante 60×80 cm et 2 chaises bistrot (largeur 40–45 cm) sont idéales. Pensez aussi à la hauteur des chaises par rapport à la rambarde : pour des raisons de sécurité, les chaises ne devraient pas permettre à un enfant de grimper facilement (hauteur d'assise standard : 44–46 cm).</p>
+          </div>
+          <div class="guide-dim-hint-full">📐 Dimensions clés : Table L 80–200 cm · Transat 65×190 cm · Espace mini 90 cm</div>
+          <button class="guide-toggle-btn" onclick="toggleGuide('g8more',this)">En savoir plus <span class="arr">▼</span></button>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ENSEIGNES ═══ -->
+<div class="banner-strip">
+  <div class="bs-inner">
+    <div class="bs-title">Enseignes partenaires prévues</div>
+
+    <div class="bs-grid">
+      <div class="bs-card" style="cursor:default"><div class="bs-name">IKEA</div><div class="bs-sub">Scandinave · Budget</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
+      <div class="bs-card" style="cursor:default"><div class="bs-name">Maisons du Monde</div><div class="bs-sub">Déco · Variété</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
+      <div class="bs-card" style="cursor:default"><div class="bs-name">Camif</div><div class="bs-sub">Made in France</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
+      <div class="bs-card" style="cursor:default"><div class="bs-name">Conforama</div><div class="bs-sub">Grand choix</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
+      <div class="bs-card" style="cursor:default"><div class="bs-name">BUT</div><div class="bs-sub">Prix accessibles</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
+      <div class="bs-card" style="cursor:default"><div class="bs-name">Alinéa</div><div class="bs-sub">Tendance</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
+      <div class="bs-card" style="cursor:default"><div class="bs-name">La Redoute</div><div class="bs-sub">Styles variés</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
+      <div class="bs-card" style="cursor:default"><div class="bs-name">Habitat</div><div class="bs-sub">Design · Premium</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
+      <div class="bs-card" style="cursor:default"><div class="bs-name">Roche Bobois</div><div class="bs-sub">Luxe · Créateurs</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
+      <div class="bs-card" style="cursor:default"><div class="bs-name">Westwing</div><div class="bs-sub">Lifestyle · Sélection</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
+      <div class="bs-card" style="cursor:default"><div class="bs-name">Leroy Merlin</div><div class="bs-sub">Aménagement</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
+      <div class="bs-card" style="cursor:default"><div class="bs-name">MADE</div><div class="bs-sub">Design moderne</div><div class="bs-arr" style="color:var(--k5)">Bientôt</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <p style="margin-top:12px;font-size:13px;color:#9aab7a;line-height:1.65;max-width:280px">Le premier comparateur de meubles par dimensions exactes. Trouvez en secondes le meuble qui rentre parfaitement chez vous.</p>
+        <div class="footer-aff">🚧 Site en cours de lancement. Les liens vers les enseignes partenaires seront bientôt disponibles. Ce site fonctionne sur un modèle d'affiliation : certains liens vers les enseignes peuvent générer une commission, sans aucun surcoût pour vous.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Catalogue</h4>
+        <a href="#">Canapés & Fauteuils</a>
+        <a href="#">Tables à manger</a>
+        <a href="#">Lits & Literie</a>
+        <a href="#">Armoires & Dressings</a>
+        <a href="#">Bureaux</a>
+      </div>
+      <div class="footer-col">
+        <h4>Enseignes</h4>
+        <span style="display:block;font-size:13px;color:var(--k8);margin-bottom:8px">IKEA France</span>
+        <span style="display:block;font-size:13px;color:var(--k8);margin-bottom:8px">Maisons du Monde</span>
+        <span style="display:block;font-size:13px;color:var(--k8);margin-bottom:8px">Camif</span>
+        <span style="display:block;font-size:13px;color:var(--k8);margin-bottom:8px">BUT</span>
+        <span style="display:block;font-size:13px;color:var(--k8);margin-bottom:8px">Habitat</span>
+        <span style="display:block;font-size:11px;color:var(--k5);margin-top:4px">+ 7 autres enseignes</span>
+      </div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <a href="#">Guides & Conseils</a>
+        <a href="#">À propos</a>
+        <a href="#" onclick="openLegal('mentions')">Mentions légales</a>
+        <a href="#" onclick="openLegal('privacy')">Politique de cookies</a>
+        <a href="mailto:contact@dimensions-meubles.fr">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Dimensions-Meubles · dimensions-meubles.fr · M.M.</span>
+      <span><a href="#" onclick="openLegal('mentions')" style="color:var(--k7)">Mentions légales</a> · <a href="#" onclick="openLegal('privacy')" style="color:var(--k7)">Politique de confidentialité</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ MODALE PRODUIT ═══ -->
+<div class="modal-overlay" id="productModal" onclick="closeModal(event, false)">
+  <div class="modal">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal(null,true)">×</button>
+      <div class="modal-cat" id="mCat"></div>
+      <div class="modal-site" id="mSite"></div>
+      <div class="modal-title" id="mTitle"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-img" id="mImg"></div>
+      <div class="modal-info">
+        <p class="modal-desc" id="mDesc"></p>
+        <div class="modal-dims" id="mDims"></div>
+        <div class="modal-price" id="mPrice"></div>
+        <div class="modal-features" id="mFeatures"></div>
+        <a class="modal-cta" href="#" id="mCta" target="_blank">Voir sur le site →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════
+   DATA PRODUITS — 24 meubles
+════════════════════════════════════════════ */
+// Photos Unsplash — libres de droits
+const PRODUCTS = [
+  // CANAPÉS
+  {id:'canape-naxos', cat:'Canapés', catFull:'Canapés & Fauteuils', name:'Canapé 3 places tissu kaki', shop:'À venir', shopKey:'camif', url:'#', price:899, priceStr:'dès 899 €', l:220, h:82, p:95, badge:'popular', badgeLabel:'Coup de cœur', desc:'Canapé 3 places en tissu déhoussable. Confort durable, pieds chêne massif.',
+    photo:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=450&fit=crop&auto=format',
+    dims:[['L. Totale','220 cm','#3B8BD4'],['P. Assise','58 cm','#1D9E75'],['H. Totale','82 cm','#E8593C'],['H. Assise','44 cm','#BA7517']],
+    features:[['Matière','Tissu déhoussable'],['Structure','Bois massif'],['Tiroirs','—'],['Pieds','Chêne massif'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'canape-oslo', cat:'Canapés', catFull:'Canapés & Fauteuils', name:'Canapé 2 places scandinave', shop:'À venir', shopKey:'ikea', url:'#', price:499, priceStr:'499 €', l:180, h:80, p:88,
+    photo:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=450&fit=crop&auto=format',
+    dims:[['L. Totale','180 cm','#3B8BD4'],['Profondeur','88 cm','#1D9E75'],['Hauteur','80 cm','#E8593C']],
+    features:[['Places','2 places'],['Style','Scandinave'],['Pieds','Métal noir'],['Montage','À assembler'],['Garantie','10 ans'],['Livraison','Offerte']]},
+  {id:'fauteuil-velvet', cat:'Canapés', catFull:'Canapés & Fauteuils', name:'Fauteuil velours vert', shop:'À venir', shopKey:'mdm', url:'#', price:329, priceStr:'329 €', l:75, h:88, p:80,
+    photo:'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','75 cm','#3B8BD4'],['Profondeur','80 cm','#1D9E75'],['Hauteur','88 cm','#E8593C']],
+    features:[['Couleur','Kaki'],['Matière','Velours'],['Pieds','Laiton'],['Style','Contemporain'],['Garantie','2 ans'],['Livraison','Sur RDV']]},
+  // TABLES
+  {id:'table-stornas', cat:'Tables', catFull:'Tables à manger', name:'Table bois massif extensible', shop:'À venir', shopKey:'ikea', url:'#', price:799, priceStr:'799 €', l:204, h:74, p:90, badge:'popular', badgeLabel:'Populaire',
+    photo:'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=600&h=450&fit=crop&auto=format',
+    dims:[['L. Min','147 cm','#1D9E75'],['L. Max','204 cm','#1D9E75'],['Largeur','90 cm','#3B8BD4'],['Hauteur','74 cm','#E8593C']],
+    features:[['Matière','Acacia massif'],['Finition','Huilée'],['Places','6 à 8'],['Rallonge','Intégrée'],['Garantie','10 ans'],['Livraison','En kit']]},
+  {id:'table-ronde-180', cat:'Tables', catFull:'Tables à manger', name:'Table ronde 4 à 6 couverts', shop:'À venir', shopKey:'laredoute', url:'#', price:449, priceStr:'449 €', l:160, h:76, p:120,
+    photo:'https://images.unsplash.com/photo-1604578762246-41134e37f9cc?w=600&h=450&fit=crop&auto=format',
+    dims:[['Diamètre','120 cm','#3B8BD4'],['Hauteur','76 cm','#E8593C'],['Rallongée','160 cm','#1D9E75']],
+    features:[['Matière','Chêne MDF'],['Forme','Ronde / ovale'],['Places','4 à 6'],['Rallonge','Papillon'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'table-basse-acacia', cat:'Tables basses', catFull:'Tables basses', name:'Table basse bois naturel', shop:'À venir', shopKey:'but', url:'#', price:249, priceStr:'249 €', l:120, h:40, p:65,
+    photo:'https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?w=600&h=450&fit=crop&auto=format',
+    dims:[['Longueur','120 cm','#1D9E75'],['Largeur','65 cm','#3B8BD4'],['Hauteur','40 cm','#E8593C']],
+    features:[['Matière','Acacia'],['Style','Naturel'],['Plateau','2 tons'],['Pieds','Épingle'],['Garantie','1 an'],['Livraison','Offerte']]},
+  // LITS
+  {id:'lit-josephine', cat:'Lits', catFull:'Lits & Literie', name:'Lit 160×200 tête capitonnée', shop:'À venir', shopKey:'mdm', url:'#', price:549, priceStr:'549 €', l:200, h:110, p:165, badge:'new', badgeLabel:'Nouveau',
+    photo:'https://images.unsplash.com/photo-1505693314120-0d443867891c?w=600&h=450&fit=crop&auto=format',
+    dims:[['Larg. matelas','160 cm','#3B8BD4'],['Long. matelas','200 cm','#1D9E75'],['Haut. tête de lit','110 cm','#E8593C'],['Haut. cadre','35 cm','#BA7517']],
+    features:[['Matière','Bois massif'],['Tête de lit','Capitonnée'],['Matelas inclus','Non'],['Coffre','Non'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'lit-coffre-180', cat:'Lits', catFull:'Lits & Literie', name:'Lit coffre 180×200 rangement', shop:'À venir', shopKey:'conforama', url:'#', price:699, priceStr:'699 €', l:200, h:100, p:185,
+    photo:'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','185 cm','#3B8BD4'],['Longueur','205 cm','#1D9E75'],['Hauteur','100 cm','#E8593C']],
+    features:[['Matelas','180×200'],['Coffre','Intégré'],['Ouverture','Hydraulique'],['Matière','Tissu'],['Garantie','3 ans'],['Livraison','Sur RDV']]},
+  // ARMOIRES
+  {id:'armoire-velvet', cat:'Armoires', catFull:'Armoires & Dressings', name:'Armoire 2 portes poignées dorées', shop:'À venir', shopKey:'alinea', url:'#', price:689, priceStr:'689 €', l:150, h:220, p:58,
+    photo:'https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','150 cm','#3B8BD4'],['Profondeur','58 cm','#1D9E75'],['Hauteur','220 cm','#E8593C']],
+    features:[['Portes','2 battantes'],['Intérieur','Équipé'],['Poignées','Dorées'],['Finition','Laqué mat'],['Garantie','2 ans'],['Livraison','Sur RDV']]},
+  {id:'dressing-modulable', cat:'Armoires', catFull:'Armoires & Dressings', name:'Dressing modulable 3 portes', shop:'À venir', shopKey:'ikea', url:'#', price:350, priceStr:'dès 350 €', l:200, h:236, p:58,
+    photo:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','200 cm','#3B8BD4'],['Profondeur','58 cm','#1D9E75'],['Hauteur','236 cm','#E8593C']],
+    features:[['Nb portes','3 coulissantes'],['Intérieur','Personnalisable'],['Montage','À assembler'],['Matière','Mélaminé'],['Garantie','10 ans'],['Livraison','En kit']]},
+  // BIBLIOTHÈQUES
+  {id:'biblio-modular', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Bibliothèque métal noir 220 cm', shop:'À venir', shopKey:'habitat', url:'#', price:445, priceStr:'445 €', l:100, h:220, p:28,
+    photo:'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','100 cm','#3B8BD4'],['Profondeur','28 cm','#1D9E75'],['Hauteur','220 cm','#E8593C'],['Nb étagères','5','#BA7517']],
+    features:[['Matière','Métal / MDF'],['Étagères','5 ajustables'],['Style','Industriel'],['Couleur','Noir mat'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'biblio-billy-xl', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Bibliothèque blanche 5 étagères', shop:'À venir', shopKey:'ikea', url:'#', price:129, priceStr:'129 €', l:80, h:202, p:28,
+    photo:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=450&fit=crop&auto=format&hue=200&sat=-60',
+    dims:[['Largeur','80 cm','#3B8BD4'],['Profondeur','28 cm','#1D9E75'],['Hauteur','202 cm','#E8593C']],
+    features:[['Couleur','Blanc'],['Étagères','5 ajustables'],['Extension','Possible'],['Matière','MDF'],['Garantie','10 ans'],['Livraison','En kit']]},
+  // BUREAUX
+  {id:'bureau-oak', cat:'Bureaux', catFull:'Bureaux', name:'Bureau chêne avec caissons', shop:'À venir', shopKey:'laredoute', url:'#', price:319, oldPrice:399, priceStr:'319 €', badge:'promo', badgeLabel:'Promo −20%', l:120, h:75, p:60,
+    photo:'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','120 cm','#3B8BD4'],['Profondeur','60 cm','#1D9E75'],['Hauteur','75 cm','#E8593C']],
+    features:[['Matière','MDF / Chêne'],['Caissons','2 tiroirs'],['Style','Scandinave'],['Montage','À assembler'],['Garantie','1 an'],['Promo','-20%']]},
+  {id:'bureau-gaming', cat:'Bureaux', catFull:'Bureaux', name:'Bureau large 160 cm télétravail', shop:'À venir', shopKey:'conforama', url:'#', price:249, priceStr:'249 €', l:160, h:75, p:80,
+    photo:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','160 cm','#3B8BD4'],['Profondeur','80 cm','#1D9E75'],['Hauteur','75 cm','#E8593C']],
+    features:[['Gestion câbles','Oui'],['Matière','MDF noir'],['Pieds','Métal réglable'],['Charge max','80 kg'],['Garantie','2 ans'],['Livraison','Sur RDV']]},
+  // COMMODES
+  {id:'commode-5-tiroirs', cat:'Commodes', catFull:'Commodes', name:'Commode 5 tiroirs bois massif', shop:'À venir', shopKey:'camif', url:'#', price:389, priceStr:'389 €', l:80, h:100, p:42,
+    photo:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','80 cm','#3B8BD4'],['Profondeur','42 cm','#1D9E75'],['Hauteur','100 cm','#E8593C'],['Tiroirs','5','#BA7517']],
+    features:[['Matière','Bois massif'],['Tiroirs','5'],['Poignées','Laiton'],['Fabrication','France'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'commode-basse', cat:'Commodes', catFull:'Commodes', name:'Commode 3 tiroirs blanc mat', shop:'À venir', shopKey:'ikea', url:'#', price:199, priceStr:'199 €', l:96, h:72, p:50,
+    photo:'https://images.unsplash.com/photo-1551298370-9d3d53740c72?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','96 cm','#3B8BD4'],['Profondeur','50 cm','#1D9E75'],['Hauteur','72 cm','#E8593C']],
+    features:[['Matière','MDF blanc'],['Tiroirs','3 larges'],['Pieds','Bois massif'],['Montage','À assembler'],['Garantie','10 ans'],['Livraison','En kit']]},
+  // TABLE BASSE
+  {id:'tbasse-marbre', cat:'Tables basses', catFull:'Tables basses', name:'Table basse marbre & laiton', shop:'À venir', shopKey:'westwing', url:'#', price:580, priceStr:'580 €', l:100, h:38, p:55,
+    photo:'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=600&h=450&fit=crop&auto=format',
+    dims:[['Longueur','100 cm','#1D9E75'],['Largeur','55 cm','#3B8BD4'],['Hauteur','38 cm','#E8593C']],
+    features:[['Plateau','Marbre blanc'],['Pieds','Laiton brossé'],['Style','Luxe'],['Charge max','30 kg'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  // CHAISES
+  {id:'chaise-velvet-6', cat:'Chaises', catFull:'Chaises & Tabourets', name:'Lot 6 chaises velours kaki', shop:'À venir', shopKey:'laredoute', url:'#', price:299, priceStr:'299 €', l:44, h:88, p:54,
+    photo:'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','44 cm','#3B8BD4'],['Profondeur','54 cm','#1D9E75'],['Hauteur','88 cm','#E8593C']],
+    features:[['Lot','6 chaises'],['Matière','Velours'],['Couleur','Kaki'],['Structure','Métal'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'tabouret-bar', cat:'Chaises', catFull:'Chaises & Tabourets', name:'Tabouret de bar réglable', shop:'À venir', shopKey:'but', url:'#', price:89, priceStr:'89 €', l:40, h:80, p:40,
+    photo:'https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','40 cm','#3B8BD4'],['Profondeur','40 cm','#1D9E75'],['Hauteur min','65 cm','#E8593C'],['Hauteur max','82 cm','#E8593C']],
+    features:[['Réglable','Oui'],['Matière','Métal / PU'],['Pivotant','Oui'],['Repose-pieds','Intégré'],['Garantie','1 an'],['Livraison','Offerte']]},
+  // EXTRAS
+  {id:'meuble-tv-velvet', cat:'Commodes', catFull:'Meubles TV & Rangements', name:'Meuble TV 140 cm 2 portes', shop:'À venir', shopKey:'alinea', url:'#', price:389, priceStr:'389 €', l:140, h:50, p:42,
+    photo:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','140 cm','#3B8BD4'],['Profondeur','42 cm','#1D9E75'],['Hauteur','50 cm','#E8593C']],
+    features:[['Portes','2 battantes'],['Câble','Passe-câble'],['Matière','MDF laqué'],['Pieds','Métal noir'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'etagere-leaning', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Étagère inclinée 5 niveaux', shop:'À venir', shopKey:'lm', url:'#', price:89, priceStr:'89 €', l:60, h:170, p:24,
+    photo:'https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','60 cm','#3B8BD4'],['Profondeur','24 cm','#1D9E75'],['Hauteur','170 cm','#E8593C']],
+    features:[['Style','Incliné'],['Matière','Métal / MDF'],['Niveaux','5'],['Couleur','Noir'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'rangement-cube', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Étagère cube 3×3 modulable', shop:'À venir', shopKey:'made', url:'#', price:195, priceStr:'195 €', l:108, h:108, p:32,
+    photo:'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','108 cm','#3B8BD4'],['Profondeur','32 cm','#1D9E75'],['Hauteur','108 cm','#E8593C']],
+    features:[['Casiers','9 cases'],['Matière','Contreplaqué'],['Modulable','Oui'],['Style','Scandinave'],['Garantie','2 ans'],['Livraison','Offerte']]}
+];
+
+/* ════════════════════════════════════════════
+   RENDU GRILLE CATALOGUE
+════════════════════════════════════════════ */
+let currentView = 'grid';
+
+function setView(v){
+  currentView = v;
+  const g = document.getElementById('prodGrid');
+  document.getElementById('viewGrid').classList.toggle('on', v==='grid');
+  document.getElementById('viewList').classList.toggle('on', v==='list');
+  g.classList.toggle('list-mode', v==='list');
+}
+
+function getFilters(){
+  const maxL = sbFilterActive ? sbFilterL : (document.getElementById('sbLslider') ? +document.getElementById('sbLslider').value : 300);
+  const maxH = sbFilterActive ? sbFilterH : (document.getElementById('sbHslider') ? +document.getElementById('sbHslider').value : 300);
+  const maxP = sbFilterActive ? sbFilterP : (document.getElementById('sbPslider') ? +document.getElementById('sbPslider').value : 150);
+  const minPrice = +(document.getElementById('sbPrixMin').value||0);
+  const maxPrice = +(document.getElementById('sbPrixMax').value||99999);
+  const checkedCats = [...document.querySelectorAll('[data-cat]:checked')].map(i=>i.dataset.cat);
+  const checkedShops = [...document.querySelectorAll('[data-shop]:checked')].map(i=>i.dataset.shop);
+  return {maxL, maxH, maxP, minPrice, maxPrice, checkedCats, checkedShops};
+}
+
+function renderGrid(){
+  const f = getFilters();
+  let filtered = PRODUCTS.filter(p =>
+    p.l <= f.maxL && p.h <= f.maxH && p.p <= f.maxP &&
+    p.price >= f.minPrice && p.price <= f.maxPrice &&
+    (f.checkedCats.length===0 || f.checkedCats.some(c=>p.cat.includes(c))) &&
+    (f.checkedShops.length===0 || f.checkedShops.includes(p.shopKey))
+  );
+  document.getElementById('prodCount').textContent = filtered.length;
+  const grid = document.getElementById('prodGrid');
+  grid.innerHTML = filtered.map(p => `
+    <div class="card-cat-item" data-pid="${p.id}" onclick="openModal('${p.id}')">
+      <div class="card-dims-banner">
+        <div class="cdb-item"><div class="cdb-axis">Larg.</div><div class="cdb-val">${p.l}<span class="cdb-unit"> cm</span></div></div>
+        <div class="cdb-item"><div class="cdb-axis">Haut.</div><div class="cdb-val">${p.h}<span class="cdb-unit"> cm</span></div></div>
+        <div class="cdb-item"><div class="cdb-axis">Prof.</div><div class="cdb-val">${p.p}<span class="cdb-unit"> cm</span></div></div>
+      </div>
+      <div class="card-img-zone" style="background:#e8ead8">
+        <img src="${p.photo}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0" onerror="this.style.display='none'">
+        ${p.badge ? `<div class="card-badge-wrap"><span class="card-badge ${p.badge}">${p.badgeLabel}</span></div>` : ''}
+      </div>
+      <div class="card-body-cat">
+        <div class="card-cat-label">${p.catFull}</div>
+        <div class="card-name-cat">${p.name}</div>
+        <div class="card-desc-cat">${p.desc||''}</div>
+        <div class="card-footer-cat">
+          <div class="card-price-cat">${p.priceStr}${p.oldPrice?`<small>${p.oldPrice} €</small>`:''}</div>
+          <button class="card-cta" onclick="event.stopPropagation();openModal('${p.id}')">Voir ce meuble</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterCat(el, cat){
+  document.querySelectorAll('.ci').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  if(cat !== 'Tous'){
+    document.querySelectorAll('[data-cat]').forEach(cb => { cb.checked = cb.dataset.cat===cat; });
+  } else {
+    document.querySelectorAll('[data-cat]').forEach(cb => { cb.checked = false; });
+  }
+  renderGrid();
+}
+
+function toggleSb(head){
+  head.classList.toggle('open');
+  const body = head.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+function applyHeroDimSearch(){
+  const l = +document.getElementById('hLslider').value;
+  const h = +document.getElementById('hHslider').value;
+  const p = +document.getElementById('hPslider').value;
+  // Écrit dans les globals de filtre
+  sbFilterActive = true;
+  sbFilterL = l; sbFilterH = h; sbFilterP = p;
+  renderGrid();
+  document.getElementById('catalogue').scrollIntoView({behavior:'smooth'});
+}
+
+function resetHeroDims(){
+  document.getElementById('hLslider').value = 80; document.getElementById('hLval').textContent = '80 cm';
+  document.getElementById('hHslider').value = 180; document.getElementById('hHval').textContent = '180 cm';
+  document.getElementById('hPslider').value = 50; document.getElementById('hPval').textContent = '50 cm';
+  sbFilterActive = false;
+  renderGrid();
+}
+
+/* ════════════════════════════════════════════
+   MODALE
+════════════════════════════════════════════ */
+function openModal(id){
+  const p = PRODUCTS.find(x=>x.id===id); if(!p) return;
+  document.getElementById('mCat').textContent = p.catFull||'';
+  document.getElementById('mSite').textContent = '📐 Dimensions détaillées';
+  document.getElementById('mTitle').textContent = p.name||'';
+  document.getElementById('mDesc').textContent = p.desc||'Description complète disponible lors du lancement officiel du site.';
+  document.getElementById('mPrice').textContent = p.priceStr;
+  const cta = document.getElementById('mCta');
+  cta.href = '#';
+  cta.textContent = '🔗 Lien enseigne disponible au lancement';
+  cta.style.background = 'var(--k5)';
+  cta.style.opacity = '.7';
+  cta.style.cursor = 'default';
+  cta.onclick = (e) => e.preventDefault();
+  document.getElementById('mDims').innerHTML = (p.dims||[]).map(d=>`<div class="modal-dim-row"><span class="modal-dim-label"><span class="modal-dim-dot" style="background:${d[2]}"></span>${d[0]}</span><span class="modal-dim-val" style="color:${d[2]}">${d[1]}</span></div>`).join('');
+  document.getElementById('mFeatures').innerHTML = (p.features||[]).map(f=>`<div class="modal-feat"><div class="modal-feat-label">${f[0]}</div><div class="modal-feat-val">${f[1]}</div></div>`).join('');
+  const imgEl = document.getElementById('mImg');
+  if(p.photo){
+    imgEl.innerHTML = `<img src="${p.photo}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:6px;display:block;min-height:200px">`;
+  } else {
+    imgEl.innerHTML = `<div style="padding:24px;width:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px">Photo non disponible</div>`;
+  }
+  document.getElementById('productModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(e, force){
+  if(force||(e&&e.target===document.getElementById('productModal'))){
+    document.getElementById('productModal').classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+
+/* ════════════════════════════════════════════
+   SHOPPABLE ROOM
+════════════════════════════════════════════ */
+let activeTip2=null;
+function toggleTip2(n){
+  const tip=document.getElementById('r2tt'+n), hs=document.getElementById('r2hs'+n), wrap=document.getElementById('roomWrap2');
+  if(activeTip2===n){tip.classList.remove('show');hs.classList.remove('act');activeTip2=null;return;}
+  for(let i=1;i<=5;i++){document.getElementById('r2tt'+i).classList.remove('show');document.getElementById('r2hs'+i).classList.remove('act');document.getElementById('r2pc'+i).classList.remove('hl');}
+  const wrapRect=wrap.getBoundingClientRect(),hsRect=hs.getBoundingClientRect();
+  const relX=hsRect.left-wrapRect.left,relY=hsRect.top-wrapRect.top,wrapW=wrapRect.width;
+  let left=relX+22,top=relY-90;
+  if(left+195>wrapW-8)left=relX-205;
+  if(top<5)top=5;
+  tip.style.left=left+'px';tip.style.top=top+'px';
+  tip.classList.add('show');hs.classList.add('act');
+  document.getElementById('r2pc'+n).classList.add('hl');
+  activeTip2=n;
+}
+function hlHs2(n){
+  for(let i=1;i<=5;i++){document.getElementById('r2tt'+i).classList.remove('show');document.getElementById('r2hs'+i).classList.remove('act');document.getElementById('r2pc'+i).classList.remove('hl');}
+  document.getElementById('r2pc'+n).classList.add('hl');document.getElementById('r2hs'+n).classList.add('act');
+}
+document.getElementById('roomWrap2').addEventListener('click',function(e){
+  if(!e.target.closest('.hotspot')&&!e.target.closest('.tt')){
+    for(let i=1;i<=5;i++){document.getElementById('r2tt'+i).classList.remove('show');document.getElementById('r2hs'+i).classList.remove('act');}
+    activeTip2=null;
+  }
+});
+
+/* ════════════════════════════════════════════
+   CONFIGURATEUR DIMENSIONS (repris de v30)
+════════════════════════════════════════════ */
+const TYPES=[
+  {id:'commode',label:'Commode',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:30,max:180,step:1,val:80,unit:'cm'},{id:'h',label:'Hauteur',color:'#E8593C',min:40,max:130,step:1,val:90,unit:'cm'},{id:'d',label:'Profondeur',color:'#1D9E75',min:20,max:80,step:1,val:45,unit:'cm'},{id:'pl',label:'Haut. pieds',color:'#c4a35a',min:0,max:20,step:1,val:8,unit:'cm'},{id:'dr',label:'Nb tiroirs',color:'#8a9e6a',min:2,max:6,step:1,val:3,unit:''}]},
+  {id:'canape',label:'Canapé',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:120,max:320,step:5,val:220,unit:'cm'},{id:'h',label:'Hauteur tot.',color:'#E8593C',min:60,max:100,step:1,val:82,unit:'cm'},{id:'d',label:'Profondeur',color:'#1D9E75',min:60,max:110,step:1,val:88,unit:'cm'},{id:'pl',label:'Haut. pieds',color:'#c4a35a',min:0,max:20,step:1,val:8,unit:'cm'}]},
+  {id:'lit',label:'Lit',dims:[{id:'w',label:'Larg. matelas',color:'#3B8BD4',min:80,max:200,step:10,val:160,unit:'cm'},{id:'l',label:'Long. matelas',color:'#1D9E75',min:160,max:220,step:10,val:200,unit:'cm'},{id:'ht',label:'Haut. tête lit',color:'#E8593C',min:30,max:150,step:5,val:100,unit:'cm'}]},
+  {id:'table',label:'Table',dims:[{id:'l',label:'Longueur',color:'#1D9E75',min:80,max:300,step:5,val:160,unit:'cm'},{id:'w',label:'Largeur',color:'#3B8BD4',min:60,max:120,step:5,val:90,unit:'cm'},{id:'h',label:'Hauteur',color:'#E8593C',min:65,max:82,step:1,val:75,unit:'cm'}]},
+  {id:'armoire',label:'Armoire',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:60,max:300,step:5,val:150,unit:'cm'},{id:'h',label:'Hauteur',color:'#E8593C',min:150,max:260,step:5,val:220,unit:'cm'},{id:'d',label:'Profondeur',color:'#1D9E75',min:40,max:80,step:1,val:58,unit:'cm'},{id:'pr',label:'Nb portes',color:'#c4a35a',min:1,max:5,step:1,val:2,unit:''}]},
+  {id:'bureau',label:'Bureau',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:80,max:200,step:5,val:120,unit:'cm'},{id:'h',label:'Hauteur',color:'#E8593C',min:68,max:82,step:1,val:75,unit:'cm'},{id:'d',label:'Profondeur',color:'#1D9E75',min:40,max:100,step:5,val:60,unit:'cm'},{id:'dr',label:'Nb tiroirs',color:'#c4a35a',min:0,max:4,step:1,val:1,unit:''}]},
+  {id:'etagere',label:'Étagère',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:40,max:200,step:5,val:100,unit:'cm'},{id:'h',label:'Hauteur',color:'#E8593C',min:80,max:250,step:5,val:180,unit:'cm'},{id:'d',label:'Profondeur',color:'#1D9E75',min:15,max:50,step:1,val:28,unit:'cm'},{id:'ne',label:'Nb étagères',color:'#c4a35a',min:2,max:8,step:1,val:5,unit:''}]},
+  {id:'fauteuil',label:'Fauteuil',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:50,max:100,step:1,val:75,unit:'cm'},{id:'h',label:'Hauteur',color:'#E8593C',min:70,max:120,step:1,val:90,unit:'cm'},{id:'d',label:'Profondeur',color:'#1D9E75',min:60,max:110,step:1,val:80,unit:'cm'},{id:'pl',label:'Haut. pieds',color:'#c4a35a',min:0,max:20,step:1,val:10,unit:'cm'}]},
+  {id:'chaise',label:'Chaise',dims:[{id:'w',label:'Largeur',color:'#3B8BD4',min:30,max:65,step:1,val:45,unit:'cm'},{id:'h',label:'Hauteur tot.',color:'#E8593C',min:70,max:110,step:1,val:88,unit:'cm'},{id:'d',label:'Profondeur',color:'#1D9E75',min:35,max:65,step:1,val:48,unit:'cm'},{id:'ha',label:'Haut. assise',color:'#c4a35a',min:40,max:55,step:1,val:46,unit:'cm'}]},
+  {id:'tbasse',label:'Table basse',dims:[{id:'l',label:'Longueur',color:'#1D9E75',min:40,max:180,step:5,val:120,unit:'cm'},{id:'w',label:'Largeur',color:'#3B8BD4',min:30,max:90,step:5,val:60,unit:'cm'},{id:'h',label:'Hauteur',color:'#E8593C',min:25,max:55,step:1,val:40,unit:'cm'}]}
+];
+
+const svgIconsSmall={
+  commode:'<svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="30" height="22" rx="2"/><line x1="3" y1="12" x2="33" y2="12"/><line x1="3" y1="19" x2="33" y2="19"/><circle cx="18" cy="8.5" r="1.5" fill="currentColor"/><circle cx="18" cy="15.5" r="1.5" fill="currentColor"/><circle cx="18" cy="22.5" r="1.5" fill="currentColor"/><line x1="8" y1="27" x2="8" y2="31"/><line x1="28" y1="27" x2="28" y2="31"/></svg>',
+  canape:'<svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="19" width="26" height="9" rx="3"/><rect x="5" y="12" width="26" height="9" rx="2"/><rect x="2" y="17" width="6" height="9" rx="2"/><rect x="28" y="17" width="6" height="9" rx="2"/><line x1="7" y1="28" x2="6" y2="32"/><line x1="29" y1="28" x2="30" y2="32"/></svg>',
+  lit:'<svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="18" width="30" height="9" rx="2"/><rect x="3" y="9" width="30" height="11" rx="3"/><rect x="5" y="11" width="11" height="7" rx="2"/><rect x="20" y="11" width="11" height="7" rx="2"/><line x1="5" y1="27" x2="5" y2="31"/><line x1="31" y1="27" x2="31" y2="31"/></svg>',
+  table:'<svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="14" width="30" height="5" rx="1"/><line x1="9" y1="19" x2="9" y2="31"/><line x1="27" y1="19" x2="27" y2="31"/></svg>',
+  armoire:'<svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="28" height="30" rx="2"/><line x1="18" y1="3" x2="18" y2="33"/><circle cx="15" cy="18" r="1.5" fill="currentColor"/><circle cx="21" cy="18" r="1.5" fill="currentColor"/><line x1="9" y1="33" x2="9" y2="36"/><line x1="27" y1="33" x2="27" y2="36"/></svg>',
+  bureau:'<svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="16" width="30" height="5" rx="1"/><rect x="24" y="21" width="9" height="9" rx="1"/><line x1="7" y1="21" x2="7" y2="30"/><line x1="22" y1="21" x2="22" y2="30"/></svg>',
+  etagere:'<svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="4" x2="5" y2="32"/><line x1="31" y1="4" x2="31" y2="32"/><line x1="5" y1="10" x2="31" y2="10"/><line x1="5" y1="18" x2="31" y2="18"/><line x1="5" y1="26" x2="31" y2="26"/><line x1="5" y1="32" x2="31" y2="32"/></svg>',
+  fauteuil:'<svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="9" y="7" width="18" height="16" rx="3"/><rect x="9" y="20" width="18" height="7" rx="2"/><rect x="4" y="19" width="7" height="7" rx="2"/><rect x="25" y="19" width="7" height="7" rx="2"/><line x1="11" y1="27" x2="10" y2="31"/><line x1="25" y1="27" x2="26" y2="31"/></svg>',
+  chaise:'<svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="9" y="16" width="18" height="5" rx="1"/><rect x="11" y="7" width="14" height="11" rx="2"/><line x1="11" y1="21" x2="9" y2="31"/><line x1="25" y1="21" x2="27" y2="31"/></svg>',
+  tbasse:'<svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="17" width="30" height="6" rx="1"/><line x1="8" y1="23" x2="7" y2="29"/><line x1="28" y1="23" x2="29" y2="29"/><line x1="14" y1="23" x2="14" y2="29"/><line x1="22" y1="23" x2="22" y2="29"/></svg>'
+};
+
+let cur=TYPES[0], vals={};
+function dimActive(id){ return !!cur.dims.find(d=>d.id===id); }
+
+/* ════════════════════════════════════════════
+   CONFIGURATEUR v4 — section #recherche
+════════════════════════════════════════════ */
+
+const CFG_CX = 240;
+const CFG_PX = { commode:1.8, table:1.2, canape:0.8, armoire:1.8, bureau:1.4, lit:1.4, etagere:1.5, tbasse:2.0 };
+function cfgGetPX(){ return CFG_PX[cfgType] || 1.6; }
+
+const CFG_RANGES = {
+  commode: { L:[80,120,30,220], H:[70,100,30,200], P:[35,55,15,100] },
+  table:   { L:[100,160,40,300], H:[70,80,50,120],  P:[80,100,40,150] },
+  canape:  { L:[160,220,80,350], H:[70,90,50,120],  P:[80,100,50,130] },
+  armoire: { L:[80,120,30,250],  H:[160,200,80,250], P:[45,65,20,100]  },
+  bureau:  { L:[110,160,60,250], H:[70,80,50,120],  P:[55,75,30,120]  },
+  lit:     { L:[90,160,80,200],  H:[80,120,60,160],  P:[190,200,150,220] },
+  etagere: { L:[60,100,30,200],  H:[120,180,60,240], P:[20,30,10,60]   },
+  tbasse:  { L:[80,120,40,200],  H:[35,45,20,70],    P:[50,70,30,110]  },
+};
+const CFG_STATE = {
+  commode:{ tiroirs:3, piedH:10 }, table:{ pieds:'4pieds', forme:'rect' },
+  canape:{ places:3, disposition:'droit' }, armoire:{ portes:2, tiroirs:2 },
+  bureau:{ epaisseurPlateau:3, retour:false }, lit:{},
+  etagere:{ etageres:5 }, tbasse:{ pieds:'4pieds' },
+};
+let cfgRanges = {}, cfgType = 'commode';
+
+/* ── Labels des dimensions par type ── */
+const CFG_DIM_LABELS = {
+  commode: { L:'Largeur', H:'Hauteur', P:'Profondeur' },
+  table:   { L:'Largeur', H:'Hauteur', P:'Profondeur' },
+  canape:  { L:'Largeur', H:'Hauteur', P:'Prof. assise' },
+  armoire: { L:'Largeur', H:'Hauteur', P:'Profondeur' },
+  bureau:  { L:'Largeur', H:'Hauteur', P:'Profondeur' },
+  lit:     { L:'Larg. matelas', H:'Haut. tête de lit', P:'Long. matelas' },
+  etagere: { L:'Largeur', H:'Hauteur', P:'Profondeur' },
+  tbasse:  { L:'Longueur', H:'Hauteur', P:'Largeur' },
+};
+
+function cfgInitRanges(type){
+  cfgRanges = {};
+  Object.entries(CFG_RANGES[type]).forEach(([dim,[mn,mx]])=>{ cfgRanges[dim]={min:mn,max:mx}; });
+}
+function cfgNS(tag,a={}){ const e=document.createElementNS('http://www.w3.org/2000/svg',tag); Object.entries(a).forEach(([k,v])=>e.setAttribute(k,v)); return e; }
+function cfgSA(id,a){ const e=document.getElementById(id); if(e) Object.entries(a).forEach(([k,v])=>e.setAttribute(k,v)); }
+function cfgST(id,v){ const e=document.getElementById(id); if(e) e.textContent=v; }
+
+function cfgSetType(type, btn){
+  cfgType = type;
+  cfgInitRanges(type);
+  document.querySelectorAll('.cfg-type-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  cfgCloseCote();
+  cfgBuildPanel();
+}
+
+function cfgSyncRange(dim){
+  const defs = CFG_RANGES[cfgType]; if(!defs||!defs[dim]) return;
+  const [,,absMin,absMax] = defs[dim];
+  const rMin=document.getElementById('cfgRmin_'+dim), rMax=document.getElementById('cfgRmax_'+dim);
+  if(!rMin||!rMax) return;
+  let lo=parseInt(rMin.value), hi=parseInt(rMax.value);
+  if(lo>hi){lo=hi; rMin.value=lo;}
+  cfgRanges[dim]={min:lo,max:hi};
+  const vMin=document.getElementById('cfgVmin_'+dim), vMax=document.getElementById('cfgVmax_'+dim);
+  if(vMin) vMin.value=lo; if(vMax) vMax.value=hi;
+  const rf=document.getElementById('cfgRf_'+dim);
+  if(rf){ const pLo=(lo-absMin)/(absMax-absMin)*100, pHi=(hi-absMin)/(absMax-absMin)*100; rf.style.left=pLo+'%'; rf.style.width=(pHi-pLo)+'%'; }
+  cfgRedraw();
+}
+
+function cfgBuildPanel(){
+  const panel = document.getElementById('cfgLeft');
+  if(!panel) return;
+  panel.innerHTML = '';
+  const defs = CFG_RANGES[cfgType];
+  const labels = CFG_DIM_LABELS[cfgType] || { L:'Largeur', H:'Hauteur', P:'Profondeur' };
+
+  const addLbl = t => { const d=document.createElement('div'); d.className='cfg-sec-lbl'; d.textContent=t; panel.appendChild(d); };
+
+  const addRange = (dim, color, name) => {
+    const [,,absMin,absMax] = defs[dim];
+    const {min,max} = cfgRanges[dim];
+    const pLo=(min-absMin)/(absMax-absMin)*100, pHi=(max-absMin)/(absMax-absMin)*100;
+    const w=document.createElement('div'); w.className='cfg-dim-range';
+    w.innerHTML=`<div class="cfg-dim-range-top">
+        <div class="cfg-dot" style="background:${color}"></div>
+        <span class="cfg-dim-lbl">${name}</span>
+        <div class="cfg-dim-vals">
+          <input class="cfg-val-box" id="cfgVmin_${dim}" type="number" value="${min}" min="${absMin}" max="${absMax}">
+          <span class="cfg-val-sep">–</span>
+          <input class="cfg-val-box" id="cfgVmax_${dim}" type="number" value="${max}" min="${absMin}" max="${absMax}">
+          <span class="cfg-val-unit">cm</span>
+        </div>
+      </div>
+      <div class="cfg-range-dbl">
+        <div class="cfg-range-track"></div>
+        <div class="cfg-range-fill" id="cfgRf_${dim}" style="left:${pLo}%;width:${pHi-pLo}%"></div>
+        <input type="range" id="cfgRmin_${dim}" min="${absMin}" max="${absMax}" value="${min}" step="1">
+        <input type="range" id="cfgRmax_${dim}" min="${absMin}" max="${absMax}" value="${max}" step="1">
+      </div>`;
+    panel.appendChild(w);
+    document.getElementById('cfgRmin_'+dim).addEventListener('input',()=>{ const a=document.getElementById('cfgRmin_'+dim),b=document.getElementById('cfgRmax_'+dim); if(parseInt(a.value)>parseInt(b.value))b.value=a.value; cfgSyncRange(dim); });
+    document.getElementById('cfgRmax_'+dim).addEventListener('input',()=>{ const a=document.getElementById('cfgRmin_'+dim),b=document.getElementById('cfgRmax_'+dim); if(parseInt(b.value)<parseInt(a.value))a.value=b.value; cfgSyncRange(dim); });
+    document.getElementById('cfgVmin_'+dim).addEventListener('change',e=>{ const b=document.getElementById('cfgRmax_'+dim); let v=Math.min(Math.max(parseInt(e.target.value)||absMin,absMin),parseInt(b.value)); document.getElementById('cfgRmin_'+dim).value=v; e.target.value=v; cfgSyncRange(dim); });
+    document.getElementById('cfgVmax_'+dim).addEventListener('change',e=>{ const a=document.getElementById('cfgRmin_'+dim); let v=Math.min(Math.max(parseInt(e.target.value)||absMax,parseInt(a.value)),absMax); document.getElementById('cfgRmax_'+dim).value=v; e.target.value=v; cfgSyncRange(dim); });
+    cfgSyncRange(dim);
+  };
+
+  const addStepper = (label, key, min, max, unit='') => {
+    const val = (CFG_STATE[cfgType]||{})[key] ?? min;
+    const d=document.createElement('div'); d.className='cfg-stepper';
+    d.innerHTML=`<span style="font-size:12px;color:var(--muted);font-weight:500;flex:1">${label}</span>
+      <div style="display:flex;align-items:center;gap:6px">
+        <button class="cfg-step-btn" onclick="cfgChg('${key}',${min},${max},-1)">−</button>
+        <span class="cfg-step-val" id="cfgV_${key}">${val}${unit?'<span style="font-size:10px;color:var(--muted);margin-left:2px">'+unit+'</span>':''}</span>
+        <button class="cfg-step-btn" onclick="cfgChg('${key}',${min},${max},1)">+</button>
+      </div>`;
+    panel.appendChild(d);
+  };
+
+  const addSeg = (label, key, opts) => {
+    const cur = (CFG_STATE[cfgType]||{})[key];
+    const d=document.createElement('div'); d.className='cfg-seg';
+    const btns=opts.map(o=>`<button class="cfg-seg-btn${o.v===cur?' active':''}" onclick="cfgSetSeg('${key}','${o.v}',this)">${o.l}</button>`).join('');
+    d.innerHTML=`<span style="font-size:12px;color:var(--muted);font-weight:500;flex:1">${label}</span><div class="cfg-seg-ctrl">${btns}</div>`;
+    panel.appendChild(d);
+  };
+
+  const addToggle = (label, key) => {
+    const cur = (CFG_STATE[cfgType]||{})[key];
+    const d=document.createElement('div'); d.className='cfg-tog';
+    d.innerHTML=`<span style="font-size:12px;color:var(--muted);font-weight:500;flex:1">${label}</span>
+      <div class="cfg-tog-ctrl">
+        <button class="cfg-tog-btn${!cur?' active':''}" onclick="cfgSetTog('${key}',false,this.parentNode)">Non</button>
+        <button class="cfg-tog-btn${cur?' active':''}" onclick="cfgSetTog('${key}',true,this.parentNode)">Oui</button>
+      </div>`;
+    panel.appendChild(d);
+  };
+
+  addLbl('Dimensions');
+  if(cfgType==='commode'){ addRange('L','#2c5f8a',labels.L); addRange('H','#c0392b',labels.H); addRange('P','#1a6b4a',labels.P); addLbl('Caractéristiques'); addStepper('Nb. de tiroirs','tiroirs',1,8); addStepper('Hauteur de pied','piedH',0,30,'cm'); }
+  else if(cfgType==='table'){ addRange('L','#2c5f8a',labels.L); addRange('H','#c0392b',labels.H); addRange('P','#1a6b4a',labels.P); addLbl('Caractéristiques'); addSeg('Pieds','pieds',[{v:'4pieds',l:'4 pieds'},{v:'central',l:'Central'},{v:'tresteau',l:'Tréteau'}]); addSeg('Forme','forme',[{v:'rect',l:'Rect.'},{v:'rond',l:'Ronde'},{v:'ovale',l:'Ovale'}]); }
+  else if(cfgType==='canape'){ addRange('L','#2c5f8a',labels.L); addRange('H','#c0392b',labels.H); addRange('P','#1a6b4a',labels.P); addLbl('Caractéristiques'); addStepper('Nb. de places','places',1,6); addSeg('Disposition','disposition',[{v:'droit',l:'Droit'},{v:'angle',l:'Angle'},{v:'merid',l:'Mérid.'}]); }
+  else if(cfgType==='armoire'){ addRange('L','#2c5f8a',labels.L); addRange('H','#c0392b',labels.H); addRange('P','#1a6b4a',labels.P); addLbl('Caractéristiques'); addStepper('Nb. de portes','portes',1,6); addStepper('Nb. de tiroirs','tiroirs',0,6); }
+  else if(cfgType==='bureau'){ addRange('L','#2c5f8a',labels.L); addRange('H','#c0392b',labels.H); addRange('P','#1a6b4a',labels.P); addLbl('Caractéristiques'); addStepper('Épaisseur plateau','epaisseurPlateau',1,8,'cm'); addToggle('Avec retour','retour'); }
+  else if(cfgType==='lit'){ addRange('L','#2c5f8a',labels.L); addRange('H','#c0392b',labels.H); addRange('P','#1a6b4a',labels.P); }
+  else if(cfgType==='etagere'){ addRange('L','#2c5f8a',labels.L); addRange('H','#c0392b',labels.H); addRange('P','#1a6b4a',labels.P); addLbl('Caractéristiques'); addStepper("Nb. d’étagères",'etageres',2,10); }
+  else if(cfgType==='tbasse'){ addRange('L','#2c5f8a',labels.L); addRange('H','#c0392b',labels.H); addRange('P','#1a6b4a',labels.P); addSeg('Pieds','pieds',[{v:'4pieds',l:'4 pieds'},{v:'central',l:'Central'}]); }
+  else { addRange('L','#2c5f8a',labels.L); addRange('H','#c0392b',labels.H); addRange('P','#1a6b4a',labels.P); }
+
+  const btn=document.createElement('button'); btn.className='cfg-search-btn'; btn.textContent='Voir les meubles correspondants →'; btn.onclick=cfgSearch;
+  panel.appendChild(btn);
+  cfgRedraw();
+}
+
+function cfgChg(key,min,max,d){ if(!CFG_STATE[cfgType])CFG_STATE[cfgType]={}; CFG_STATE[cfgType][key]=Math.min(max,Math.max(min,(CFG_STATE[cfgType][key]??min)+d)); const e=document.getElementById('cfgV_'+key); if(e) e.innerHTML=CFG_STATE[cfgType][key]+(key==='piedH'||key==='epaisseurPlateau'?'<span style="font-size:10px;color:var(--muted);margin-left:2px">cm</span>':''); cfgRedraw(); }
+function cfgSetSeg(key,val,btn){ if(CFG_STATE[cfgType])CFG_STATE[cfgType][key]=val; btn.closest('.cfg-seg-ctrl').querySelectorAll('.cfg-seg-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); cfgRedraw(); }
+function cfgSetTog(key,val,ctrl){ if(CFG_STATE[cfgType])CFG_STATE[cfgType][key]=val; ctrl.querySelectorAll('.cfg-tog-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&!val)||(i===1&&val))); cfgRedraw(); }
+
+/* ── Cotes GLISSABLES — drag sur la ligne de cote pour modifier la valeur ── */
+let cfgDragState = null; // { dim, startPx, startVal, absMin, absMax, svgRect, isVertical }
+
+function cfgStartDrag(e, dim){
+  e.preventDefault();
+  const defs = CFG_RANGES[cfgType]; if(!defs||!defs[dim]) return;
+  const [,,absMin,absMax] = defs[dim];
+  const currentVal = cfgRanges[dim]?.max || absMax;
+  const svgEl = document.getElementById('cfgSvg');
+  const svgRect = svgEl.getBoundingClientRect();
+  const isTouch = e.type === 'touchstart';
+  const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+  const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+
+  // H est vertical (drag haut/bas), L et P sont horizontaux (drag gauche/droite)
+  const isVertical = (dim === 'H');
+
+  cfgDragState = { dim, startPx: isVertical ? clientY : clientX, startVal: currentVal,
+                   absMin, absMax, svgRect, isVertical };
+
+  // Highlight
+  const grp = document.getElementById('cfg' + (dim==='H'?'CH':dim==='L'?'CL':'CP'));
+  if(grp) grp.classList.add('dragging');
+
+  // Show tooltip
+  cfgShowDragTooltip(clientX, clientY, currentVal, dim, svgRect);
+}
+
+function cfgShowDragTooltip(cx, cy, val, dim, svgRect){
+  const tt = document.getElementById('cfgDragTooltip');
+  if(!tt) return;
+  const wrap = document.getElementById('cfgSvg').closest('.cfg-svg-wrap') || document.getElementById('cfgSvg').parentElement;
+  const wRect = wrap.getBoundingClientRect();
+  tt.textContent = val + ' cm';
+  tt.style.left = Math.max(0, cx - wRect.left - 30) + 'px';
+  tt.style.top = Math.max(0, cy - wRect.top - 34) + 'px';
+  tt.classList.add('show');
+}
+
+function cfgOnDragMove(e){
+  if(!cfgDragState) return;
+  e.preventDefault();
+  const isTouch = e.type === 'touchmove';
+  const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+  const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+  const { dim, startPx, startVal, absMin, absMax, svgRect, isVertical } = cfgDragState;
+
+  // Pixels parcourus → delta cm
+  // Sensibilité : 1px ≈ 1/PX cm. Drag vertical inversé (vers haut = plus grand)
+  const PX = cfgGetPX();
+  const curPx = isVertical ? clientY : clientX;
+  const deltaPx = curPx - startPx;
+  const deltaCm = Math.round(isVertical ? -deltaPx / PX : deltaPx / PX);
+  let newVal = Math.min(absMax, Math.max(absMin, startVal + deltaCm));
+
+  // Met à jour cfgRanges et redessine
+  const rMax = document.getElementById('cfgRmax_'+dim);
+  const rMin = document.getElementById('cfgRmin_'+dim);
+  if(rMax){
+    newVal = Math.max(newVal, parseInt(rMin?.value||absMin));
+    rMax.value = newVal;
+    cfgSyncRange(dim);
+  } else {
+    cfgRanges[dim] = { min: cfgRanges[dim]?.min||absMin, max: newVal };
+    cfgRedraw();
+  }
+
+  // Update tooltip
+  cfgShowDragTooltip(clientX, clientY, newVal, dim, svgRect);
+}
+
+function cfgOnDragEnd(e){
+  if(!cfgDragState) return;
+  const { dim } = cfgDragState;
+  const grp = document.getElementById('cfg' + (dim==='H'?'CH':dim==='L'?'CL':'CP'));
+  if(grp) grp.classList.remove('dragging');
+  const tt = document.getElementById('cfgDragTooltip');
+  if(tt) tt.classList.remove('show');
+  cfgDragState = null;
+}
+
+// Listeners globaux pour le drag
+document.addEventListener('mousemove', cfgOnDragMove);
+document.addEventListener('mouseup',   cfgOnDragEnd);
+document.addEventListener('touchmove', cfgOnDragMove, { passive: false });
+document.addEventListener('touchend',  cfgOnDragEnd);
+
+function cfgSearch(){
+  const maxL=cfgRanges.L?.max||300, maxH=cfgRanges.H?.max||300, maxP=cfgRanges.P?.max||150;
+  const minL=cfgRanges.L?.min||0, minH=cfgRanges.H?.min||0, minP=cfgRanges.P?.min||0;
+  const catMap = { commode:'Commodes', table:'Tables', canape:'Canapés', armoire:'Armoires', bureau:'Bureaux', lit:'Lits', etagere:'Bibliothèques', tbasse:'Tables basses' };
+  const cat = catMap[cfgType]||'';;
+  const results = PRODUCTS.filter(p =>
+    p.l>=minL && p.l<=maxL && p.h>=minH && p.h<=maxH && p.p>=minP && p.p<=maxP &&
+    (cat===''||p.cat===cat)
+  );
+  const count=document.getElementById('cfgResCount');
+  const grid=document.getElementById('cfgResGrid');
+  if(count) count.textContent = results.length + ' meuble'+(results.length!==1?'s':'');
+  if(grid){
+    if(results.length===0){
+      grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--muted);font-size:13px">Aucun meuble ne correspond à ces dimensions.<br><span style="font-size:12px">Essayez d’élargir les plages de dimensions.</span></div>';
+    } else {
+      grid.innerHTML = results.map(p=>`
+        <div class="cfg-res-card" onclick="openModal('${p.id}')">
+          <div class="cfg-res-img"><img src="${p.photo||''}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="cfg-res-body">
+            <div class="cfg-res-dims">
+              <span class="cfg-res-dim">L ${p.l}cm</span>
+              <span class="cfg-res-dim">H ${p.h}cm</span>
+              <span class="cfg-res-dim">P ${p.p}cm</span>
+            </div>
+            <div class="cfg-res-name">${p.name}</div>
+            <div class="cfg-res-price">${p.priceStr}</div>
+            <button class="cfg-res-cta" onclick="event.stopPropagation();openModal('${p.id}')">Voir ce meuble</button>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+}
+
+/* ── Grand SVG configurateur — dessin fidèle outil v4 ── */
+function cfgRedraw(){
+  const PX=cfgGetPX();
+  const L=cfgRanges.L?cfgRanges.L.max:100, H=cfgRanges.H?cfgRanges.H.max:90, P=cfgRanges.P?cfgRanges.P.max:50;
+  const wPx=Math.round(L*PX), hPx=Math.round(H*PX), pPx=Math.round(P*PX);
+  const bx=CFG_CX-wPx/2, fby=26, fSolY=fby+hPx;
+  const ns=cfgNS, g1=document.getElementById('cfgShapeG'), g2=document.getElementById('cfgTopG');
+  if(!g1||!g2) return;
+  g1.innerHTML=''; g2.innerHTML='';
+  const state=CFG_STATE[cfgType]||{};
+
+  /* ══════ VUE DE FACE ══════ */
+  if(cfgType==='commode'){
+    g1.appendChild(ns('rect',{x:bx,y:fby,width:wPx,height:hPx,rx:'4',fill:'#eaf0d4',stroke:'#3d5228','stroke-width':'2'}));
+    const n=state.tiroirs||3,pad=hPx*.04,gap=hPx*.025,tirH=(hPx-pad*2-gap*(n-1))/n;
+    for(let i=0;i<n;i++){
+      const ty=fby+pad+i*(tirH+gap);
+      g1.appendChild(ns('rect',{x:bx+6,y:ty,width:wPx-12,height:Math.max(5,tirH),rx:'3',fill:'#d8e8b0',stroke:'#4a6a2a','stroke-width':'1'}));
+      if(tirH>=10) g1.appendChild(ns('circle',{cx:bx+wPx/2,cy:ty+tirH/2,r:Math.min(5,tirH*.2),fill:'#7a5c38'}));
+    }
+    const ph=Math.max(2,Math.round((state.piedH||10)*PX)),fw=10;
+    g1.appendChild(ns('rect',{x:bx+6,y:fby+hPx,width:fw,height:ph,rx:'2',fill:'#7a5c38'}));
+    g1.appendChild(ns('rect',{x:bx+wPx-6-fw,y:fby+hPx,width:fw,height:ph,rx:'2',fill:'#7a5c38'}));
+
+  } else if(cfgType==='table'){
+    const forme=state.forme||'rect',ep=Math.max(6,hPx*.08),piedH=hPx-ep,pw=Math.max(6,wPx*.05),pieds=state.pieds||'4pieds';
+    if(forme==='rond'){
+      const r=Math.min(wPx,hPx)/2,cx=CFG_CX;
+      g1.appendChild(ns('circle',{cx,cy:fby+r,r,fill:'#d8e8b0',stroke:'#3d5228','stroke-width':'2'}));
+      g1.appendChild(ns('line',{x1:cx-r-10,y1:fby+r*2,x2:cx+r+10,y2:fby+r*2,stroke:'#b3c47e','stroke-width':'1','stroke-dasharray':'5 3'}));
+    } else {
+      g1.appendChild(ns('rect',{x:bx,y:fby,width:wPx,height:ep,rx:'3',fill:'#d8e8b0',stroke:'#3d5228','stroke-width':'2'}));
+      if(pieds==='4pieds'){
+        [[bx+4,fby+ep],[bx+wPx-pw-4,fby+ep]].forEach(([x,y])=>g1.appendChild(ns('rect',{x,y,width:pw,height:piedH,rx:'2',fill:'#d8e8b0',stroke:'#4a6a2a','stroke-width':'1.2'})));
+      } else if(pieds==='central'){
+        const cpw=Math.max(10,wPx*.07);
+        g1.appendChild(ns('rect',{x:CFG_CX-cpw/2,y:fby+ep,width:cpw,height:piedH*.8,rx:'3',fill:'#d8e8b0',stroke:'#4a6a2a','stroke-width':'1.2'}));
+        g1.appendChild(ns('rect',{x:CFG_CX-wPx*.3,y:fby+hPx-Math.max(6,hPx*.07),width:wPx*.6,height:Math.max(6,hPx*.07),rx:'2',fill:'#d8e8b0',stroke:'#4a6a2a','stroke-width':'1'}));
+      } else { // tresteau
+        const tw=Math.max(14,wPx*.12);
+        [[bx+wPx*.1,fby+ep],[bx+wPx*.9-tw,fby+ep]].forEach(([x,y])=>{
+          g1.appendChild(ns('line',{x1:x+tw*.15,y1:y,x2:x,y2:y+piedH,stroke:'#4a6a2a','stroke-width':'2.5','stroke-linecap':'round'}));
+          g1.appendChild(ns('line',{x1:x+tw*.85,y1:y,x2:x+tw,y2:y+piedH,stroke:'#4a6a2a','stroke-width':'2.5','stroke-linecap':'round'}));
+          g1.appendChild(ns('line',{x1:x+tw*.05,y1:y+piedH*.55,x2:x+tw*.95,y2:y+piedH*.55,stroke:'#4a6a2a','stroke-width':'1.5'}));
+        });
+      }
+    }
+
+  } else if(cfgType==='canape'){
+    const disp=state.disposition||'droit';
+    const accW=Math.max(10,wPx*.07),dosH=Math.max(12,hPx*.44),assH=Math.max(12,hPx*.36),ph=Math.max(4,hPx*.09),pw=8,places=state.places||3;
+    if(disp==='droit'||disp==='angle'){
+      g1.appendChild(ns('rect',{x:bx,y:fby,width:wPx,height:dosH,rx:'5',fill:'#d8e8b0',stroke:'#3d5228','stroke-width':'2'}));
+      g1.appendChild(ns('rect',{x:bx,y:fby+dosH,width:wPx,height:assH,rx:'4',fill:'#eaf0d4',stroke:'#4a6a2a','stroke-width':'1.2'}));
+      g1.appendChild(ns('rect',{x:bx,y:fby+dosH-assH*.25,width:accW,height:assH*1.25,rx:'4',fill:'#d8e8b0',stroke:'#3d5228','stroke-width':'1.5'}));
+      g1.appendChild(ns('rect',{x:bx+wPx-accW,y:fby+dosH-assH*.25,width:accW,height:assH*1.25,rx:'4',fill:'#d8e8b0',stroke:'#3d5228','stroke-width':'1.5'}));
+      const iW=wPx-accW*2;
+      for(let i=1;i<places;i++){const lx=bx+accW+iW*i/places;g1.appendChild(ns('line',{x1:lx,y1:fby+dosH,x2:lx,y2:fby+dosH+assH,stroke:'#92ab5a','stroke-width':'1','stroke-dasharray':'3 2'}));}
+      [[bx+accW,fby+hPx-ph],[bx+wPx-accW-pw,fby+hPx-ph]].forEach(([x,y])=>g1.appendChild(ns('rect',{x,y,width:pw,height:ph,rx:'2',fill:'#7a5c38'})));
+    } else { // méridienne
+      const mW=wPx*.7;
+      g1.appendChild(ns('rect',{x:bx,y:fby,width:mW,height:dosH,rx:'5',fill:'#d8e8b0',stroke:'#3d5228','stroke-width':'2'}));
+      g1.appendChild(ns('rect',{x:bx,y:fby+dosH,width:wPx,height:assH,rx:'4',fill:'#eaf0d4',stroke:'#4a6a2a','stroke-width':'1.2'}));
+      g1.appendChild(ns('rect',{x:bx,y:fby+dosH-assH*.25,width:accW,height:assH*1.25,rx:'4',fill:'#d8e8b0',stroke:'#3d5228','stroke-width':'1.5'}));
+      g1.appendChild(ns('rect',{x:bx+mW,y:fby+dosH+assH*.4,width:wPx-mW,height:assH*.6,rx:'4',fill:'#d8e8b0',stroke:'#3d5228','stroke-width':'1.2'}));
+      [[bx+accW,fby+hPx-ph],[bx+wPx-pw,fby+hPx-ph]].forEach(([x,y])=>g1.appendChild(ns('rect',{x,y,width:pw,height:ph,rx:'2',fill:'#7a5c38'})));
+    }
+
+  } else if(cfgType==='armoire'){
+    const portes=state.portes||2,ntiroirs=state.tiroirs||0,portW=wPx/portes,portH=ntiroirs>0?hPx*.72:hPx*.93;
+    g1.appendChild(ns('rect',{x:bx,y:fby,width:wPx,height:hPx,rx:'4',fill:'#eaf0d4',stroke:'#3d5228','stroke-width':'2'}));
+    for(let i=0;i<portes;i++){
+      const px=bx+i*portW;
+      g1.appendChild(ns('rect',{x:px+3,y:fby+5,width:portW-6,height:portH-5,rx:'3',fill:'#d8e8b0',stroke:'#4a6a2a','stroke-width':'1'}));
+      const poigX=i<portes/2?px+portW*.75:px+portW*.25;
+      g1.appendChild(ns('rect',{x:poigX-2,y:fby+portH*.42,width:4,height:Math.max(10,portH*.1),rx:'2',fill:'#7a5c38'}));
+    }
+    if(ntiroirs>0){
+      const tZY=fby+hPx*.76,tZH=hPx*.2,tirH=(tZH-2*(ntiroirs-1))/ntiroirs;
+      for(let i=0;i<ntiroirs;i++){
+        const ty=tZY+i*(tirH+2);
+        g1.appendChild(ns('rect',{x:bx+5,y:ty,width:wPx-10,height:Math.max(5,tirH),rx:'2',fill:'#d8e8b0',stroke:'#4a6a2a','stroke-width':'.8'}));
+        g1.appendChild(ns('circle',{cx:bx+wPx/2,cy:ty+tirH/2,r:'3',fill:'#7a5c38'}));
+      }
+    }
+
+  } else if(cfgType==='bureau'){
+    const ep=Math.max(5,Math.round((state.epaisseurPlateau||3)*PX)),piedW=Math.max(8,wPx*.07),piedH=hPx-ep;
+    g1.appendChild(ns('rect',{x:bx,y:fby,width:wPx,height:ep,rx:'3',fill:'#d8e8b0',stroke:'#3d5228','stroke-width':'2'}));
+    g1.appendChild(ns('rect',{x:bx,y:fby+ep,width:piedW,height:piedH,rx:'2',fill:'#eaf0d4',stroke:'#4a6a2a','stroke-width':'1.2'}));
+    g1.appendChild(ns('rect',{x:bx+wPx-piedW,y:fby+ep,width:piedW,height:piedH,rx:'2',fill:'#eaf0d4',stroke:'#4a6a2a','stroke-width':'1.2'}));
+    if(state.retour===true){
+      const rw=Math.round(wPx*.45);
+      g1.appendChild(ns('rect',{x:bx+wPx-piedW-rw,y:fby+hPx*.38,width:rw,height:ep,rx:'2',fill:'#d8e8b0',stroke:'#3d5228','stroke-width':'1.2','stroke-dasharray':'4 2'}));
+    }
+
+  } else if(cfgType==='lit'){
+    g1.appendChild(ns('rect',{x:bx,y:fby,width:wPx,height:hPx,rx:'6',fill:'#eaf0d4',stroke:'#3d5228','stroke-width':'2'}));
+    g1.appendChild(ns('rect',{x:bx,y:fby,width:wPx,height:hPx*.35,rx:'6',fill:'#d8e8b0',stroke:'none'}));
+    g1.appendChild(ns('line',{x1:bx+8,y1:fby+hPx*.38,x2:bx+wPx-8,y2:fby+hPx*.38,stroke:'#4a6a2a','stroke-width':'1','stroke-dasharray':'4 2'}));
+    [[bx+wPx*.12,fby+hPx*.05],[bx+wPx*.54,fby+hPx*.05]].forEach(([x,y])=>g1.appendChild(ns('rect',{x,y,width:wPx*.3,height:hPx*.28,rx:'4',fill:'white',stroke:'#9aab7a','stroke-width':'1',opacity:'.8'})));
+
+  } else if(cfgType==='etagere'){
+    const ne=state.etageres||5;
+    g1.appendChild(ns('rect',{x:bx,y:fby,width:6,height:hPx,rx:'2',fill:'#eaf0d4',stroke:'#4a6a2a','stroke-width':'1.2'}));
+    g1.appendChild(ns('rect',{x:bx+wPx-6,y:fby,width:6,height:hPx,rx:'2',fill:'#eaf0d4',stroke:'#4a6a2a','stroke-width':'1.2'}));
+    for(let i=0;i<=ne;i++){
+      const sy=fby+i*hPx/ne;
+      g1.appendChild(ns('rect',{x:bx,y:sy,width:wPx,height:4,rx:'1.5',fill:'#d8e8b0',stroke:'#4a6a2a','stroke-width':'1'}));
+    }
+    const shelf1Y=fby+hPx/ne,shH=hPx/ne-4;
+    [[bx+8,'#c4a35a'],[bx+22,'#9aab7a'],[bx+32,'#c8d4a8'],[bx+44,'#6b7c52']].forEach(([x,c])=>{
+      const bH=shH*.8;
+      g1.appendChild(ns('rect',{x,y:shelf1Y-bH,width:8,height:bH,rx:'1',fill:c,opacity:'.7'}));
+    });
+
+  } else if(cfgType==='tbasse'){
+    const ep=Math.max(5,hPx*.22),ph=hPx-ep;
+    g1.appendChild(ns('rect',{x:bx,y:fby,width:wPx,height:ep,rx:'3',fill:'#d8e8b0',stroke:'#3d5228','stroke-width':'2'}));
+    [[bx+10,fby+ep],[bx+wPx-16,fby+ep]].forEach(([x,y])=>g1.appendChild(ns('rect',{x,y,width:8,height:ph,rx:'2',fill:'#eaf0d4',stroke:'#4a6a2a','stroke-width':'1'})));
+    if((state.pieds||'4pieds')==='4pieds'){
+      [[bx+wPx*.35,fby+ep],[bx+wPx*.6,fby+ep]].forEach(([x,y])=>g1.appendChild(ns('rect',{x,y,width:8,height:ph,rx:'2',fill:'#eaf0d4',stroke:'#4a6a2a','stroke-width':'1'})));
+    }
+
+  } else {
+    g1.appendChild(ns('rect',{x:bx,y:fby,width:wPx,height:hPx,rx:'4',fill:'#eaf0d4',stroke:'#3d5228','stroke-width':'2'}));
+  }
+  // Sol
+  g1.appendChild(ns('line',{x1:bx-20,y1:fSolY,x2:bx+wPx+20,y2:fSolY,stroke:'#b3c47e','stroke-width':'1','stroke-dasharray':'5 3'}));
+
+  /* ══════ VUE DE DESSUS ══════ */
+  const fwy=fSolY+22, dessusLblY=fwy+34, tby=dessusLblY+14;
+  const wPxT=Math.round(L*PX), bxT=CFG_CX-wPxT/2;
+
+  if(cfgType==='canape' && state.disposition==='angle'){
+    const rW=Math.round(wPxT*.5),rP=Math.round(pPx*.65);
+    const accW=Math.max(10,wPxT*.07),dosP=Math.min(pPx*.3,22);
+    g2.appendChild(ns('rect',{x:bxT,y:tby,width:wPxT,height:pPx,rx:'6',fill:'#eaf0d4',stroke:'#3d5228','stroke-width':'1.8'}));
+    g2.appendChild(ns('rect',{x:bxT,y:tby,width:wPxT,height:dosP,rx:'6',fill:'#d8e8b0',stroke:'none'}));
+    g2.appendChild(ns('rect',{x:bxT+wPxT-rW,y:tby+pPx,width:rW,height:rP,rx:'6',fill:'#eaf0d4',stroke:'#3d5228','stroke-width':'1.8'}));
+    g2.appendChild(ns('rect',{x:bxT+wPxT-rW,y:tby+pPx,width:rW,height:dosP,rx:'6',fill:'#d8e8b0',stroke:'none'}));
+    g2.appendChild(ns('rect',{x:bxT,y:tby,width:accW,height:pPx,rx:'4',fill:'#d8e8b0',stroke:'#4a6a2a','stroke-width':'.8'}));
+    g2.appendChild(ns('rect',{x:bxT,y:tby+pPx+rP-accW,width:rW,height:accW,rx:'4',fill:'#d8e8b0',stroke:'#4a6a2a','stroke-width':'.8'}));
+  } else if(cfgType==='canape' && state.disposition==='merid'){
+    const mW=wPxT*.7,dosP=Math.min(pPx*.3,22),accW=Math.max(10,wPxT*.07);
+    g2.appendChild(ns('rect',{x:bxT,y:tby,width:wPxT,height:pPx,rx:'6',fill:'#eaf0d4',stroke:'#3d5228','stroke-width':'1.8'}));
+    g2.appendChild(ns('rect',{x:bxT,y:tby,width:wPxT,height:dosP,rx:'6',fill:'#d8e8b0',stroke:'none'}));
+    g2.appendChild(ns('rect',{x:bxT+mW,y:tby+dosP,width:wPxT-mW,height:pPx-dosP,rx:'4',fill:'#f4f7e8',stroke:'#4a6a2a','stroke-width':'.8','stroke-dasharray':'3 2'}));
+    g2.appendChild(ns('rect',{x:bxT,y:tby,width:accW,height:pPx,rx:'4',fill:'#d8e8b0',stroke:'#4a6a2a','stroke-width':'.8'}));
+  } else if(cfgType==='canape'){
+    const dosP=Math.min(pPx*.3,22),accW=Math.max(10,wPxT*.07);
+    g2.appendChild(ns('rect',{x:bxT,y:tby,width:wPxT,height:pPx,rx:'6',fill:'#eaf0d4',stroke:'#3d5228','stroke-width':'1.8'}));
+    g2.appendChild(ns('rect',{x:bxT,y:tby,width:wPxT,height:dosP,rx:'6',fill:'#d8e8b0',stroke:'none'}));
+    g2.appendChild(ns('rect',{x:bxT,y:tby,width:accW,height:pPx,rx:'4',fill:'#d8e8b0',stroke:'#4a6a2a','stroke-width':'.8'}));
+    g2.appendChild(ns('rect',{x:bxT+wPxT-accW,y:tby,width:accW,height:pPx,rx:'4',fill:'#d8e8b0',stroke:'#4a6a2a','stroke-width':'.8'}));
+  } else if(cfgType==='table' && state.forme==='rond'){
+    const r=Math.min(wPxT,pPx)/2,cx=bxT+wPxT/2,cy=tby+pPx/2;
+    g2.appendChild(ns('circle',{cx,cy,r,fill:'#eaf0d4',stroke:'#3d5228','stroke-width':'1.8'}));
+    g2.appendChild(ns('circle',{cx,cy,r:r*.88,fill:'#d8e8b0',stroke:'none'}));
+    if((state.pieds||'4pieds')==='4pieds'){
+      const off=r*.65;
+      [[cx-off,cy-off],[cx+off,cy-off],[cx-off,cy+off],[cx+off,cy+off]].forEach(([x,y])=>g2.appendChild(ns('circle',{cx:x,cy:y,r:Math.max(4,wPxT*.025),fill:'#7a5c38',opacity:'.75'})));
+    } else if(state.pieds==='central'){
+      g2.appendChild(ns('circle',{cx,cy,r:Math.max(5,wPxT*.04),fill:'#7a5c38',opacity:'.75'}));
+    }
+  } else if(cfgType==='table' && state.forme==='ovale'){
+    const cx=bxT+wPxT/2,cy=tby+pPx/2;
+    g2.appendChild(ns('ellipse',{cx,cy,rx:wPxT/2,ry:pPx/2,fill:'#eaf0d4',stroke:'#3d5228','stroke-width':'1.8'}));
+    g2.appendChild(ns('ellipse',{cx,cy,rx:wPxT/2*.9,ry:pPx/2*.85,fill:'#d8e8b0',stroke:'none'}));
+  } else if(cfgType==='bureau'){
+    g2.appendChild(ns('rect',{x:bxT,y:tby,width:wPxT,height:pPx,rx:'4',fill:'#eaf0d4',stroke:'#3d5228','stroke-width':'1.8'}));
+    g2.appendChild(ns('rect',{x:bxT,y:tby,width:wPxT,height:Math.min(10,pPx*.18),rx:'4',fill:'#d8e8b0',stroke:'none'}));
+    if(state.retour===true){
+      const rw=Math.round(wPxT*.45),rp=Math.round(pPx*.55);
+      g2.appendChild(ns('rect',{x:bxT+wPxT-rw,y:tby+pPx,width:rw,height:rp,rx:'4',fill:'#eaf0d4',stroke:'#3d5228','stroke-width':'1.8','stroke-dasharray':'4 2'}));
+    }
+  } else {
+    g2.appendChild(ns('rect',{x:bxT,y:tby,width:wPxT,height:pPx,rx:'6',fill:'#eaf0d4',stroke:'#3d5228','stroke-width':'1.8'}));
+    g2.appendChild(ns('rect',{x:bxT,y:tby,width:wPxT,height:Math.min(12,pPx*.18),rx:'6',fill:'#d8e8b0',stroke:'none'}));
+  }
+
+  /* ══════ COTES CLIQUABLES ══════ */
+  cfgSA('cfgLblD',{x:CFG_CX,y:dessusLblY});
+  const hx=Math.max(18,bx-28);
+
+  // Cote H
+  cfgSA('cfgLH',{x1:hx,y1:fby,x2:hx,y2:fSolY});
+  cfgST('cfgTH',H+' cm ✏');
+  cfgSA('cfgTH',{x:hx-7,y:(fby+fSolY)/2});
+  cfgSA('cfgBgH',{x:hx-52,y:(fby+fSolY)/2-12,width:50,height:24});
+
+  // Cote L face
+  const fwyL=fSolY+18;
+  cfgSA('cfgLL',{x1:bx,y1:fwyL,x2:bx+wPx,y2:fwyL});
+  cfgST('cfgTL',L+' cm ✏');
+  cfgSA('cfgTL',{x:CFG_CX,y:fwyL+16});
+  cfgSA('cfgBgL',{x:CFG_CX-34,y:fwyL+6,width:68,height:24});
+
+  // Cote L dessus
+  const twy=tby+pPx+18;
+  cfgSA('cfgLL2',{x1:bxT,y1:twy,x2:bxT+wPxT,y2:twy});
+  cfgST('cfgTL2',L+' cm');
+  cfgSA('cfgTL2',{x:CFG_CX,y:twy+15});
+
+  // Cote P
+  const tpx=Math.min(bxT+wPxT+18,bxT+wPxT+60);
+  cfgSA('cfgLP',{x1:tpx,y1:tby,x2:tpx,y2:tby+pPx});
+  cfgST('cfgTP',P+' cm ✏');
+  cfgSA('cfgTP',{x:tpx+7,y:tby+pPx/2});
+  cfgSA('cfgBgP',{x:tpx+5,y:tby+pPx/2-12,width:56,height:24});
+
+  const totalH=twy+32;
+  const svgEl=document.getElementById('cfgSvg');
+  if(svgEl) svgEl.setAttribute('viewBox',`0 0 480 ${totalH}`);
+}
+
+
+/* ════════════════════════════════════════════
+   OUTIL DIMENSIONS SIDEBAR — v4 adapté
+════════════════════════════════════════════ */
+const SB_CX = 120;
+const SB_PX_BY_TYPE = { commode:1.4, table:1.0, canape:0.65, armoire:1.4, bureau:1.1, lit:1.1, etagere:1.2, tbasse:1.6 };
+function sbGetPX(){ return SB_PX_BY_TYPE[sbCurrentType] || 1.1; }
+
+const SB_RANGE_DEFS = {
+  commode: { L:[80,120,30,220], H:[70,100,30,200], P:[35,55,15,100] },
+  table:   { L:[100,160,40,300], H:[70,80,50,120], P:[80,100,40,150] },
+  canape:  { L:[160,220,80,350], H:[70,90,50,120], P:[80,100,50,130] },
+  armoire: { L:[80,120,30,250], H:[160,200,80,250], P:[45,65,20,100] },
+  bureau:  { L:[110,160,60,250], H:[70,80,50,120], P:[55,75,30,120] },
+  lit:     { L:[90,160,80,200], H:[80,120,60,160], P:[190,200,150,220] },
+  etagere: { L:[60,100,30,200], H:[120,180,60,240], P:[20,30,10,60] },
+  tbasse:  { L:[80,120,40,200], H:[35,45,20,70], P:[50,70,30,110] },
+};
+const SB_STATE = {
+  commode:{ tiroirs:3, piedH:10 }, table:{ pieds:'4pieds', forme:'rect' },
+  canape:{ places:3, disposition:'droit' }, armoire:{ portes:2, tiroirs:2 },
+  bureau:{ epaisseurPlateau:3, retour:false }, lit:{ type:'double' },
+  etagere:{ etageres:5 }, tbasse:{ pieds:'4pieds' },
+};
+
+let sbRanges = {}, sbCurrentType = 'commode';
+
+function sbInitRanges(type){
+  sbRanges = {};
+  const defs = SB_RANGE_DEFS[type] || SB_RANGE_DEFS.commode;
+  Object.entries(defs).forEach(([dim,[mn,mx]])=>{ sbRanges[dim]={min:mn,max:mx}; });
+}
+
+function sbNS(tag,a={}){ const e=document.createElementNS('http://www.w3.org/2000/svg',tag); Object.entries(a).forEach(([k,v])=>e.setAttribute(k,v)); return e; }
+function sbSA(id,a){ const e=document.getElementById(id); if(e) Object.entries(a).forEach(([k,v])=>e.setAttribute(k,v)); }
+function sbST(id,v){ const e=document.getElementById(id); if(e) e.textContent=v; }
+
+function sbSyncRange(dim){
+  const defs = SB_RANGE_DEFS[sbCurrentType] || SB_RANGE_DEFS.commode;
+  if(!defs[dim]) return;
+  const [,,absMin,absMax] = defs[dim];
+  const rMin=document.getElementById('sbRmin_'+dim), rMax=document.getElementById('sbRmax_'+dim);
+  const vMin=document.getElementById('sbVmin_'+dim), vMax=document.getElementById('sbVmax_'+dim);
+  const rf=document.getElementById('sbRf_'+dim);
+  if(!rMin||!rMax) return;
+  let lo=parseInt(rMin.value), hi=parseInt(rMax.value);
+  if(lo>hi){lo=hi; rMin.value=lo;}
+  sbRanges[dim]={min:lo,max:hi};
+  if(vMin) vMin.value=lo; if(vMax) vMax.value=hi;
+  const pLo=(lo-absMin)/(absMax-absMin)*100, pHi=(hi-absMin)/(absMax-absMin)*100;
+  if(rf){rf.style.left=pLo+'%'; rf.style.width=(pHi-pLo)+'%';}
+  sbRedraw();
+}
+
+function sbBuildPanel(type){
+  sbCurrentType = type;
+  sbInitRanges(type);
+  const panel = document.getElementById('dimLeftPanel');
+  if(!panel) return;
+  panel.innerHTML = '';
+
+  const defs = SB_RANGE_DEFS[type] || SB_RANGE_DEFS.commode;
+
+  const addLbl = t => { const d=document.createElement('div'); d.className='sb-sec-lbl'; d.textContent=t; panel.appendChild(d); };
+
+  const addRange = (dim, color, name) => {
+    const [,,absMin,absMax] = defs[dim] || [0,100,0,300];
+    const {min,max} = sbRanges[dim] || {min:absMin,max:absMax};
+    const pLo=(min-absMin)/(absMax-absMin)*100, pHi=(max-absMin)/(absMax-absMin)*100;
+    const w = document.createElement('div'); w.className='sb-dim-range';
+    w.innerHTML=`<div class="sb-dim-range-top">
+        <div class="sb-dot" style="background:${color}"></div>
+        <span class="sb-dim-lbl">${name}</span>
+        <div class="sb-dim-vals">
+          <input class="sb-val-box" id="sbVmin_${dim}" type="number" value="${min}" min="${absMin}" max="${absMax}">
+          <span class="sb-val-sep">–</span>
+          <input class="sb-val-box" id="sbVmax_${dim}" type="number" value="${max}" min="${absMin}" max="${absMax}">
+          <span class="sb-val-unit">cm</span>
+        </div>
+      </div>
+      <div class="sb-range-dbl">
+        <div class="sb-range-track"></div>
+        <div class="sb-range-fill" id="sbRf_${dim}" style="left:${pLo}%;width:${pHi-pLo}%"></div>
+        <input type="range" id="sbRmin_${dim}" min="${absMin}" max="${absMax}" value="${min}" step="1">
+        <input type="range" id="sbRmax_${dim}" min="${absMin}" max="${absMax}" value="${max}" step="1">
+      </div>`;
+    panel.appendChild(w);
+    document.getElementById('sbRmin_'+dim).addEventListener('input',()=>{ const a=document.getElementById('sbRmin_'+dim),b=document.getElementById('sbRmax_'+dim); if(parseInt(a.value)>parseInt(b.value))b.value=a.value; sbSyncRange(dim); });
+    document.getElementById('sbRmax_'+dim).addEventListener('input',()=>{ const a=document.getElementById('sbRmin_'+dim),b=document.getElementById('sbRmax_'+dim); if(parseInt(b.value)<parseInt(a.value))a.value=b.value; sbSyncRange(dim); });
+    document.getElementById('sbVmin_'+dim).addEventListener('change',e=>{ const b=document.getElementById('sbRmax_'+dim); let v=Math.min(Math.max(parseInt(e.target.value)||absMin,absMin),parseInt(b.value)); document.getElementById('sbRmin_'+dim).value=v; e.target.value=v; sbSyncRange(dim); });
+    document.getElementById('sbVmax_'+dim).addEventListener('change',e=>{ const a=document.getElementById('sbRmin_'+dim); let v=Math.min(Math.max(parseInt(e.target.value)||absMax,parseInt(a.value)),absMax); document.getElementById('sbRmax_'+dim).value=v; e.target.value=v; sbSyncRange(dim); });
+    sbSyncRange(dim);
+  };
+
+  const addStepper = (label, key, min, max) => {
+    const val = (SB_STATE[sbCurrentType]||{})[key] ?? min;
+    const d=document.createElement('div'); d.className='sb-stepper-pill';
+    d.innerHTML=`<span style="font-size:11px;color:var(--muted);font-weight:500;flex:1">${label}</span>
+      <div style="display:flex;align-items:center;gap:5px">
+        <button class="sb-step-btn" onclick="sbChg('${key}',${min},${max},-1)">−</button>
+        <span class="sb-step-val" id="sbV_${key}">${val}</span>
+        <button class="sb-step-btn" onclick="sbChg('${key}',${min},${max},1)">+</button>
+      </div>`;
+    panel.appendChild(d);
+  };
+
+  const addSeg = (label, key, opts) => {
+    const cur = (SB_STATE[sbCurrentType]||{})[key];
+    const d=document.createElement('div'); d.className='sb-seg-pill';
+    const btns=opts.map(o=>`<button class="sb-seg-btn${o.v===cur?' active':''}" onclick="sbSetSeg('${key}','${o.v}',this)">${o.l}</button>`).join('');
+    d.innerHTML=`<span style="font-size:11px;color:var(--muted);font-weight:500;flex:1">${label}</span><div class="sb-seg-ctrl">${btns}</div>`;
+    panel.appendChild(d);
+  };
+
+  const addToggle = (label, key) => {
+    const cur = (SB_STATE[sbCurrentType]||{})[key];
+    const d=document.createElement('div'); d.className='sb-tog-pill';
+    d.innerHTML=`<span style="font-size:11px;color:var(--muted);font-weight:500;flex:1">${label}</span>
+      <div class="sb-tog-ctrl">
+        <button class="sb-tog-btn${!cur?' active':''}" onclick="sbSetTog('${key}',false,this.parentNode)">Non</button>
+        <button class="sb-tog-btn${cur?' active':''}" onclick="sbSetTog('${key}',true,this.parentNode)">Oui</button>
+      </div>`;
+    panel.appendChild(d);
+  };
+
+  addLbl('Dimensions');
+  if(type==='commode'){ addRange('L','#2c5f8a','Largeur'); addRange('H','#c0392b','Hauteur'); addRange('P','#1a6b4a','Profondeur'); addLbl('Caractéristiques'); addStepper('Nb. de tiroirs','tiroirs',1,8); addStepper('Hauteur de pied','piedH',0,30); }
+  else if(type==='table'){ addRange('L','#2c5f8a','Largeur'); addRange('H','#c0392b','Hauteur'); addRange('P','#1a6b4a','Profondeur'); addLbl('Caractéristiques'); addSeg('Pieds','pieds',[{v:'4pieds',l:'4 pieds'},{v:'central',l:'Central'},{v:'tresteau',l:'Tréteau'}]); addSeg('Forme','forme',[{v:'rect',l:'Rect.'},{v:'rond',l:'Ronde'},{v:'ovale',l:'Ovale'}]); }
+  else if(type==='canape'){ addRange('L','#2c5f8a','Largeur'); addRange('H','#c0392b','Hauteur'); addRange('P','#1a6b4a','Prof. assise'); addLbl('Caractéristiques'); addStepper('Nb. de places','places',1,6); addSeg('Disposition','disposition',[{v:'droit',l:'Droit'},{v:'angle',l:'Angle'},{v:'merid',l:'Mérid.'}]); }
+  else if(type==='armoire'){ addRange('L','#2c5f8a','Largeur'); addRange('H','#c0392b','Hauteur'); addRange('P','#1a6b4a','Profondeur'); addLbl('Caractéristiques'); addStepper('Nb. de portes','portes',1,6); addStepper('Nb. de tiroirs','tiroirs',0,6); }
+  else if(type==='bureau'){ addRange('L','#2c5f8a','Largeur'); addRange('H','#c0392b','Hauteur'); addRange('P','#1a6b4a','Profondeur'); addLbl('Caractéristiques'); addStepper('Épaisseur plateau','epaisseurPlateau',1,8); addToggle('Avec retour','retour'); }
+  else if(type==='lit'){ addRange('L','#2c5f8a','Largeur (matelas)'); addRange('H','#c0392b','Haut. tête de lit'); addRange('P','#1a6b4a','Long. (matelas)'); }
+  else if(type==='etagere'){ addRange('L','#2c5f8a','Largeur'); addRange('H','#c0392b','Hauteur'); addRange('P','#1a6b4a','Profondeur'); addLbl('Caractéristiques'); addStepper('Nb. d\'étagères','etageres',2,10); }
+  else if(type==='tbasse'){ addRange('L','#2c5f8a','Longueur'); addRange('H','#c0392b','Hauteur'); addRange('P','#1a6b4a','Largeur'); addSeg('Pieds','pieds',[{v:'4pieds',l:'4 pieds'},{v:'central',l:'Central'}]); }
+  else { addRange('L','#2c5f8a','Largeur'); addRange('H','#c0392b','Hauteur'); addRange('P','#1a6b4a','Profondeur'); }
+
+  sbRedraw();
+}
+
+function sbChg(key,min,max,d){
+  if(!SB_STATE[sbCurrentType]) SB_STATE[sbCurrentType]={};
+  SB_STATE[sbCurrentType][key]=Math.min(max,Math.max(min,(SB_STATE[sbCurrentType][key]??min)+d));
+  const e=document.getElementById('sbV_'+key); if(e) e.textContent=SB_STATE[sbCurrentType][key];
+  sbRedraw();
+}
+function sbSetSeg(key,val,btn){ if(SB_STATE[sbCurrentType]) SB_STATE[sbCurrentType][key]=val; btn.closest('.sb-seg-ctrl').querySelectorAll('.sb-seg-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); sbRedraw(); }
+function sbSetTog(key,val,ctrl){ if(SB_STATE[sbCurrentType]) SB_STATE[sbCurrentType][key]=val; ctrl.querySelectorAll('.sb-tog-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&!val)||(i===1&&val))); sbRedraw(); }
+
+/* sbRedraw désactivé — aperçu SVG supprimé de la sidebar (trop petit pour être lisible) */
+function sbRedraw(){ /* no-op */ }
+
+/* ─── Activation depuis catégorie ─── */
+// Mapping cat → type outil
+const CAT_TO_TYPE = { Canapés:'canape', Tables:'table', Lits:'lit', Armoires:'armoire', Bureaux:'bureau', Bibliothèques:'etagere', 'Tables basses':'tbasse', Commodes:'commode' };
+
+function onCatChange(checkbox){
+  renderGrid();
+  const checkedBoxes = [...document.querySelectorAll('[data-cat]:checked')];
+  if(checkedBoxes.length === 0){
+    document.getElementById('dimHint').style.display='';
+    document.getElementById('dimTool').style.display='none';
+    return;
+  }
+  // Prend le type du dernier coché
+  const lastChecked = checkedBoxes[checkedBoxes.length-1];
+  const cat = lastChecked.dataset.cat;
+  const type = CAT_TO_TYPE[cat] || 'commode';
+  const toolLabel = lastChecked.closest('.sb-check').querySelector('.sb-check-label').textContent;
+
+  // Mise à jour label
+  const lbl = document.getElementById('dimToolLabel');
+  if(lbl) lbl.textContent = 'Dimensions — '+toolLabel;
+
+  // Construit le panel
+  sbBuildPanel(type);
+
+  // Affiche l'outil
+  const hint = document.getElementById('dimHint');
+  const tool = document.getElementById('dimTool');
+  hint.style.display='none';
+  tool.style.display='block';
+  tool.classList.remove('popping');
+  void tool.offsetWidth; // reflow pour relancer l'animation
+  tool.classList.add('popping');
+
+  // Animation pop sur la section dimensions
+  const section = document.getElementById('sbDimSection');
+  section.classList.remove('popped');
+  void section.offsetWidth;
+  section.classList.add('popped');
+
+  // Scroll doux vers la section dimensions
+  setTimeout(()=>{
+    section.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }, 80);
+}
+
+function applyDimToolSearch(){
+  // Met à jour les variables globales lues par getFilters
+  sbFilterActive = true;
+  if(sbRanges.L) sbFilterL = sbRanges.L.max;
+  if(sbRanges.H) sbFilterH = sbRanges.H.max;
+  if(sbRanges.P) sbFilterP = sbRanges.P.max;
+  renderGrid();
+  // Scroll vers les résultats
+  document.getElementById('prodGrid').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// Variables globales lues par getFilters pour l'outil dimensions
+let sbFilterActive = false;
+let sbFilterL = 300, sbFilterH = 300, sbFilterP = 150;
+
+/* INIT — deferred to ensure DOM is ready */
+document.addEventListener('DOMContentLoaded', function(){
+  cfgInitRanges('commode');
+  cfgBuildPanel();
+  renderGrid();
+});
+
+/* ── GUIDES TOGGLE ── */
+function toggleGuide(id, btn){
+  const el = document.getElementById(id);
+  const isOpen = el.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  btn.innerHTML = (isOpen ? 'Réduire' : 'En savoir plus') + ' <span class="arr">' + (isOpen ? '▲' : '▼') + '</span>';
+}
+
+</script>
+
+<!-- ═══ MODAL MENTIONS LÉGALES ═══ -->
+<style>
+.legal-overlay{position:fixed;inset:0;background:rgba(30,42,31,.75);z-index:600;display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;backdrop-filter:blur(4px)}
+.legal-overlay.open{display:flex}
+.legal-panel{background:white;border-radius:12px;max-width:760px;width:100%;padding:48px 52px;position:relative;margin:auto;box-shadow:0 24px 60px rgba(0,0,0,.25)}
+.legal-close{position:absolute;top:20px;right:20px;background:var(--k11);border:1px solid rgba(154,171,122,.2);color:var(--muted);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:background .2s;line-height:1}
+.legal-close:hover{background:var(--k9)}
+.legal-panel h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--k2);margin-bottom:8px}
+.legal-panel .legal-update{font-size:12px;color:var(--muted);margin-bottom:32px}
+.legal-panel h2{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--k2);margin:28px 0 10px;border-left:3px solid var(--gold);padding-left:12px}
+.legal-panel p,.legal-panel li{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:8px}
+.legal-panel ul{margin:8px 0 8px 20px}
+.legal-panel a{color:var(--k5)}
+@media(max-width:640px){.legal-panel{padding:32px 24px}}
+</style>
+
+<div class="legal-overlay" id="legalMentions" onclick="closeLegalIfBg(event,'legalMentions')">
+  <div class="legal-panel">
+    <button class="legal-close" onclick="closeLegal('legalMentions')">×</button>
+    <h1>Mentions légales</h1>
+    <p class="legal-update">Dernière mise à jour : avril 2025</p>
+
+    <h2>Éditeur du site</h2>
+    <p><strong>Nom :</strong> M.M.<br>
+    <strong>Statut :</strong> Auto-entrepreneur (en cours d'immatriculation)<br>
+    <strong>Adresse :</strong> Île-de-France, France<br>
+    <strong>Email :</strong> <a href="mailto:contact@dimensions-meubles.fr">contact@dimensions-meubles.fr</a><br>
+    <strong>Site web :</strong> dimensions-meubles.fr</p>
+
+    <h2>Hébergement</h2>
+    <p>Ce site est hébergé par <strong>Cloudflare Pages</strong>.<br>
+    Cloudflare, Inc. — 101 Townsend St, San Francisco, CA 94107, États-Unis.<br>
+    <a href="https://www.cloudflare.com" target="_blank">www.cloudflare.com</a></p>
+
+    <h2>Activité du site</h2>
+    <p>Dimensions-Meubles est un comparateur de meubles permettant aux utilisateurs de filtrer des produits par dimensions exactes. Le site ne vend aucun produit directement. Les liens vers les produits redirigent vers les sites des enseignes partenaires.</p>
+
+    <h2>Liens d'affiliation</h2>
+    <p>Ce site participe à des programmes d'affiliation. Certains liens présents sur ce site sont des liens affiliés : si vous cliquez sur un lien et effectuez un achat, nous percevons une commission de la part du vendeur, <strong>sans que cela ne vous coûte quoi que ce soit de plus</strong>. Cela nous permet de maintenir ce service gratuitement.</p>
+    <p>Conformément à la réglementation en vigueur, la présence de liens commerciaux est signalée sur le site.</p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>L'ensemble du contenu de ce site (textes, illustrations SVG, code, structure) est la propriété exclusive de M.M., sauf mention contraire. Toute reproduction, même partielle, est interdite sans autorisation préalable écrite.</p>
+    <p>Les photos de produits proviennent de <a href="https://unsplash.com" target="_blank">Unsplash</a> et sont utilisées sous licence libre. Les marques et logos des enseignes référencées (IKEA, Maisons du Monde, Camif, etc.) restent la propriété de leurs détenteurs respectifs.</p>
+
+    <h2>Responsabilité</h2>
+    <p>Les informations (prix, disponibilité, dimensions) présentées sur ce site sont fournies à titre indicatif et peuvent ne pas refléter la réalité au moment de votre visite. Nous déclinons toute responsabilité en cas d'inexactitude. Les prix et disponibilités sont ceux affichés sur les sites des enseignes partenaires au moment de l'achat.</p>
+
+    <h2>Loi applicable</h2>
+    <p>Le présent site et ses contenus sont soumis au droit français. Tout litige sera soumis à la compétence exclusive des tribunaux français.</p>
+
+    <h2>Contact</h2>
+    <p>Pour toute question relative aux mentions légales : <a href="mailto:contact@dimensions-meubles.fr">contact@dimensions-meubles.fr</a></p>
+  </div>
+</div>
+
+<!-- ═══ MODAL POLITIQUE DE CONFIDENTIALITÉ ═══ -->
+<div class="legal-overlay" id="legalPrivacy" onclick="closeLegalIfBg(event,'legalPrivacy')">
+  <div class="legal-panel">
+    <button class="legal-close" onclick="closeLegal('legalPrivacy')">×</button>
+    <h1>Politique de confidentialité</h1>
+    <p class="legal-update">Dernière mise à jour : avril 2025</p>
+
+    <h2>Responsable du traitement</h2>
+    <p>M.M. — <a href="mailto:contact@dimensions-meubles.fr">contact@dimensions-meubles.fr</a><br>
+    dimensions-meubles.fr — Île-de-France, France</p>
+
+    <h2>Données collectées</h2>
+    <p>Ce site ne collecte <strong>aucune donnée personnelle directement identifiable</strong> sans votre consentement explicite. Les seules données traitées sont :</p>
+    <ul>
+      <li><strong>Données de navigation anonymes</strong> : pages visitées, durée de session, type de navigateur — collectées via des outils d'analyse (sans cookie de traçage publicitaire).</li>
+      <li><strong>Données techniques</strong> : adresse IP (anonymisée), résolution d'écran, système d'exploitation — à des fins de statistiques agrégées.</li>
+      <li><strong>Cookies fonctionnels</strong> : nécessaires au bon fonctionnement du site (préférences de recherche, filtres actifs). Durée de conservation : session.</li>
+    </ul>
+
+    <h2>Cookies</h2>
+    <p>Ce site utilise des cookies <strong>strictement nécessaires</strong> à son fonctionnement. Aucun cookie publicitaire ou de profilage n'est déposé sans votre consentement.</p>
+    <ul>
+      <li><strong>Cookies de session</strong> : mémorisent vos filtres de dimension pendant la navigation. Supprimés à la fermeture du navigateur.</li>
+      <li><strong>Cookies analytiques</strong> (optionnels) : permettent de mesurer l'audience de manière anonyme. Durée : 13 mois maximum.</li>
+    </ul>
+    <p>Vous pouvez configurer votre navigateur pour refuser les cookies ou être informé de leur dépôt. Cela peut affecter certaines fonctionnalités du site.</p>
+
+    <h2>Liens vers des sites tiers</h2>
+    <p>Ce site contient des liens vers des sites d'enseignes partenaires (IKEA, Maisons du Monde, Camif, etc.). Une fois redirigé vers ces sites, leurs propres politiques de confidentialité s'appliquent. Nous n'avons aucun contrôle sur leurs pratiques en matière de données.</p>
+
+    <h2>Liens d'affiliation et tiers</h2>
+    <p>Ce site utilise des liens d'affiliation. Lorsque vous cliquez sur un lien affilié et effectuez un achat, un cookie de tracking peut être déposé par l'enseigne partenaire dans votre navigateur à des fins de suivi de commission. Ce traitement est réalisé par l'enseigne partenaire et soumis à sa propre politique de confidentialité.</p>
+
+    <h2>Vos droits (RGPD)</h2>
+    <p>Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez des droits suivants :</p>
+    <ul>
+      <li>Droit d'accès à vos données</li>
+      <li>Droit de rectification</li>
+      <li>Droit à l'effacement ("droit à l'oubli")</li>
+      <li>Droit à la limitation du traitement</li>
+      <li>Droit d'opposition</li>
+    </ul>
+    <p>Pour exercer ces droits : <a href="mailto:contact@dimensions-meubles.fr">contact@dimensions-meubles.fr</a></p>
+    <p>Vous pouvez également introduire une réclamation auprès de la <a href="https://www.cnil.fr" target="_blank">CNIL</a>.</p>
+
+    <h2>Durée de conservation</h2>
+    <p>Les données de navigation anonymisées sont conservées 26 mois maximum. Aucune donnée personnelle n'est transmise à des tiers à des fins commerciales.</p>
+
+    <h2>Sécurité</h2>
+    <p>Ce site est hébergé via Cloudflare Pages avec HTTPS obligatoire. Des mesures techniques et organisationnelles appropriées sont mises en œuvre pour protéger les données.</p>
+  </div>
+</div>
+
+<script>
+function openLegal(type){
+  document.getElementById(type==='mentions'?'legalMentions':'legalPrivacy').classList.add('open');
+  document.body.style.overflow='hidden';
+  return false;
+}
+function closeLegal(id){
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeLegalIfBg(e,id){
+  if(e.target===document.getElementById(id)) closeLegal(id);
+}
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape'){
+    ['legalMentions','legalPrivacy'].forEach(id=>{
+      if(document.getElementById(id).classList.contains('open')) closeLegal(id);
+    });
+  }
+});
+</script>
+
+</body>
+</html>
