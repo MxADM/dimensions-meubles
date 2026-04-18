@@ -657,7 +657,7 @@ footer{background:var(--k1);color:var(--k8);padding:48px 32px 24px}
 
 <!-- ═══ INSPIRATION DÉCO ═══ -->
 <style>
-/* DM build: 2026-04-18T00:32 */
+/* DM build: 2026-04-18T00:43 */
 .inspi-section{padding:56px 32px;background:var(--k11)}
 .inspi-inner{max-width:1440px;margin:0 auto}
 .inspi-eyebrow{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
@@ -744,16 +744,7 @@ footer{background:var(--k1);color:var(--k8);padding:48px 32px 24px}
 
   </div>
 </section>
-<script>
-let inspiCurrent=0;
-function inspiGo(idx){
-  document.querySelectorAll('.inspi-slide').forEach((s,i)=>s.classList.toggle('active',i===idx));
-  document.querySelectorAll('.inspi-dots-wrap .inspi-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
-  inspiCurrent=idx;
-}
-function inspiNext(){inspiGo((inspiCurrent+1)%2);}
-function inspiPrev(){inspiGo((inspiCurrent-1+2)%2);}
-</script>
+
 
 
 <!-- ═══ GUIDES ═══ -->
@@ -1062,545 +1053,143 @@ function inspiPrev(){inspiGo((inspiCurrent-1+2)%2);}
   </div>
 </div>
 
+
 <script>
 /* ════════════════════════════════════════════
-   DATA — HOMEMAISON PRODUCTS (Affilae feed)
+   DATA PRODUITS — 24 meubles
 ════════════════════════════════════════════ */
-const HM_PRODUCTS = [
-{id:'20243190219HM3560238',name:'Tabouret enfant blanc',cat:'Enfant',l:26,h:26,p:26,price:13.31,img:'https://www.homemaison.com/media/cache/app_lengow_large/90/88/fd8bf82ca48395fedb9f9102cddb.png',url:'https://www.homemaison.com/fr/tabouret-douceur-blanc?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'2025109098045HM25100',name:'Chaise enfant dossier ourson',cat:'Enfant',l:26,h:49,p:26,price:20.10,img:'https://www.homemaison.com/media/cache/app_lengow_large/cb/ed/5c9010d539b1d122537d595da570.jpg',url:'https://www.homemaison.com/fr/chaise-enfant-dossier-ourson?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Clair',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'2025101099032HM25100',name:'Chaise enfant forme organique',cat:'Enfant',l:23,h:47,p:23,price:20.10,img:'https://www.homemaison.com/media/cache/app_lengow_large/f6/d6/e1eac18a74a6ef382297f72d968d.jpg',url:'https://www.homemaison.com/fr/chaise-enfant-forme-organique?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'3560233555052HM35602',name:'Chaise fleur rose pour enfant',cat:'Enfant',l:27,h:47,p:26,price:22.70,img:'https://www.homemaison.com/media/cache/app_lengow_large/88/cd/47f99e02579721a07871cf0683c1.jpg',url:'https://www.homemaison.com/fr/chaise-fleur-rose-pour-enfant?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Rose Clair',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20243190215HM3560238',name:'Coffre à roulettes pour enfant',cat:'Enfant',l:28,h:48,p:28,price:26.81,img:'https://www.homemaison.com/media/cache/app_lengow_large/80/6d/7ae9eae6acc5b8a83d656ede6dc4.png',url:'https://www.homemaison.com/fr/coffre-roulette-enfant?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'1119317HM125445',name:'Chaise enfant bois de laurier et doum',cat:'Enfant',l:20,h:45,p:20,price:29.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/00_MAROC/chaise_enfant_marocain.jpg',url:'https://www.homemaison.com/fr/chaise-enfant-bois-de-laurier-et-doum?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'HOME MAISON'},
-{id:'1119906HM128695',name:'Chaise enfant bois Japandi',cat:'Enfant',l:20,h:45,p:20,price:29.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/1b/57/ea3cef6752f1a3cfe44d71acc38b.jpg',url:'https://www.homemaison.com/fr/chaise-enfant-bois-japandi-hm69ma-mob-chaiskidsjap?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'HOME MAISON'},
-{id:'20249260124HM3560232',name:'Chaise enfant chat',cat:'Enfant',l:30,h:50,p:28,price:31.67,img:'https://www.homemaison.com/media/cache/app_lengow_large/12/be/71b8d8fbb63960f6c7e8c666c7d1.jpg',url:'https://www.homemaison.com/fr/chaise-enfant-chat?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20243190312HM3560231',name:'Chaise pliante en bois pour enfant',cat:'Enfant',l:33,h:50,p:0,price:32.97,img:'https://www.homemaison.com/media/cache/app_lengow_large/82/bf/668f428270198cbc03075aaa5d04.png',url:'https://www.homemaison.com/fr/chaise-pliante-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'2025101069178HM25100',name:'Table de chevet enfant forme ourson avec porte de rangement',cat:'Enfant',l:36,h:40,p:33,price:34.37,img:'https://www.homemaison.com/media/cache/app_lengow_large/d7/0e/6400e963b328386ee1e1753d107f.jpg',url:'https://www.homemaison.com/fr/table-de-chevet-enfant-forme-ourson-avec-porte-de-rangement?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Clair',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'1120043HM129237',name:'Chaise enfant bois blanc et doum',cat:'Enfant',l:20,h:45,p:20,price:34.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/6e/f5/e449c87f43a31823dd673b85bea4.jpg',url:'https://www.homemaison.com/fr/chaise-enfant-bois-blanc-et-doum?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Bois',brand:'HOME MAISON'},
-{id:'202535050387HM356023',name:'Table enfant en forme de fleur',cat:'Enfant',l:51,h:40,p:51,price:36.97,img:'https://www.homemaison.com/media/cache/app_lengow_large/71/fd/49e2847cbaf315f628407a9ed90f.jpg',url:'https://www.homemaison.com/fr/table-enfant-en-forme-de-fleur?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Rose',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'2025101098663HM25100',name:'Table enfant forme organique avec pieds en bois',cat:'Enfant',l:55,h:43,p:48,price:36.97,img:'https://www.homemaison.com/media/cache/app_lengow_large/ed/52/094682ff413ab851645064cbc11e.jpg',url:'https://www.homemaison.com/fr/table-enfant-forme-organique-avec-pieds-en-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20249260122HM3560232',name:'Table enfant ourson',cat:'Enfant',l:53,h:42,p:48,price:38.27,img:'https://www.homemaison.com/media/cache/app_lengow_large/ac/26/4a755ca2919049f405d93435c310.jpg',url:'https://www.homemaison.com/fr/table-enfant-ourson?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20261160887857HM2601',name:'Meuble de rangement modulable à 4 cases',cat:'Enfant',l:30,h:64,p:64,price:40.53,img:'https://www.homemaison.com/media/cache/app_lengow_large/c6/60/81db52891f87500623226aebe7f1.jpg',url:'https://www.homemaison.com/fr/meuble-de-rangement-modulable-a-4-cases?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Rose',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20261160491279HM2601',name:'Coffre de rangement enfant',cat:'Enfant',l:36,h:30,p:60,price:40.53,img:'https://www.homemaison.com/media/cache/app_lengow_large/5c/01/ef3c8a98e3e86ff7d5c94fd876bf.jpg',url:'https://www.homemaison.com/fr/coffre-de-rangement-enfant?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'2025101069319HM25100',name:'Coffre de rangement enfant forme ourson',cat:'Enfant',l:61,h:44,p:29,price:40.87,img:'https://www.homemaison.com/media/cache/app_lengow_large/5b/4e/d7ca004f92b756b4a0dd7a42271e.jpg',url:'https://www.homemaison.com/fr/coffre-de-rangement-enfant-forme-ourson?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Clair',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20261160603876HM2601',name:'Table de chevet enfant',cat:'Enfant',l:30,h:51,p:40,price:47.03,img:'https://www.homemaison.com/media/cache/app_lengow_large/6f/26/664313f9764a882d47bac0fd3239.jpg',url:'https://www.homemaison.com/fr/table-de-chevet-enfant?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20261160605278HM2601',name:'Meuble de rangement enfant 2 cases',cat:'Enfant',l:30,h:64,p:31,price:53.53,img:'https://www.homemaison.com/media/cache/app_lengow_large/3f/28/bdbbb15a1ba39a4bd6af24e4c09a.jpg',url:'https://www.homemaison.com/fr/meuble-de-rangement-enfant-2-cases?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20261160220973HM2601',name:'Fauteuil enfant en mousse ourson',cat:'Enfant',l:52,h:65,p:60,price:54.63,img:'https://www.homemaison.com/media/cache/app_lengow_large/e0/69/75e43e4730f0891586875deee5de.jpg',url:'https://www.homemaison.com/fr/fauteuil-enfant-en-mousse-ourson?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron glacé',mat:'Polyuréthane',brand:'ATMOSPHERA'},
-{id:'20251010695510HM2510',name:'Bibliothèque enfant forme ourson à étagères ouvertes',cat:'Enfant',l:62,h:100,p:19,price:54.89,img:'https://www.homemaison.com/media/cache/app_lengow_large/f1/9d/3de841350bf1b64b27ecc6c8cd8d.jpg',url:'https://www.homemaison.com/fr/bibliotheque-enfant-forme-ourson-a-etageres-ouvertes?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Clair',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20251010998911HM2510',name:'Bibliothèque enfant à étagères ouvertes forme organique',cat:'Enfant',l:62,h:100,p:19,price:54.89,img:'https://www.homemaison.com/media/cache/app_lengow_large/89/b1/90caa6f8cf0b8f7ef8ed092a1527.jpg',url:'https://www.homemaison.com/fr/bibliotheque-enfant-a-etageres-ouvertes-forme-organique?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'3560232997679HM35602',name:'Bibliothèque enfant en bois rose avec étagères',cat:'Enfant',l:48,h:60,p:32,price:61.39,img:'https://www.homemaison.com/media/cache/app_lengow_large/fb/b4/752c2a54decdb602354ce014de7b.jpg',url:'https://www.homemaison.com/fr/bibliotheque-enfant-en-bois-rose-etageres?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Rose Clair',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20261160601477HM2601',name:'Bibliothèque enfant 2 étagères',cat:'Enfant',l:30,h:65,p:60,price:66.53,img:'https://www.homemaison.com/media/cache/app_lengow_large/88/5e/a15a77ed75d2db8561d9a1e5da87.jpg',url:'https://www.homemaison.com/fr/bibliotheque-enfant-2-etageres?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20261160503282HM2601',name:'Coffre à jouets enfant avec roulettes et couvercle',cat:'Enfant',l:36,h:42,p:60,price:66.53,img:'https://www.homemaison.com/media/cache/app_lengow_large/c1/6a/e9bb4e54d3a58e251c21bf06b8cb.jpg',url:'https://www.homemaison.com/fr/coffre-a-jouets-enfant-avec-roulettes-et-couvercle?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20261160125536HM2601',name:'Étagère murale en acier 2 niveaux',cat:'Tables basses',l:12,h:30,p:13,price:5.36,img:'https://www.homemaison.com/media/cache/app_lengow_large/62/cb/0e981341fbf04e3cbcc08e28cba5.jpg',url:'https://www.homemaison.com/fr/etagere-murale-en-acier-2-niveaux?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'202510080572057HM202',name:'Lampe murale LED rechargeable avec intensité réglable',cat:'Luminaires',l:7,h:9,p:4,price:8.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/ac/fa/b6f417666c769ee15acb460e2685.jpg',url:'https://www.homemaison.com/fr/lampe-murale-led-rechargeable-avec-intensite-reglable?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Polyester',brand:'ATMOSPHERA'},
-{id:'1113661HM110863',name:'Suspension en métal filaire Flave',cat:'Luminaires',l:19,h:27,p:0,price:10.99,img:'https://www.homemaison.com/media/cache/app_lengow_large/JJA_2021/157700.jpg',url:'https://www.homemaison.com/fr/suspension-en-metal-filaire-flave-hm69157700?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'1114936HM115111',name:'Lampe à poser en métal',cat:'Luminaires',l:13,h:45,p:13,price:12.99,img:'https://www.homemaison.com/media/cache/app_lengow_large/JJA_2021/JJA_JUILLET_2021/148168A_DEB.jpg',url:'https://www.homemaison.com/fr/lampe-a-poser-en-metal-hm69148168a?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Doré',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'20243190249HM3560238',name:'Lampe enfant oreilles de chat',cat:'Luminaires',l:18,h:30,p:0,price:13.20,img:'https://www.homemaison.com/media/cache/app_lengow_large/84/d0/62ddf749802fff8e1de469f15658.jpg',url:'https://www.homemaison.com/fr/lampe-a-poser-enfant-oreilles-de-chat?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Rose',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'20243190269HM3560233',name:'Lampe ourson pour enfant',cat:'Luminaires',l:15,h:21,p:0,price:13.20,img:'https://www.homemaison.com/media/cache/app_lengow_large/af/18/56e7bc2f7dd56e5df34f8e6278e8.png',url:'https://www.homemaison.com/fr/lpe-drt-mini-toxey-ourson-h21?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Lin',mat:'',brand:'ATMOSPHERA'},
-{id:'20249260104HM3560232',name:'Suspension en métal style industriel',cat:'Luminaires',l:19,h:100,p:17,price:13.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/8a/d9/ee7b07ee3b67eb8c79502424bea2.jpg',url:'https://www.homemaison.com/fr/suspension-en-metal-style-industriel?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Doré',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'1117530HM121444',name:'Lampe trépied bois',cat:'Luminaires',l:18,h:30,p:18,price:13.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/JJA_2022/septembre_2022/127252A_DEB1.jpg',url:'https://www.homemaison.com/fr/lampe-trepied-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Rose Clair',mat:'Polyester, Bois',brand:'ATMOSPHERA'},
-{id:'1119346HM125535',name:'Lampe avec mot \"WORLD\"',cat:'Luminaires',l:38,h:10,p:15,price:14.99,img:'https://www.homemaison.com/media/cache/app_lengow_large/JJA_2023/182486-1.jpg',url:'https://www.homemaison.com/fr/lampe-avec-mot-world-hm69182486?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'1111571HM105196',name:'Lampe à poser grille et bois',cat:'Luminaires',l:15,h:23,p:0,price:15.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/JJA_Sept.2020/155530A_FACE.jpg',url:'https://www.homemaison.com/fr/lampe-a-poser-grille-et-bois-hm69155530?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Métal, Bois',brand:'ATMOSPHERA'},
-{id:'150524HM356023273106',name:'Suspension en corde naturelle',cat:'Luminaires',l:18,h:24,p:0,price:17.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/22/4b/07499e00843ee0b088694b109567.jpg',url:'https://www.homemaison.com/fr/suspension-en-corde-naturelle?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Corde',brand:'ATMOSPHERA'},
-{id:'20243190142HM3560232',name:'Lampe en jacinthe à poser',cat:'Luminaires',l:19,h:22,p:0,price:18.48,img:'https://www.homemaison.com/media/cache/app_lengow_large/16/7d/999963e592f8691a8f9263cfc654.png',url:'https://www.homemaison.com/fr/lpe-jacinthe-sand-nat-h20?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Rotin',brand:'ATMOSPHERA'},
-{id:'1117540HM35602383334',name:'Lampe trépied esprit scandinave',cat:'Luminaires',l:20,h:40,p:0,price:19.80,img:'https://www.homemaison.com/media/cache/app_lengow_large/69/07/03d5de131202753c4116b2b65b1e.png',url:'https://www.homemaison.com/fr/lampe-trepied-esprit-scandinave-hm69161500?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris clair',mat:'Bambou, Bois',brand:'ATMOSPHERA'},
-{id:'1113664HM110866',name:'Suspension en fines cordes',cat:'Luminaires',l:28,h:30,p:0,price:19.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/JJA_2021/157702.jpg',url:'https://www.homemaison.com/fr/suspension-en-fines-cordes-hm69157702?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Papier',brand:'ATMOSPHERA'},
-{id:'1118984HM124672',name:'Applique murale en cordes',cat:'Luminaires',l:18,h:18,p:0,price:19.99,img:'https://www.homemaison.com/media/cache/app_lengow_large/JJA_2023/190632_DEB1.jpg',url:'https://www.homemaison.com/fr/applique-murale-en-cordes-hm69190632?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Corde',brand:'ATMOSPHERA'},
-{id:'20243190106HM3560232',name:'Applique murale style \"bistrot\"',cat:'Luminaires',l:23,h:24,p:2,price:22.44,img:'https://www.homemaison.com/media/cache/app_lengow_large/94/27/1d3db56f7141a7548194e49397e2.png',url:'https://www.homemaison.com/fr/aplq-met-caf-nr-d23?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'1113669HM110871',name:'Suspension en corde Jily',cat:'Luminaires',l:29,h:29,p:0,price:22.99,img:'https://www.homemaison.com/media/cache/app_lengow_large/JJA_2021/157701-ambiance.jpg',url:'https://www.homemaison.com/fr/suspension-en-corde-jily-hm69157701?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'20243190153HM3560232',name:'Suspension en roseau à franges',cat:'Luminaires',l:28,h:49,p:0,price:22.99,img:'https://www.homemaison.com/media/cache/app_lengow_large/9d/69/9bfef98f693bbfcbc5252e273bf3.png',url:'https://www.homemaison.com/fr/susp-roseau-lahys-nat-d28?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Rotin',brand:'ATMOSPHERA'},
-{id:'2024319080HM35602325',name:'Applique dorée en verre',cat:'Luminaires',l:25,h:25,p:25,price:25.08,img:'https://www.homemaison.com/media/cache/app_lengow_large/40/4c/50dbcdff0169a08d5f02a5752081.png',url:'https://www.homemaison.com/fr/aplq-vr-dris-dore-d15?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Verre',brand:'ATMOSPHERA'},
-{id:'20243190285HM3560231',name:'Suspension enfant à étoiles',cat:'Luminaires',l:20,h:30,p:0,price:26.40,img:'https://www.homemaison.com/media/cache/app_lengow_large/aa/c7/01964f7c00caaffe1091e3aafa54.png',url:'https://www.homemaison.com/fr/susp-cyld-blanc-et-ocre-h30?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Doré',mat:'Papier',brand:'ATMOSPHERA'},
-{id:'1118960HM124646',name:'Suspension pétales en tissu',cat:'Luminaires',l:64,h:64,p:18,price:29.99,img:'https://www.homemaison.com/media/cache/app_lengow_large/JJA_2023/193982_DEB1.jpg',url:'https://www.homemaison.com/fr/suspension-petales-en-tissu?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Rose Clair',mat:'Métal, Polyester',brand:'ATMOSPHERA'},
-{id:'1117565HM121491',name:'Applique murale en Bambou tressé',cat:'Luminaires',l:23,h:23,p:0,price:29.99,img:'https://www.homemaison.com/media/cache/app_lengow_large/JJA_2022/182472_DEB1.jpg',url:'https://www.homemaison.com/fr/applique-en-bambou-hm69182472?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bambou',brand:'ATMOSPHERA'},
-{id:'3560232993985HM35602',name:'Suspension en papier mâché aérienne',cat:'Luminaires',l:57,h:10,p:55,price:32.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/f9/15/0de9b8ba07a793d92913d57b11f5.jpg',url:'https://www.homemaison.com/fr/suspension-en-papier-mache-aerienne?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Papier',brand:'ATMOSPHERA'},
-{id:'20243190210HM3560232',name:'Lampe à poser en bambou',cat:'Luminaires',l:17,h:38,p:0,price:33.00,img:'https://www.homemaison.com/media/cache/app_lengow_large/fd/da/64059e24ca2e2ea057cdb03e95da.png',url:'https://www.homemaison.com/fr/lpe-bamb-mahe-nat-h38?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Bambou',brand:'ATMOSPHERA'},
-{id:'20243190104HM3560232',name:'Lampe en forme de feuilles en rotin',cat:'Luminaires',l:38,h:44,p:5,price:35.64,img:'https://www.homemaison.com/media/cache/app_lengow_large/86/1f/c1808516cb6548618715f2eb381f.png',url:'https://www.homemaison.com/fr/lampe-en-rotin-feuilles?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Rotin',brand:'ATMOSPHERA'},
-{id:'20243190149HM3560232',name:'Suspension en jute ethnique chic',cat:'Luminaires',l:58,h:10,p:0,price:35.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/6f/be/dddf8b50fa4736e2ffa5cffe854e.png',url:'https://www.homemaison.com/fr/susp-jute-bellamy-nat-d58?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Jute',brand:'ATMOSPHERA'},
-{id:'3560232994005HM35602',name:'Suspension en coton blanc',cat:'Luminaires',l:112,h:37,p:0,price:36.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/e7/8f/8a1a9409c3cb2bbb065ea32cb0e4.jpg',url:'https://www.homemaison.com/fr/suspension-en-coton-blanc?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Coton, Métal',brand:'ATMOSPHERA'},
-{id:'230424016891HM346000',name:'Suspension douille doré satiné',cat:'Luminaires',l:80,h:110,p:0,price:42.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/57/74/f40064baf5ef11ab1c4f33b845d6.png',url:'https://www.homemaison.com/fr/suspension-douille-dore-satine-hm69016891?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Corde',brand:'OPJET'},
-{id:'20249260120HM3560232',name:'Suspension pétales en bambou naturel',cat:'Luminaires',l:62,h:94,p:62,price:46.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/b8/2f/0e646c261c561d8a5498248765e0.jpg',url:'https://www.homemaison.com/fr/suspension-petales-en-bambou-naturel?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Bambou, Bois, Métal',brand:'ATMOSPHERA'},
-{id:'20261160347813HM2601',name:'Suspension en jute et acier design vertical',cat:'Luminaires',l:27,h:161,p:27,price:49.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/a0/79/134bd8b48f89c2dbffef32283058.jpg',url:'https://www.homemaison.com/fr/suspension-en-jute-et-acier-design-vertical?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Jute',brand:'ATMOSPHERA'},
-{id:'1120075HM129473',name:'Suspension verre et laiton vintage',cat:'Luminaires',l:25,h:120,p:25,price:50.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/OPJET/016050-1.jpg',url:'https://www.homemaison.com/fr/suspension-avec-coupelle-en-verre-hm69016050?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Doré',mat:'Verre',brand:'OPJET'},
-{id:'1120066HM129456',name:'Suspension pétales de fleur',cat:'Luminaires',l:58,h:58,p:0,price:50.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/OPJET/015819-1.jpg',url:'https://www.homemaison.com/fr/suspension-petales-de-fleur-hm69015815?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Foncé',mat:'Coton',brand:'OPJET'},
-{id:'20249260106HM3560232',name:'Suspension style accordéon en jute',cat:'Luminaires',l:38,h:37,p:38,price:52.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/2e/88/a5a0da9365048c934b43437721f3.jpg',url:'https://www.homemaison.com/fr/suspension-style-accordeon-en-jute?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Jute',brand:'ATMOSPHERA'},
-{id:'20251010213332HM2510',name:'Suspension en métal effet chrome avec globe en verre',cat:'Luminaires',l:38,h:125,p:38,price:59.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/f2/38/4655f4a011fa8c11b028b01ff438.jpg',url:'https://www.homemaison.com/fr/suspension-en-metal-effet-chrome-avec-globe-en-verre?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Argent',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'20261160336212HM2601',name:'Suspension design en acier',cat:'Luminaires',l:49,h:119,p:49,price:66.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/1f/e1/42a0231c4a7a4002a8caa45b45c8.jpg',url:'https://www.homemaison.com/fr/suspension-design-en-acier?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'2025429090876HM34600',name:'Suspension en verre D25',cat:'Luminaires',l:25,h:120,p:0,price:68.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/0f/75/9e4088f8e77c1f204b3b354fb796.jpg',url:'https://www.homemaison.com/fr/suspension-en-verre-d25?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Doré Vieilli',mat:'Verre',brand:'OPJET'},
-{id:'2024624020HMDY820142',name:'Suspension en papier maché',cat:'Luminaires',l:20,h:15,p:20,price:72.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/1b/1f/c906d8f5369303231f91621d67e2.png',url:'https://www.homemaison.com/fr/lampe-suspendue-en-1-papier-mache-j-line-papier?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Papier',brand:'JLine'},
-{id:'20261160349252HM2601',name:'Suspension design en tissu forme organique',cat:'Luminaires',l:64,h:107,p:70,price:73.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/d1/ff/bb69440da83b404db312488f15a4.jpg',url:'https://www.homemaison.com/fr/suspension-design-en-tissu-forme-organique?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Lin',mat:'Polyester',brand:'ATMOSPHERA'},
-{id:'20261160363853HM2601',name:'Suspension design organique',cat:'Luminaires',l:35,h:118,p:45,price:73.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/98/c4/72c66e836e477946f7642885b6a7.jpg',url:'https://www.homemaison.com/fr/suspension-design-organique?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Plastique',brand:'ATMOSPHERA'},
-{id:'3560232993961HM35602',name:'Suspension luminaire en jute',cat:'Luminaires',l:69,h:9,p:0,price:75.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/a3/09/091d5bf8e0637bdab53d1acef013.jpg',url:'https://www.homemaison.com/fr/suspension-luminaire-en-jute?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Jute, Métal',brand:'ATMOSPHERA'},
-{id:'2025324039472HM35602',name:'Suspension luminaire design en métal doré',cat:'Luminaires',l:56,h:123,p:42,price:79.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/48/71/5e0a90a363ef3f16dd0b85a541d9.jpg',url:'https://www.homemaison.com/fr/suspension-luminaire-design-en-metal-dore?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Doré',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'20243190242HM3560239',name:'Table à café en métal ajouré',cat:'Tables basses',l:40,h:41,p:40,price:18.41,img:'https://www.homemaison.com/media/cache/app_lengow_large/e3/f2/c2432f80a72c5c31663f69ea05f7.png',url:'https://www.homemaison.com/fr/table-cafe-met-kumi-nr-mm?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'2026116053559HM26011',name:'Table d’appoint ronde en acier',cat:'Tables basses',l:38,h:42,p:38,price:25.17,img:'https://www.homemaison.com/media/cache/app_lengow_large/fb/65/02d9a9fbf1cdeffff588bfeabf46.jpg',url:'https://www.homemaison.com/fr/table-dappoint-ronde-en-acier?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'2410205801HM35602329',name:'Lot de 2 tables basses effet marbre',cat:'Tables basses',l:37,h:40,p:37,price:27.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/0f/22/d2116346bcbf6173c70c8e2a80a3.jpg',url:'https://www.homemaison.com/fr/lot-de-2-tables-basses-effet-marbre?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois, Métal',brand:'ATMOSPHERA'},
-{id:'1118961HM26011649205',name:'Table de café en métal',cat:'Tables basses',l:36,h:52,p:36,price:33.36,img:'https://www.homemaison.com/media/cache/app_lengow_large/c4/29/d820fc47c961c4729399e7992e60.jpg',url:'https://www.homemaison.com/fr/table-de-cafe-en-metal-hm69157206?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'2026116020027HM26011',name:'Table café en acier design totem',cat:'Tables basses',l:31,h:42,p:31,price:39.86,img:'https://www.homemaison.com/media/cache/app_lengow_large/16/4d/6c144bf6da81ec6e159fa736924a.jpg',url:'https://www.homemaison.com/fr/table-cafe-en-acier-design-totem?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'9448241HM36642540351',name:'Table de chevet avec étagère',cat:'Tables basses',l:38,h:47,p:38,price:49.99,img:'https://www.homemaison.com/media/cache/app_lengow_large/95/83/50cedbc85eafcb5d4a31ebd04e4b.jpg',url:'https://www.homemaison.com/fr/table-de-chevet-avec-etagere?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois, Osier',brand:'HOME MAISON'},
-{id:'202633008209HM260303',name:'Table basse et repose-pieds de jardin',cat:'Tables basses',l:50,h:40,p:50,price:51.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/7b/a1/b60d31d71356bde939444aca65f0.jpg',url:'https://www.homemaison.com/fr/table-basse-et-repose-pieds-de-jardin?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Taupe',mat:'Polypropylène',brand:'JARDILINE'},
-{id:'20251010471919HM2510',name:'Table d’appoint ronde forme fleur',cat:'Tables basses',l:43,h:51,p:43,price:53.66,img:'https://www.homemaison.com/media/cache/app_lengow_large/5b/46/5b120a674321307ac541d3156293.jpg',url:'https://www.homemaison.com/fr/table-dappoint-ronde-forme-fleur?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Ecru',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'20249260125HM3560232',name:'Lot de 3 tables basses gigognes rondes design industriel',cat:'Tables basses',l:54,h:45,p:54,price:55.59,img:'https://www.homemaison.com/media/cache/app_lengow_large/97/2b/52cc467e36d8dc51aa3fc885c71b.jpg',url:'https://www.homemaison.com/fr/lot-de-3-tables-basses-gigognes-rondes-design-industriel?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois, Métal',brand:'ATMOSPHERA'},
-{id:'2024624085HMDY241109',name:'Table gigogne en métal avec pied en croix',cat:'Tables basses',l:35,h:50,p:35,price:71.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/2e/ba/6f0417a0251149def6aa3cf4831a.jpg',url:'https://www.homemaison.com/fr/table-gigogne-en-metal-avec-pied-en-croix?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Métal',brand:'JLine'},
-{id:'20251010522820HM2510',name:'Table d’appoint ronde avec niches de rangement',cat:'Tables basses',l:33,h:45,p:33,price:79.66,img:'https://www.homemaison.com/media/cache/app_lengow_large/fe/99/4d128cce94e7333c6154a3e82039.jpg',url:'https://www.homemaison.com/fr/table-dappoint-ronde-avec-niches-de-rangement?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Ecru',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'1117316HM121006',name:'Table basse ronde semi gigogne',cat:'Tables basses',l:60,h:42,p:60,price:81.66,img:'https://www.homemaison.com/media/cache/app_lengow_large/JARDILINE/Antiparos-2201.jpg',url:'https://www.homemaison.com/fr/table-basse-ronde-semi-gigogne-hm69tbg-2205?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Métal',brand:'JARDILINE'},
-{id:'2410197799AHM3560232',name:'Table d\'appoint totem en métal',cat:'Tables basses',l:38,h:43,p:38,price:92.53,img:'https://www.homemaison.com/media/cache/app_lengow_large/85/ff/a6f7ef5944755e5e324397746abe.jpg',url:'https://www.homemaison.com/fr/table-d-appoint-totem-en-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Vert',mat:'Métal',brand:'ATMOSPHERA'},
-{id:'1117283HM120960',name:'Table basse ronde effet indus',cat:'Tables basses',l:56,h:56,p:0,price:103.39,img:'https://www.homemaison.com/media/cache/app_lengow_large/JARDILINE/Thasos-3.jpg',url:'https://www.homemaison.com/fr/table-basse-ronde-effet-indus-hm69tbb-2204?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Jaune',mat:'Aluminium',brand:'JARDILINE'},
-{id:'1114535HM113166',name:'Table basse de jardin en résine tressée',cat:'Tables basses',l:70,h:33,p:50,price:119.75,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/VIDA_XL_MAI_2021/310222_1.jpg',url:'https://www.homemaison.com/fr/table-basse-de-jardin-en-resine-tressee-hm69310221?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Plastique',brand:'vidaXL'},
-{id:'1114133HM111836',name:'Table basse pliante en maille',cat:'Tables basses',l:38,h:38,p:0,price:126.58,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/310157_b.jpg',url:'https://www.homemaison.com/fr/table-basse-pliante-en-maille-hm69310157?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Métal',brand:'vidaXL'},
-{id:'1114068HM111729',name:'Table basse de jardin avec plateau en verre',cat:'Tables basses',l:45,h:40,p:45,price:129.36,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/46068.jpg',url:'https://www.homemaison.com/fr/table-basse-de-jardin-avec-plateau-en-verre-hm6946068?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris clair',mat:'Métal, Verre',brand:'vidaXL'},
-{id:'2025790370077HMDY818',name:'Table basse salon rotin à double plateaux',cat:'Tables basses',l:40,h:50,p:40,price:129.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/c5/51/0db185d9a2cc10f63514351a7064.jpg',url:'https://www.homemaison.com/fr/table-basse-salon-rotin-a-double-plateaux?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Rotin',brand:'JLine'},
-{id:'1114536HM113130',name:'Table basse en résine tressée',cat:'Tables basses',l:45,h:46,p:45,price:131.97,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/VIDA_XL_MAI_2021/313307_1.jpg',url:'https://www.homemaison.com/fr/table-basse-en-resine-tressee-hm69313307?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris clair',mat:'Résine',brand:'vidaXL'},
-{id:'202462408HMDY820073',name:'Lot de 2 tables triangulaires en teck recyclé',cat:'Tables basses',l:50,h:50,p:50,price:144.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/15/fb/4cddfd217d23683be32d6be9563e.jpg',url:'https://www.homemaison.com/fr/lot-de-2-tables-triangulaires-en-teck-recycle?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'JLine'},
-{id:'20257903337172HMDY81',name:'Table basse design contemporain en métal',cat:'Tables basses',l:40,h:39,p:40,price:155.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/52/08/974f85102b79326476f35bcc45d9.jpg',url:'https://www.homemaison.com/fr/table-basse-design-contemporain-en-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Métal',brand:'JLine'},
-{id:'20257903320109HMDY81',name:'Table basse métal style bistrot',cat:'Tables basses',l:40,h:50,p:40,price:172.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/61/05/cbd95d425a320dcb9ee82a5fe576.jpg',url:'https://www.homemaison.com/fr/table-basse-metal-style-bistrot?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Métal',brand:'JLine'},
-{id:'20257904851200HMDY64',name:'Set de 2 tables gigognes en bois de manguier et métal',cat:'Tables basses',l:39,h:56,p:39,price:174.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/68/a1/c03b003488037b86292db87883e6.jpg',url:'https://www.homemaison.com/fr/set-de-2-tables-gigognes-en-bois-de-manguier-et-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Foncé',mat:'Métal',brand:'JLine'},
-{id:'2026330247317HM26030',name:'Table basse de jardin ronde en rotin tressé',cat:'Tables basses',l:64,h:50,p:64,price:177.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/f9/a5/febb264843596553eb51ce152211.jpg',url:'https://www.homemaison.com/fr/table-basse-de-jardin-ronde-en-rotin-tresse?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Rotin',brand:'JARDILINE'},
-{id:'2025790275869HMDY818',name:'Lot de 2 tables basses gigognes en aluminium',cat:'Tables basses',l:50,h:51,p:50,price:185.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/ba/1f/0225ebaa7410c015c7c10d3d615a.jpg',url:'https://www.homemaison.com/fr/lot-de-2-tables-basses-gigognes-en-aluminium-noir?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir Mat',mat:'Aluminium',brand:'JLine'},
-{id:'2024624064HMDY233074',name:'Table basse en bois naturel',cat:'Tables basses',l:40,h:40,p:39,price:185.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/30/be/de71ea4cd6d33b43593a62b2a56f.png',url:'https://www.homemaison.com/fr/table-basse-en-bois-naturel-j-line-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'JLine'},
-{id:'20257908050132HMDY82',name:'Table basse bois design épuré contemporain',cat:'Tables basses',l:66,h:38,p:75,price:187.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/c8/b4/f6e486a1f42c439aafa18f44d2bd.jpg',url:'https://www.homemaison.com/fr/table-basse-bois-design-epure-contemporain?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc cassé',mat:'Bois',brand:'JLine'},
-{id:'202579031786HMDY2320',name:'Table d’appoint en métal',cat:'Tables basses',l:36,h:52,p:36,price:188.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/3b/86/7fa6f193b8c912acf672c39eb41a.jpg',url:'https://www.homemaison.com/fr/table-dappoint-en-metal-dore?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Doré',mat:'Métal',brand:'JLine'},
-{id:'2024624099HMDY238431',name:'Table basse carrée en métal',cat:'Tables basses',l:80,h:30,p:80,price:189.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/ef/a5/e849e96be78b2a4b91c0bb3fdf04.jpg',url:'https://www.homemaison.com/fr/table-basse-carree-en-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Métal',brand:'JLine'},
-{id:'2024624050HM54009243',name:'Table basse en bois de manguier foncé J-Line',cat:'Tables basses',l:40,h:40,p:0,price:199.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/6f/9e/ea68944830e3be8d8bd196d52c32.png',url:'https://www.homemaison.com/fr/table-basse-en-bois-de-manguier-5fonce-j-line-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Foncé',mat:'Bois',brand:'JLine'},
-{id:'20257907701107HMDY81',name:'Table de chevet ronde en bois naturel avec tiroir',cat:'Tables basses',l:40,h:67,p:53,price:201.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/c8/08/ac63ea25894df0162d938a7ab799.jpg',url:'https://www.homemaison.com/fr/table-de-chevet-ronde-en-bois-naturel-avec-tiroir?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'JLine'},
-{id:'2024624086HMDY230936',name:'Table de salon large en métal avec pied en croix',cat:'Tables basses',l:100,h:32,p:60,price:201.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/07/f4/4fda16b24165d62bc4f4fdfe2ff1.jpg',url:'https://www.homemaison.com/fr/table-de-salon-large-en-metal-avec-pied-en-croix?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Métal',brand:'JLine'},
-{id:'2024624011HMDY584088',name:'Lot de 2 tables triangle recyclées en teck naturel',cat:'Tables basses',l:50,h:50,p:50,price:204.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/2f/05/215e4446746645d28a4cc61a38c7.png',url:'https://www.homemaison.com/fr/set-de-2-tables-triangulaire-teck-recycle-naturel-j-line-teck?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'JLine'},
-{id:'2025790351951HMDY645',name:'Table basse en rotin lot de 2',cat:'Tables basses',l:51,h:45,p:51,price:210.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/5b/91/9215192a55b86216170f4a63b133.jpg',url:'https://www.homemaison.com/fr/table-basse-en-rotin-lot-de-2?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Rotin',brand:'JLine'},
-{id:'2024624047HMDY242381',name:'Table basse en bois de manguier naturel',cat:'Tables basses',l:40,h:52,p:40,price:210.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/3b/6f/da620702fa6845f4eb7cdb5762bc.png',url:'https://www.homemaison.com/fr/table-basse-en-bois-de-manguier-2naturel-j-line-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'JLine'},
-{id:'2025790999481HMDY818',name:'Table basse en bois de manguier au design contemporain',cat:'Tables basses',l:35,h:46,p:35,price:212.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/3c/e1/7639e544dd687a8a105f95442c1e.jpg',url:'https://www.homemaison.com/fr/table-basse-en-bois-de-manguier-au-design-contemporain?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir Mat',mat:'Bois',brand:'JLine'},
-{id:'20257900671199HMDY82',name:'Ensemble de 2 tables gigognes rondes en bois et métal',cat:'Tables basses',l:43,h:48,p:43,price:217.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/d2/ab/30c4615de5fbcec1737406d8117a.jpg',url:'https://www.homemaison.com/fr/ensemble-de-2-tables-gigognes-rondes-en-bois-et-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Foncé',mat:'Métal',brand:'JLine'},
-{id:'2024624023HMDY646200',name:'Table d\'appoint en rotin',cat:'Tables basses',l:60,h:64,p:60,price:230.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/42/77/9da56407700a7dc24682727515b5.png',url:'https://www.homemaison.com/fr/table-gigogne-en-rotin-small-j-line-rotin?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Rotin',brand:'JLine'},
-{id:'2024624032HMDY232763',name:'Lot de 2 tables gigognes shanil en bois et métal',cat:'Tables basses',l:43,h:53,p:43,price:231.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/c7/58/0afbaa320315197f84cba5e9af5b.png',url:'https://www.homemaison.com/fr/set-de-2-tables-gigognes-en-bois-j-line-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'JLine'},
-{id:'2024624060HMDY236943',name:'Table de salon goutte en aluminium et fer J-Line',cat:'Tables basses',l:98,h:32,p:52,price:238.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/58/4d/0435c67b2af2d8296edfcc414e78.png',url:'https://www.homemaison.com/fr/table-de-salon-goutte-11-en-aluminium-et-fer-j-line-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois, Métal',brand:'JLine'},
-{id:'1114104HM111792',name:'Table basse de jardin durable',cat:'Tables basses',l:78,h:31,p:78,price:241.34,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/48827-blanc.jpg',url:'https://www.homemaison.com/fr/table-basse-de-jardin-durable-hm6948827?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Plastique',brand:'vidaXL'},
-{id:'2024624024HMDY819865',name:'Table d\'appoint en rotin large',cat:'Tables basses',l:80,h:44,p:80,price:249.00,img:'https://www.homemaison.com/media/cache/app_lengow_large/9c/b1/a8dac037535191560fb635a3082a.png',url:'https://www.homemaison.com/fr/table-gigogne-en-rotin-large-j-line-rotin?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Rotin',brand:'JLine'},
-{id:'20246240102HMDY24181',name:'Table basse ronde en bambou naturel',cat:'Tables basses',l:120,h:46,p:120,price:257.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/0a/96/7752b1b83d856f0f1cf3acd401f8.jpg',url:'https://www.homemaison.com/fr/table-basse-ronde-en-bambou-naturel?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bambou',brand:'JLine'},
-{id:'2025790795721HMDY582',name:'Set de 4 tables rondes en teck recyclé naturel',cat:'Tables basses',l:70,h:30,p:70,price:259.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/ac/5c/72fd607ccae3cf954c5210489432.jpg',url:'https://www.homemaison.com/fr/set-de-4-tables-rondes-en-teck-recycle-naturel?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Foncé',mat:'Bois',brand:'JLine'},
-{id:'2024624053HMDY232772',name:'Table basse en bois de manguier noir',cat:'Tables basses',l:40,h:52,p:40,price:259.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/a8/af/ff86967676d309761f2c27b3b0ce.png',url:'https://www.homemaison.com/fr/table-basse-en-bois-de-manguier-8fonce-j-line-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'JLine'},
-{id:'270524364158HM364158',name:'Table basse glacière 3 en 1',cat:'Tables basses',l:45,h:75,p:0,price:263.47,img:'https://www.homemaison.com/media/cache/app_lengow_large/4e/fe/c422cb903f40bb403a89d7b5f0dc.png',url:'https://www.homemaison.com/fr/table-basse-glaciere-3-en-1-hm69364158?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Clair',mat:'Polypropylène',brand:'vidaXL'},
-{id:'2025790371778HMDY818',name:'Table basse rotin meuble de rangement multi fonction',cat:'Tables basses',l:61,h:79,p:61,price:276.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/98/0c/041dbee5fbbd4aef6477859eda2a.jpg',url:'https://www.homemaison.com/fr/table-basse-rotin-meuble-de-rangement-multi-fonction?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Rotin',brand:'JLine'},
-{id:'2024624092HMDY231813',name:'Lot de 3 table gigognes rectangulaires en aluminium',cat:'Tables basses',l:53,h:66,p:29,price:278.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/37/b8/d49be88d3058103e8d474b027441.jpg',url:'https://www.homemaison.com/fr/lot-de-3-table-gigognes-rectangulaires-en-aluminium?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Rouge Orangé',mat:'Aluminium, Métal',brand:'JLine'},
-{id:'202462407HMDY642449',name:'Lot de 4 tables rondes en teck recyclé',cat:'Tables basses',l:30,h:45,p:30,price:285.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/da/bb/e9c3c258c33c0eb320b23a2ed9ae.jpg',url:'https://www.homemaison.com/fr/lot-de-4-tables-rondes-en-teck-recycle?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois, Métal',brand:'JLine'},
-{id:'2025790780330HMDY583',name:'Tables d\'appoint carré bord arrondi en métal lot de 2',cat:'Tables basses',l:50,h:46,p:50,price:286.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/d6/a4/ddeb7c901c47ee9ba90ec8b531b8.jpg',url:'https://www.homemaison.com/fr/tables-d-appoint-carre-bord-arrondi-en-metal-lot-de-2?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Ivoire',mat:'Aluminium',brand:'JLine'},
-{id:'2025790481346HMDY645',name:'Set de 2 tables d’appoint rectangulaires en bois de manguier et métal',cat:'Tables basses',l:36,h:64,p:50,price:287.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/cf/cd/d71436d480cc7ff38f7cb4b03487.jpg',url:'https://www.homemaison.com/fr/set-de-2-tables-dappoint-rectangulaires-en-bois-de-manguier-et-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Foncé',mat:'Bois',brand:'JLine'},
-{id:'202462409HMDY642444',name:'Table basse rectangulaire en teck recyclé',cat:'Tables basses',l:120,h:30,p:70,price:287.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/82/82/37dbb410b5f4c951c75c29cdcc4f.jpg',url:'https://www.homemaison.com/fr/table-basse-rectangulaire-en-teck-recycle?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois, Métal',brand:'JLine'},
-{id:'2024624010HMDY819346',name:'Table basse rectangulaire en teck recyclé naturel',cat:'Tables basses',l:130,h:75,p:0,price:287.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/b7/ae/50f728b1c5db650aee5a707bcdf4.png',url:'https://www.homemaison.com/fr/table-basse-rect-en-teck-recycle-j-line-teck?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'JLine'},
-{id:'2024624029HMDY232265',name:'Table d\'appoint en fer et verre',cat:'Tables basses',l:50,h:45,p:0,price:287.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/fc/a5/3dbf32dc6eae7e30bf07d458def0.png',url:'https://www.homemaison.com/fr/table-d-appoint-en-fer-et-verre-j-line-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Doré',mat:'Bois, Métal',brand:'JLine'},
-{id:'2024624062HMDY236647',name:'Table basse goutte en aluminium et fer',cat:'Tables basses',l:89,h:32,p:53,price:287.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/86/dd/30c60d9ba29e5f82320b37c0a0b7.jpg',url:'https://www.homemaison.com/fr/table-de-salon-goutte22-en-aluminium-et-fer-j-line-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Foncé',mat:'Métal',brand:'JLine'},
-{id:'2025790486868HMDY646',name:'Table basse ronde salon bois de manguier',cat:'Tables basses',l:80,h:42,p:80,price:303.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/16/9e/97c9ee9f5ae187a00d676e2ef923.jpg',url:'https://www.homemaison.com/fr/table-basse-ronde-salon-bois-de-manguier?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir Mat',mat:'Bois',brand:'JLine'},
-{id:'20257909574130HMDY81',name:'Table basse bois double plateau en teck',cat:'Tables basses',l:68,h:46,p:68,price:314.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/ce/a2/60488a7f8f1a3468165b17be0f7c.jpg',url:'https://www.homemaison.com/fr/table-basse-bois-double-plateau-en-teck?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'JLine'},
-{id:'2025790658857HMDY645',name:'Table d’appoint en bois de manguier',cat:'Tables basses',l:48,h:46,p:48,price:322.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/3d/53/fb7b3464580bff2d49695bce24d0.jpg',url:'https://www.homemaison.com/fr/table-dappoint-en-bois-de-manguier?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir Mat',mat:'Bois',brand:'JLine'},
-{id:'2025790001379HMDY818',name:'Table basse ronde trio bois de manguier',cat:'Tables basses',l:50,h:60,p:50,price:322.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/05/cb/a596d4d0c8ce362b7e69395d9884.jpg',url:'https://www.homemaison.com/fr/table-basse-ronde-trio-bois-de-manguier?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir Mat',mat:'Bois',brand:'JLine'},
-{id:'2024624030HMDY230838',name:'Lot de 2 tables gigognes en métal',cat:'Tables basses',l:46,h:61,p:46,price:322.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/e5/64/b8dee2e358a03b02c262887bf015.png',url:'https://www.homemaison.com/fr/set-de-2-tables-en-metal-1j-line-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Cuivre',mat:'Métal',brand:'JLine'},
-{id:'1103202448767HM94880',name:'Galette piquée extérieure',cat:'Assises',l:38,h:38,p:0,price:12.70,img:'https://www.homemaison.com/media/cache/app_lengow_large/95/6f/4d1062eebf29c6994705efa0bfd1.png',url:'https://www.homemaison.com/fr/galette-piquee-exterieure?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Orange',mat:'',brand:'DECOSTARS'},
-{id:'2025430021363HM35602',name:'Pouf de rangement pliant toile de jute',cat:'Assises',l:31,h:31,p:31,price:12.87,img:'https://www.homemaison.com/media/cache/app_lengow_large/d6/d9/65553d0da9d9d358ecc735e4dcf9.jpg',url:'https://www.homemaison.com/fr/pouf-de-rangement-pliant-toile-de-jute?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Jute',brand:'Five Simply Smart'},
-{id:'1119298HM125352',name:'Tabouret Marocain bois de laurier',cat:'Assises',l:20,h:20,p:20,price:19.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/00_MAROC/petit_tabouret_marocain_enfant_en_bois_brut_2.jpg',url:'https://www.homemaison.com/fr/tabouret-marocain-bois-de-laurier-hm69ma-mob-tabnat?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Osier, Bois',brand:'HOME MAISON'},
-{id:'20251010195923HM2510',name:'Pouf pliable effet velours côtelé avec rangement intégré',cat:'Assises',l:38,h:38,p:38,price:19.99,img:'https://www.homemaison.com/media/cache/app_lengow_large/7c/da/f4dbecfa3fb68109460de9c3dd74.jpg',url:'https://www.homemaison.com/fr/pouf-pliable-effet-velours-cotele-avec-rangement-integre?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Crème',mat:'Polyester',brand:'ATMOSPHERA'},
-{id:'20243190238HM3560232',name:'Pouf pliant à rangement',cat:'Assises',l:38,h:38,p:38,price:19.99,img:'https://www.homemaison.com/media/cache/app_lengow_large/5e/6c/e71d9f6e7c07ef771f019e4d0404.png',url:'https://www.homemaison.com/fr/pouf-pli-vel-tess-ced?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Ambre',mat:'Polyester',brand:'ATMOSPHERA'},
-{id:'20243190443HM3560232',name:'Tabouret rectangulaire à pieds bois',cat:'Assises',l:32,h:32,p:0,price:23.27,img:'https://www.homemaison.com/media/cache/app_lengow_large/45/98/e6bb9a4a39de767121b27ddf12bd.png',url:'https://www.homemaison.com/fr/tabr-app-thena-iv?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Ivoire',mat:'Polyester',brand:'ATMOSPHERA'},
-{id:'2410203745HM35602328',name:'Pouf champignon bouclette',cat:'Assises',l:27,h:27,p:27,price:24.47,img:'https://www.homemaison.com/media/cache/app_lengow_large/ab/37/a12a41d21a2811f56b551f5c12a0.jpg',url:'https://www.homemaison.com/fr/pouf-champignon-bouclette?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Clair',mat:'Bois, Polyester',brand:'ATMOSPHERA'},
-{id:'1115982HM117838',name:'Tabouret avec assise en fourrure',cat:'Assises',l:29,h:41,p:0,price:24.54,img:'https://www.homemaison.com/media/cache/app_lengow_large/JJA_2022/140057D_DEB1.jpg',url:'https://www.homemaison.com/fr/tabouret-avec-assisse-en-fourrure-hm69140057d?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Fourrure',brand:'ATMOSPHERA'},
-{id:'20251029078212HM2510',name:'Tabouret marocain noir en bois',cat:'Assises',l:20,h:20,p:20,price:24.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/35/9c/96ccde1062197aaf0585c7236014.jpg',url:'https://www.homemaison.com/fr/tabouret-marocain-noir-en-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'HOME MAISON'},
-{id:'1119893HM128633',name:'Tabouret Marocain blanc en bois',cat:'Assises',l:20,h:20,p:20,price:24.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/54/d7/77e41a96b27b9081959a0617ae02.jpg',url:'https://www.homemaison.com/fr/tabouret-marocain-blanc-en-bois-hm69ma-mob-tabbla?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Bois',brand:'HOME MAISON'},
-{id:'2024319022HM35602386',name:'Marchepied 2 marches en bambou',cat:'Assises',l:15,h:40,p:0,price:30.36,img:'https://www.homemaison.com/media/cache/app_lengow_large/a4/47/e2aa82e0927fae2a1de8cf008e86.jpg',url:'https://www.homemaison.com/fr/marchepied-2-marches-bambou?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'',brand:'Five Simply Smart'},
-{id:'1119061HM35602327093',name:'Tabouret de rangement en bambou',cat:'Assises',l:40,h:46,p:25,price:33.38,img:'https://www.homemaison.com/media/cache/app_lengow_large/78/47/0203d3464cc2dbe4eb1b87e1974d.png',url:'https://www.homemaison.com/fr/tabouret-rgmt-bam-noir?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bambou',brand:'Five Simply Smart'},
-{id:'20251010197325HM2510',name:'Pouf pliable double effet velours côtelé avec rangement intégré',cat:'Assises',l:76,h:38,p:38,price:35.13,img:'https://www.homemaison.com/media/cache/app_lengow_large/22/d1/77ef181551cc25b4359143f716e1.jpg',url:'https://www.homemaison.com/fr/pouf-pliable-double-effet-velours-cotele-avec-rangement-integre?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Crème',mat:'Velours',brand:'ATMOSPHERA'},
-{id:'20243190205HM3560232',name:'Petit banc en bois',cat:'Assises',l:70,h:31,p:26,price:36.74,img:'https://www.homemaison.com/media/cache/app_lengow_large/df/2a/1439f26ebdfb78c2b7409358b5d5.png',url:'https://www.homemaison.com/fr/banc-woody-70x27?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'2410202272HM35602328',name:'Tabouret d\'appoint Inuit bouclette',cat:'Assises',l:41,h:41,p:35,price:38.82,img:'https://www.homemaison.com/media/cache/app_lengow_large/2f/12/45a89f3cc9762045a9de35f57c3e.jpg',url:'https://www.homemaison.com/fr/tabouret-d-appoint-inuit-bouclette?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Bois, Mousse, Polyester',brand:'ATMOSPHERA'},
-{id:'1118186HM123116',name:'Tabouret pliant en bambou',cat:'Assises',l:40,h:45,p:32,price:41.44,img:'https://www.homemaison.com/media/cache/app_lengow_large/JJA_2022/septembre_2022/150729-1.jpg',url:'https://www.homemaison.com/fr/tabouret-pliant-en-bambou-hm69150729?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bambou',brand:'Five Simply Smart'},
-{id:'944512HM944512',name:'Set de 2 tabourets',cat:'Assises',l:32,h:39,p:32,price:52.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/7c/48/01353307fa9123cc24cd3eedd179.jpg',url:'https://www.homemaison.com/fr/set-de-2-tabourets-hm69016346?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'OPJET'},
-{id:'20243190435HM3560232',name:'Pouf champignon tissu OEKO-TEX',cat:'Assises',l:40,h:40,p:0,price:53.79,img:'https://www.homemaison.com/media/cache/app_lengow_large/4c/6c/0dd926fdf97f22c79c05d3ba3d42.png',url:'https://www.homemaison.com/fr/pouf-tissu-kita-trct?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris',mat:'Polyester',brand:'ATMOSPHERA'},
-{id:'1117546HM121468',name:'Pouf rond en velours',cat:'Assises',l:40,h:40,p:0,price:54.63,img:'https://www.homemaison.com/media/cache/app_lengow_large/JJA_2022/166766A_DEB1.jpg',url:'https://www.homemaison.com/fr/pouf-rond-en-velours-hm69166766?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris Foncé',mat:'Velours',brand:'ATMOSPHERA'},
-{id:'1119300HM125358',name:'Banc Marocain Doum tressage central',cat:'Assises',l:60,h:30,p:30,price:54.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/00_MAROC/60C_banc_marocain_enfant_bois.jpg',url:'https://www.homemaison.com/fr/banc-marocain-doum-tressage-central?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'HOME MAISON'},
-{id:'1119299HM125355',name:'Banc Marocain Doum tressage damier',cat:'Assises',l:60,h:30,p:30,price:54.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/25/cf/022293db2616b18c491dc159c710.jpg',url:'https://www.homemaison.com/fr/banc-marocain-doum-tressage-damier?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Osier, Bois',brand:'HOME MAISON'},
-{id:'2024618095HM36610901',name:'Tabouret rond en bouclettes',cat:'Assises',l:45,h:45,p:40,price:59.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/bf/1a/88f7d9f6a37d5d8fc4663c540ddb.jpg',url:'https://www.homemaison.com/fr/tabouret-rond?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Ecru',mat:'Polyester',brand:'DECOSTARS'},
-{id:'2025790652815HMDY242',name:'Pouf velours cotelé',cat:'Assises',l:43,h:35,p:43,price:60.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/84/a1/dbe124ffca0c87b6c74fbe72c739.jpg',url:'https://www.homemaison.com/fr/pouf-velours-cotele?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Polyester',brand:'JLine'},
-{id:'1075189HM10597',name:'Pouf cube',cat:'Assises',l:45,h:38,p:35,price:62.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/Produit/Pouf_microbille/pouf-cube-rouge-rouge.JPG',url:'https://www.homemaison.com/fr/pouf-cube-rouge-hmr000000012?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Rouge',mat:'Polyester',brand:'HOME MAISON'},
-{id:'20252260904815HM3664',name:'Banc bois naturel Japandi',cat:'Assises',l:40,h:40,p:60,price:64.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/e3/44/91ca81e6f8c456bd8fc6e71d937f.jpg',url:'https://www.homemaison.com/fr/banc-bois-naturel-japandi?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'HOME MAISON'},
-{id:'20256110415840HM2506',name:'Chaise en bois noir et assise en paille',cat:'Assises',l:40,h:90,p:40,price:64.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/5a/48/204a6a943757aaae729879df29fb.jpg',url:'https://www.homemaison.com/fr/chaise-en-bois-noir-et-assise-en-paille?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'HOME MAISON'},
-{id:'20256110417251HM2506',name:'Chaise bois dossier rond',cat:'Assises',l:40,h:95,p:40,price:64.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/d4/eb/41920f645f61cbe1af39b680f968.jpg',url:'https://www.homemaison.com/fr/chaise-bois-dossier-rond?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Osier',brand:'HOME MAISON'},
-{id:'20261160961539HM2601',name:'Fauteuil enfant en velours côtelé avec structure en bois',cat:'Assises',l:43,h:46,p:43,price:66.79,img:'https://www.homemaison.com/media/cache/app_lengow_large/06/26/a2d6665974ae9a1942bb531c5572.jpg',url:'https://www.homemaison.com/fr/fauteuil-enfant-en-velours-cotele-avec-structure-en-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Céladon',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20251010191122HM2510',name:'Pouf rond en tissu bouclette avec base bois',cat:'Assises',l:50,h:30,p:50,price:67.63,img:'https://www.homemaison.com/media/cache/app_lengow_large/4e/d1/f90d8569591f9ae244a3daed7115.jpg',url:'https://www.homemaison.com/fr/pouf-rond-en-tissu-bouclette-avec-base-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Ecru',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20249260110HM3560232',name:'Pouf bouclette moderne',cat:'Assises',l:39,h:40,p:39,price:67.63,img:'https://www.homemaison.com/media/cache/app_lengow_large/d1/d8/f19a187d8b420bede43cbb181a0a.jpg',url:'https://www.homemaison.com/fr/pouf-bouclette-moderne?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Taupe',mat:'Bois, Mousse, Polyester',brand:'ATMOSPHERA'},
-{id:'1119315HM125435',name:'Tabouret de bar bois et doum',cat:'Assises',l:35,h:70,p:35,price:69.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/00_MAROC/tabouret_de_bar_marocain_en_bois_et_assise_en_fibre_de_palmier.jpg',url:'https://www.homemaison.com/fr/tabouret-de-bar-bois-et-doum-hm69ma-mob-tabbar?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'HOME MAISON'},
-{id:'20261160302556HM2601',name:'Pouf fleur en tissu décoratif',cat:'Assises',l:50,h:30,p:50,price:74.13,img:'https://www.homemaison.com/media/cache/app_lengow_large/24/57/ee61b6883abea053d8d2dfa24ca4.jpg',url:'https://www.homemaison.com/fr/pouf-fleur-en-tissu-decoratif?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Rose',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'20256110451626HM2506',name:'Pouf en paille tressée fait main',cat:'Assises',l:40,h:40,p:40,price:79.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/49/42/6e08b301e9b740af0b311de5aba5.jpg',url:'https://www.homemaison.com/fr/pouf-en-paille-tressee-fait-main?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Osier',brand:'HOME MAISON'},
-{id:'1119894HM128634',name:'Tabouret de bar bois dossier damier',cat:'Assises',l:40,h:108,p:40,price:79.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/da/bb/e8a38fc872b565eb8e625922c851.jpg',url:'https://www.homemaison.com/fr/tabouret-de-bar-bois-avec-dossier-hm69ma-mob-tabbardoss?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'HOME MAISON'},
-{id:'2025790687854HMDY645',name:'Tabouret bois vintage',cat:'Assises',l:35,h:40,p:35,price:98.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/9c/16/bdbb7ebc151cfb19eb41b57c6e04.jpg',url:'https://www.homemaison.com/fr/tabouret-bois-vintage?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir Mat',mat:'Bois',brand:'JLine'},
-{id:'2025416051494HM36642',name:'Fauteuil bas bois organique',cat:'Assises',l:75,h:70,p:75,price:99.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/d2/30/7ab14904bb1e8b9745793e9d3c85.jpg',url:'https://www.homemaison.com/fr/fauteuil-bas-bois-organique?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'HOME MAISON'},
-{id:'20246240111HMDY58252',name:'Pouf cylindre motifs ethniques en coton',cat:'Assises',l:40,h:30,p:40,price:102.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/fd/9a/d19c3967f3599968a97e3ca1ef32.jpg',url:'https://www.homemaison.com/fr/pouf-cylindre-motifs-ethniques-en-coton?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Coton',brand:'JLine'},
-{id:'2025226016768HM36642',name:'Fauteuil bois organique Japandi',cat:'Assises',l:60,h:75,p:95,price:109.00,img:'https://www.homemaison.com/media/cache/app_lengow_large/2b/97/91c52df20528653e1d648e89ba6f.jpg',url:'https://www.homemaison.com/fr/fauteuil-bois-organique-japendi?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'HOME MAISON'},
-{id:'202462406HMDY819026',name:'Tabouret rectangulaire en bois teck recyclé',cat:'Assises',l:40,h:45,p:30,price:109.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/ea/08/733014ac086fd51b1f7162043cd0.jpg',url:'https://www.homemaison.com/fr/tabouret-rectangulaire-en-bois-teck-recycle?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois, Métal',brand:'JLine'},
-{id:'2025226090867HM36642',name:'Fauteuil lounge bois organique',cat:'Assises',l:60,h:75,p:80,price:119.00,img:'https://www.homemaison.com/media/cache/app_lengow_large/56/09/52f8fa350e9d7303c5f6ff487210.jpg',url:'https://www.homemaison.com/fr/fauteuil-bois-lounge-sans-coussin?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'HOME MAISON'},
-{id:'20256110423327HM2506',name:'Banc en paille tressée fait main',cat:'Assises',l:90,h:40,p:40,price:119.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/4f/ea/d529676e22ed67381b84a75029e0.jpg',url:'https://www.homemaison.com/fr/banc-en-paille-tressee-fait-main?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Osier',brand:'HOME MAISON'},
-{id:'202579065352HMDY2303',name:'Pouf rond en tissu bouclé',cat:'Assises',l:52,h:28,p:52,price:128.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/f7/e1/9e924fddaf2e5cc5758af5dd1fa6.jpg',url:'https://www.homemaison.com/fr/pouf-rond-en-tissu-boucle?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Polyester',brand:'JLine'},
-{id:'2025226090623HM36642',name:'Fauteuil bois de laurier Asilah',cat:'Assises',l:70,h:70,p:75,price:129.00,img:'https://www.homemaison.com/media/cache/app_lengow_large/08/d8/62507e5300770c438007128e0907.jpg',url:'https://www.homemaison.com/fr/fauteuil-bois-de-laurier-asilah?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'HOME MAISON'},
-{id:'2025226090796HM36642',name:'Fauteuil Lounge ajouré bohème',cat:'Assises',l:60,h:75,p:80,price:129.00,img:'https://www.homemaison.com/media/cache/app_lengow_large/e2/31/a1743253df6175398c953719b299.jpg',url:'https://www.homemaison.com/fr/fauteuil-lounge-ajoure-boheme?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'HOME MAISON'},
-{id:'20256110457855HM2506',name:'Housse de pouf damier en laine',cat:'Assises',l:56,h:56,p:10,price:129.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/28/80/0a1528b5c3cf059c1faee7061336.jpg',url:'https://www.homemaison.com/fr/housse-de-pouf-damier-en-laine?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Laine',brand:'HOME MAISON'},
-{id:'20257908500105HMDY81',name:'Tabouret de bar en tissu bouclette et métal',cat:'Assises',l:41,h:67,p:41,price:146.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/eb/cb/e26710ba241275c9039c0ae37cb5.jpg',url:'https://www.homemaison.com/fr/tabouret-de-bar-en-tissu-bouclette-et-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Métal',brand:'JLine'},
-{id:'20256110454758HM2506',name:'Pouf damier en laine avec garnissage',cat:'Assises',l:56,h:56,p:0,price:149.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/f1/d8/7b430535ceaaf0c3a182d7f5d4bc.jpg',url:'https://www.homemaison.com/fr/pouf-damier-en-laine-avec-garnissage?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Laine',brand:'HOME MAISON'},
-{id:'20257908494103HMDY81',name:'Petit tabouret rond en bois et tissu bouclette',cat:'Assises',l:44,h:42,p:44,price:150.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/44/3c/88b9be313b7bdf0685ae0e81af23.jpg',url:'https://www.homemaison.com/fr/petit-tabouret-rond-en-bois-et-tissu-bouclette?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Métal',brand:'JLine'},
-{id:'2025790655912HMDY237',name:'Pouf rond avec dossier en tissu bouclette',cat:'Assises',l:52,h:49,p:52,price:162.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/dc/bb/930eed81d469513c2e387f8ea51d.jpg',url:'https://www.homemaison.com/fr/pouf-rond-avec-dossier-en-tissu-bouclette?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Polyester',brand:'JLine'},
-{id:'202462405HMDY818412',name:'Tabouret rectangulaire en teck recyclé',cat:'Assises',l:40,h:74,p:30,price:165.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/28/22/fbd22c35a8fe89ed5fcc22eb341b.jpg',url:'https://www.homemaison.com/fr/tabouret-rect-1en-teck-recycle-j-line-teck?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'JLine'},
-{id:'20257909811205HMDY82',name:'Tabouret carré en bois de teck et jonc de mer',cat:'Assises',l:40,h:45,p:40,price:167.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/0c/aa/9d599f91ff73e6928e2b8641167f.jpg',url:'https://www.homemaison.com/fr/tabouret-carre-en-bois-de-teck-et-jonc-de-mer?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'JLine'},
-{id:'1075220HM36642540094',name:'Pouf poire  extérieur XL haute résistance',cat:'Assises',l:80,h:120,p:0,price:170.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/e9/2f/78fc5e32ab3fcfd15b94e5f71730.jpg',url:'https://www.homemaison.com/fr/pouf-poire-a-microbille-hm69210?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Taupe',mat:'Polyester',brand:'HOME MAISON'},
-{id:'2024624014HMDY589410',name:'Tabouret de bar en teck recyclé',cat:'Assises',l:50,h:77,p:33,price:176.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/29/e5/df3733ec927ed48e80ecd2e74195.png',url:'https://www.homemaison.com/fr/tabouret-rectangulaire-3-en-teck-recycle-j-line-teck?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'JLine'},
-{id:'1115851HM117362',name:'Chaise papillon en cuir',cat:'Assises',l:74,h:90,p:66,price:181.92,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/VIDA_XL_NOVEMBRE_2021/GAL922GRI--Ambiance-.jpg',url:'https://www.homemaison.com/fr/chaise-papillon-en-cuir-hm69243728?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Clair',mat:'Cuir',brand:'HOME MAISON'},
-{id:'20251010930669HM2510',name:'Desserte de rangement en bois à roulettes',cat:'Jardin',l:30,h:80,p:40,price:40.53,img:'https://www.homemaison.com/media/cache/app_lengow_large/6b/ca/b90f974b4a8d0eb791909aa085d4.jpg',url:'https://www.homemaison.com/fr/desserte-de-rangement-en-bois-a-roulettes?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'Five Simply Smart'},
-{id:'20254150739223HM3560',name:'Desserte de rangement en métal 3 niveaux sur roulettes',cat:'Jardin',l:47,h:80,p:27,price:48.96,img:'https://www.homemaison.com/media/cache/app_lengow_large/42/4c/5e51b71562123d571d196869cb3e.jpg',url:'https://www.homemaison.com/fr/desserte-de-rangement-en-metal-3-niveaux-sur-roulettes-45734374?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Métal',brand:'Five Simply Smart'},
-{id:'1113453HM36642540447',name:'Ensemble table et chaises pliantes',cat:'Jardin',l:80,h:70,p:72,price:174.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/3b/c8/1e64a9f22a030a3419fdf1f91e0e.jpg',url:'https://www.homemaison.com/fr/ensemble-table-et-chaises-pliantes-hm69tevere-birki?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Polypropylène',brand:'IMAGIN\''},
-{id:'14052442652HM8718475',name:'Chaise longue basculante extérieure',cat:'Jardin',l:60,h:86,p:149,price:231.47,img:'https://www.homemaison.com/media/cache/app_lengow_large/ab/9e/5c55f6f2da5c901e12a7a4284de9.png',url:'https://www.homemaison.com/fr/chaise-longue-basculante-outdoor?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Brun',mat:'Bois',brand:'vidaXL'},
-{id:'2025109094292HM25100',name:'Table de chevet avec tablette et niche en bois',cat:'Tables',l:40,h:50,p:30,price:33.31,img:'https://www.homemaison.com/media/cache/app_lengow_large/b1/78/6df83ffc582ddb07901058134d60.jpg',url:'https://www.homemaison.com/fr/table-de-chevet-avec-tablette-et-niche-en-bois-45837981?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'Five Simply Smart'},
-{id:'2025790271038HMDY820',name:'Meuble console guéridon étagères en métal',cat:'Tables',l:30,h:70,p:30,price:51.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/b5/fb/9c5da994c06914f0338a5e457c82.jpg',url:'https://www.homemaison.com/fr/meuble-console-gueridon-etageres-en-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Métal',brand:'JLine'},
-{id:'1117146HM120540',name:'Table pliable de jardin',cat:'Tables',l:40,h:40,p:40,price:74.65,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDAXL_2022/46005-1.jpg',url:'https://www.homemaison.com/fr/table-pliable-de-jardin-hm6946005?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Foncé',mat:'Bois',brand:'vidaXL'},
-{id:'20255130778927HM3700',name:'Table de jardin pliante en acier ronde',cat:'Tables',l:60,h:70,p:0,price:80.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/06/4c/9fbdb2246afdcbd70a16d81c84a5.jpg',url:'https://www.homemaison.com/fr/table-de-jardin-pliante-en-acier-ronde?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Métal',brand:'IMAGIN\''},
-{id:'20255130777232HM3700',name:'Table carrée de jardin pliante en acier',cat:'Tables',l:60,h:72,p:60,price:86.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/d3/63/865ace4acb9e9d2e88ea0d52f4f0.jpg',url:'https://www.homemaison.com/fr/table-carree-de-jardin-pliante-en-acier?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Métal',brand:'IMAGIN\''},
-{id:'1114088HM111761',name:'Table de balcon aspect rotin',cat:'Tables',l:64,h:83,p:60,price:105.30,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/47893-blanc.jpg',url:'https://www.homemaison.com/fr/table-de-balcon-aspect-rotin-hm6947893?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Métal, Plastique',brand:'vidaXL'},
-{id:'1114538HM113132',name:'Table de jardin rectangulaire en résine tressée',cat:'Tables',l:75,h:37,p:40,price:127.77,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/VIDA_XL_MAI_2021/45904_1.jpg',url:'https://www.homemaison.com/fr/table-de-jardin-rectangulaire-en-resine-tressee-hm6945904?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Plastique',brand:'vidaXL'},
-{id:'1114101HM111785',name:'Table d\'appoint de jardin',cat:'Tables',l:54,h:36,p:54,price:133.76,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/48774.jpg',url:'https://www.homemaison.com/fr/table-d-appoint-de-jardin-hm6948774?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Plastique',brand:'vidaXL'},
-{id:'1117114HM120504',name:'Table de salon de jardin en pvc',cat:'Tables',l:101,h:72,p:68,price:143.88,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDAXL_2022/43594-1.jpg',url:'https://www.homemaison.com/fr/table-de-salon-de-jardin-en-pvc-hm6943594?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Plastique',brand:'vidaXL'},
-{id:'1113469HM110536',name:'Table à manger pliante extérieure Villars',cat:'Tables',l:180,h:74,p:70,price:149.00,img:'https://www.homemaison.com/media/cache/app_lengow_large/IMAGIN_2021/2024_STU.jpg',url:'https://www.homemaison.com/fr/table-a-manger-pliante-outdoor-villars-hm692024?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Polypropylène',brand:'IMAGIN\''},
-{id:'2024624087HMDY232368',name:'Console rectangulaire en métal avec pied en croix',cat:'Tables',l:120,h:75,p:35,price:206.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/76/65/3cb2a2a54bb60607d5407d4f4efd.jpg',url:'https://www.homemaison.com/fr/console-rectangulaire-en-metal-avec-pied-en-croix?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Métal',brand:'JLine'},
-{id:'2025513099088HM36642',name:'Salon de jardin en résine – Table ovale et 4 fauteuils',cat:'Tables',l:137,h:72,p:85,price:209.00,img:'https://www.homemaison.com/media/cache/app_lengow_large/5c/65/88e87d239dcec1008e102cf53a93.jpg',url:'https://www.homemaison.com/fr/salon-de-jardin-en-resine-table-ovale-et-4-fauteuils?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Polypropylène',brand:'IMAGIN\''},
-{id:'20246240100HMDY23245',name:'Console rectangulaire 2 étagères en métal',cat:'Tables',l:105,h:85,p:35,price:211.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/40/7b/a2a6caf418329d64992094020452.jpg',url:'https://www.homemaison.com/fr/console-rectangulaire-2-etageres-en-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Métal',brand:'JLine'},
-{id:'1114033HM111635',name:'Table d\'extérieur en rotin et verre',cat:'Tables',l:80,h:80,p:0,price:227.80,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/310551-1.jpg',url:'https://www.homemaison.com/fr/table-d-exterieur-en-rotin-et-verre-hm69310551?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Verre',brand:'vidaXL'},
-{id:'202462404HMDY820481',name:'Console ovale en teck recyclé',cat:'Tables',l:120,h:80,p:0,price:250.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/f1/5a/d23c16dc906cbc9f5582c3b8aec2.png',url:'https://www.homemaison.com/fr/console-ovale-en-teck-recycle-j-line-teck?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'JLine'},
-{id:'20257907718196HMDY82',name:'Console en bois de pin avec tiroirs',cat:'Tables',l:40,h:76,p:100,price:278.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/ee/b9/d2d2b891bcf58cf3273102dc28dc.jpg',url:'https://www.homemaison.com/fr/console-en-bois-de-pin-avec-tiroirs?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'JLine'},
-{id:'2024624016HMDY819518',name:'Console ovale en bois recyclé',cat:'Tables',l:120,h:80,p:40,price:278.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/68/8e/587ff0c0ca5a9419143acea349e7.jpg',url:'https://www.homemaison.com/fr/console-ovale-en-bois-recycle?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Brun',mat:'Bois, Métal',brand:'JLine'},
-{id:'1117168HM120566',name:'Table d\'extérieur en pvc',cat:'Tables',l:216,h:72,p:90,price:280.42,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDAXL_2022/45597-1.jpg',url:'https://www.homemaison.com/fr/table-d-exterieur-en-pvc-hm6945597?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Plastique',brand:'vidaXL'},
-{id:'2025790801532HMDY585',name:'Meuble console gigogne cubique en teck lot de 2',cat:'Tables',l:34,h:88,p:34,price:283.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/6f/9f/00cde0e21a804cd17afb8e2d9217.jpg',url:'https://www.homemaison.com/fr/meuble-console-gigogne-cubique-en-teck-lot-de-2?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'JLine'},
-{id:'1117112HM120499',name:'Table rectangulaire en pvc',cat:'Tables',l:126,h:72,p:76,price:329.20,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDAXL_2022/blanc-1.jpg',url:'https://www.homemaison.com/fr/table-rectangulaire-en-pvc-hm6943597?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Plastique',brand:'vidaXL'},
-{id:'1114121HM111812',name:'Table de jardin pliable en bois',cat:'Tables',l:120,h:75,p:120,price:335.09,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/49434-3.jpg',url:'https://www.homemaison.com/fr/table-de-jardin-pliable-en-bois-hm6949434?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Brun',mat:'Bois',brand:'vidaXL'},
-{id:'1114024HM111616',name:'Table pliable en maille',cat:'Tables',l:80,h:72,p:80,price:348.63,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/310151_b.jpg',url:'https://www.homemaison.com/fr/table-pliable-en-maille-hm69310151?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Métal',brand:'vidaXL'},
-{id:'2025790802231HMDY583',name:'Meuble console avec étagère gigogne en teck lot de 2',cat:'Tables',l:30,h:80,p:130,price:351.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/86/02/12f7b28420e7e03cd93ea330130b.jpg',url:'https://www.homemaison.com/fr/meuble-console-avec-etagere-gigogne-en-teck-lot-de-2?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'JLine'},
-{id:'2024624081HMDY239863',name:'Console 3 tiroirs en bois et métal',cat:'Tables',l:120,h:78,p:41,price:351.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/92/bd/4481be50b44a9d4b740cd65422dd.jpg',url:'https://www.homemaison.com/fr/console-3-tiroirs-en-bois-et-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois, Métal',brand:'JLine'},
-{id:'1117115HM120506',name:'Table de jardin anthracite aspect rotin',cat:'Tables',l:220,h:72,p:90,price:356.69,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDAXL_2022/45608-1.jpg',url:'https://www.homemaison.com/fr/table-de-jardin-anthracite-aspect-rotin-hm6945608?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Plastique',brand:'vidaXL'},
-{id:'2024624035HMDY238764',name:'Console shanil en bois et fer',cat:'Tables',l:100,h:81,p:33,price:361.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/bf/db/0f90790943412cccb003633b8f3b.png',url:'https://www.homemaison.com/fr/console-en-bois-et-fer-j-line-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois, Métal',brand:'JLine'},
-{id:'1114036HM111650',name:'Table de jardin en bois délavé',cat:'Tables',l:140,h:74,p:80,price:375.77,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/311849-1.jpg',url:'https://www.homemaison.com/fr/table-de-jardin-en-bois-delave-hm69311849?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris clair',mat:'Bois',brand:'vidaXL'},
-{id:'1114534HM113128',name:'Table de jardin pliable en acacia',cat:'Tables',l:120,h:74,p:70,price:386.60,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/VIDA_XL_MAI_2021/43728_2.jpg',url:'https://www.homemaison.com/fr/table-de-jardin-pliable-en-acacia-hm6943728?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Clair',mat:'Bois',brand:'vidaXL'},
-{id:'270524366268HM366268',name:'Salon de jardin extérieur 4 pièces en résine tressée',cat:'Tables',l:100,h:80,p:0,price:387.18,img:'https://www.homemaison.com/media/cache/app_lengow_large/86/2e/7a683b8db5e2eb49dec29098bd1d.png',url:'https://www.homemaison.com/fr/salon-de-jardin-outdoor-4-pieces-en-resine-tressee-hm69366268?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Résine',brand:'vidaXL'},
-{id:'1117113HM120502',name:'Table de jardin rectangulaire en pvc',cat:'Tables',l:210,h:72,p:96,price:408.80,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDAXL_2022/43595-1.jpg',url:'https://www.homemaison.com/fr/table-de-jardin-rectangulaire-en-pvc-hm6943595?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Plastique',brand:'vidaXL'},
-{id:'1114537HM113131',name:'Table de jardin à lattes',cat:'Tables',l:190,h:72,p:80,price:444.25,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/VIDA_XL_MAI_2021/312170_1.jpg',url:'https://www.homemaison.com/fr/table-de-jardin-a-lattes-hm69312170?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Métal',brand:'vidaXL'},
-{id:'1117116HM120507',name:'Table de jardin en bois d\'acacia',cat:'Tables',l:200,h:76,p:100,price:485.49,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDAXL_2022/44106-1.jpg',url:'https://www.homemaison.com/fr/table-de-jardin-en-bois-d-acacia-hm6944106?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Clair',mat:'Bois',brand:'vidaXL'},
-{id:'1114113HM111803',name:'Table de jardin ronde en bois',cat:'Tables',l:120,h:76,p:0,price:527.49,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/49004-dim1-dim.jpg',url:'https://www.homemaison.com/fr/table-de-jardin-ronde-en-bois-hm6949004?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Brun',mat:'Bois',brand:'vidaXL'},
-{id:'1115290HM115932',name:'Table de salle à manger en acacia massif',cat:'Tables',l:180,h:75,p:90,price:564.85,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/table_1b.jpg',url:'https://www.homemaison.com/fr/table-de-salle-a-manger-en-acacia-massif-hm69288068?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Métal, Bois',brand:'vidaXL'},
-{id:'1117294HM120973',name:'Table rectangulaire esprit bord de mer',cat:'Tables',l:160,h:74,p:90,price:572.18,img:'https://www.homemaison.com/media/cache/app_lengow_large/JARDILINE/corfou-3.jpg',url:'https://www.homemaison.com/fr/table-rectangulaire-esprit-bord-de-mer-hm69tb-2211?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Aluminium',brand:'JARDILINE'},
-{id:'2024624094HMDY236606',name:'Console brut en bois recyclé blanchi',cat:'Tables',l:150,h:76,p:37,price:585.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/bc/c2/a60b413c4a695819044e1470b226.jpg',url:'https://www.homemaison.com/fr/console-brut-en-bois-recycle-blanchi?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Bois',brand:'JLine'},
-{id:'2024624039HMDY237508',name:'Console vintage en bois',cat:'Tables',l:120,h:75,p:35,price:601.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/ed/bf/1b0fae230246ea5fcd1246df6c2e.png',url:'https://www.homemaison.com/fr/console-en-bois-vieilli-j-line-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Foncé',mat:'Bois, Métal',brand:'JLine'},
-{id:'1114074HM111737',name:'Table de jardin avec pieds épingle',cat:'Tables',l:180,h:75,p:90,price:652.15,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/46665-180.jpg',url:'https://www.homemaison.com/fr/table-de-jardin-avec-pieds-epingle-hm6946665?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Brun',mat:'Bois',brand:'vidaXL'},
-{id:'202551306HM366425404',name:'Salon de jardin bistrot en acier anthracite',cat:'Tables',l:95,h:72,p:0,price:658.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/c1/6e/25209b9a47c4137176c985d0f45d.jpg',url:'https://www.homemaison.com/fr/salon-de-jardin-bistrot-en-acier-anthracite?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Métal',brand:'IMAGIN\''},
-{id:'1114072HM111734',name:'Table de bar d\'extérieur',cat:'Tables',l:120,h:105,p:60,price:661.61,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/46524-120.jpg',url:'https://www.homemaison.com/fr/table-de-bar-d-exterieur-hm6946524?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Brun',mat:'Bois',brand:'vidaXL'},
-{id:'1117301HM120980',name:'Table de jardin esprit indus',cat:'Tables',l:160,h:73,p:90,price:698.73,img:'https://www.homemaison.com/media/cache/app_lengow_large/JARDILINE/comores-t-4.jpg',url:'https://www.homemaison.com/fr/table-de-jardin-esprit-indus-hm69tb-2203n?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'JARDILINE'},
-{id:'1117117HM120508',name:'Table de jardin en résine tressée et acacia',cat:'Tables',l:240,h:74,p:90,price:751.60,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDAXL_2022/43940-1.jpg',url:'https://www.homemaison.com/fr/table-de-jardin-en-resine-tressee-et-acacia-hm6943940?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Résine, Bois',brand:'vidaXL'},
-{id:'2025790765734HMDY589',name:'Meuble console en bois de teck',cat:'Tables',l:50,h:75,p:150,price:762.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/ec/85/e16d50b64df32233d1832fa99fb9.jpg',url:'https://www.homemaison.com/fr/meuble-console-en-bois-de-teck?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir Mat',mat:'Bois',brand:'JLine'},
-{id:'2024624046HM54009243',name:'Table ronde en bois de manguier et métal',cat:'Tables',l:120,h:120,p:0,price:854.00,img:'https://www.homemaison.com/media/cache/app_lengow_large/5d/80/44bf3e51d7ff34ce9d7bce505d2c.png',url:'https://www.homemaison.com/fr/table-ronde-en-bois-de-manguier1-et-metal-j-line-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'JLine'},
-{id:'2024624040HM54009243',name:'Table vintage en bois',cat:'Tables',l:180,h:76,p:89,price:987.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/35/24/a08b7d3c40862cb4c46f316f9b68.png',url:'https://www.homemaison.com/fr/table-vieillie-en-bois-marron-j-line-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Foncé',mat:'Bois',brand:'JLine'},
-{id:'1114071HM111733',name:'Grande table de jardin style industriel',cat:'Tables',l:150,h:75,p:150,price:1217.96,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/46521.jpg',url:'https://www.homemaison.com/fr/grande-table-de-jardin-style-industriel-hm6946521?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Brun',mat:'Bois',brand:'vidaXL'},
-{id:'1114123HM111814',name:'Bar de jardin 9 pièces en résine tressée',cat:'Tables',l:200,h:110,p:80,price:1299.40,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/HM6949566-jpg.jpg',url:'https://www.homemaison.com/fr/bar-de-jardin-9-pieces-en-resine-tressee-hm6949566?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'vidaXL'},
-{id:'202633013393HM260303',name:'Table extensible aluminium 2/14 personnes',cat:'Tables',l:372,h:75,p:100,price:1427.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/7a/d5/16f5a452cc5f0c17984587fc1f08.jpg',url:'https://www.homemaison.com/fr/table-extensible-aluminium-2-14-personnes?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Aluminium',brand:'JARDILINE'},
-{id:'2025790766487HMDY820',name:'Table à manger ronde en teck',cat:'Tables',l:150,h:75,p:150,price:1498.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/43/42/3f1d625c47df8c9857f6f1c18bef.jpg',url:'https://www.homemaison.com/fr/table-a-manger-ronde-en-teck?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir Mat',mat:'Bois',brand:'JLine'},
-{id:'202633008138HM260303',name:'Fauteuil bas de jardin',cat:'Canapés',l:76,h:74,p:68,price:90.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/67/55/7c235e8130e591c472c4f7ea9db5.jpg',url:'https://www.homemaison.com/fr/fauteuil-bas-de-jardin?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Taupe',mat:'Résine',brand:'JARDILINE'},
-{id:'20255130780223HM3700',name:'Lot de deux chaises de jardin pliante en acier',cat:'Canapés',l:41,h:82,p:46,price:103.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/68/29/624533688fc910b080ed4c06b8c3.jpg',url:'https://www.homemaison.com/fr/lot-de-deux-chaises-de-jardin-pliante-en-acier?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Polypropylène',brand:'IMAGIN\''},
-{id:'202633025726HM260303',name:'Tabouret extérieur haut avec dossier',cat:'Canapés',l:60,h:100,p:61,price:120.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/f7/e7/c991d28e3bddc859177acddb6ab5.jpg',url:'https://www.homemaison.com/fr/tabouret-exterieur-haut-avec-dossier?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Aluminium',brand:'JARDILINE'},
-{id:'140524312175HM872028',name:'Chaise à bascule de jardin',cat:'Canapés',l:104,h:59,p:0,price:160.69,img:'https://www.homemaison.com/media/cache/app_lengow_large/e3/e1/efc1f8f7d581a494e1bda3af6894.png',url:'https://www.homemaison.com/fr/chaise-a-bascule-de-jardin?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Polypropylène',brand:'vidaXL'},
-{id:'20255130720219HM3700',name:'Fauteuil relax inclinable de jardin',cat:'Canapés',l:65,h:110,p:88,price:185.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/fe/23/5ca67596a915acd5f9117a04deb8.jpg',url:'https://www.homemaison.com/fr/fauteuil-relax-inclinable-de-jardin?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Bordeaux',mat:'Métal',brand:'IMAGIN\''},
-{id:'1117124HM120515',name:'Banc de jardin à motif rose',cat:'Canapés',l:73,h:73,p:51,price:209.51,img:'https://www.homemaison.com/media/cache/app_lengow_large/03/4b/7e687b28bf6c8419b565bfac3a9a.jpg',url:'https://www.homemaison.com/fr/banc-de-jardin-a-motif-rose-hm6940261?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Clair',mat:'Bois',brand:'vidaXL'},
-{id:'20257903732142HMDY81',name:'Chaise extérieure design en acier et corde',cat:'Canapés',l:56,h:75,p:57,price:213.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/a2/c2/497750e41f467071d0a40813a5a3.jpg',url:'https://www.homemaison.com/fr/chaise-exterieure-design-en-acier-et-corde?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Terracotta',mat:'Métal',brand:'JLine'},
-{id:'9448245HM36642540351',name:'Double banquette Marocaine tressage damier',cat:'Canapés',l:100,h:75,p:70,price:234.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/3f/20/2d7d0328fe7947dc51578284a18d.jpg',url:'https://www.homemaison.com/fr/double-banquette-marocaine-tressage-damier?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'HOME MAISON'},
-{id:'2026330245918HM26030',name:'Fauteuil de jardin rond en rotin tressé',cat:'Canapés',l:76,h:85,p:71,price:242.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/db/73/b941fd1c9c3709094147722a4108.jpg',url:'https://www.homemaison.com/fr/fauteuil-de-jardin-rond-en-rotin-tresse?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Rotin',brand:'JARDILINE'},
-{id:'944-166656C-1HM944-1',name:'Fauteuil teck et cannage rotin',cat:'Canapés',l:65,h:71,p:80,price:261.95,img:'https://www.homemaison.com/media/cache/app_lengow_large/ef/fd/a8a42a69d449c6323cb2c2608122.jpg',url:'https://www.homemaison.com/fr/fauteuil-teck-et-cannage-rotin?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'202619059222HM260109',name:'Banquette 2 places en rotin',cat:'Canapés',l:68,h:77,p:110,price:267.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/67/2c/74c2c1687e5d07e851e4883774c3.jpg',url:'https://www.homemaison.com/fr/banquette-2-places-en-rotin?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Rotin',brand:'ATMOSPHERA'},
-{id:'28052441732HM41732',name:'Duo de chaises de jardin pliables',cat:'Canapés',l:65,h:109,p:59,price:271.94,img:'https://www.homemaison.com/media/cache/app_lengow_large/b2/48/b48a1177b21f5a96c54369e45ee2.png',url:'https://www.homemaison.com/fr/duo-de-chaises-de-jardin-pliables-hm6941732?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Aluminium',brand:'vidaXL'},
-{id:'1115287HM115929',name:'Lot 2 tabourets de bar design',cat:'Canapés',l:43,h:101,p:43,price:278.65,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/TABOURETS-1.jpg',url:'https://www.homemaison.com/fr/lot-2-tabourets-de-bar-design-hm69240929?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Métal',brand:'vidaXL'},
-{id:'2026330246619HM26030',name:'Fauteuil de jardin carré en rotin tressé avec accoudoirs',cat:'Canapés',l:64,h:82,p:67,price:292.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/0f/d3/35669f3e83394983a3f441b63397.jpg',url:'https://www.homemaison.com/fr/fauteuil-de-jardin-carre-en-rotin-tresse-avec-accoudoirs?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Rotin',brand:'JARDILINE'},
-{id:'210524362227HM362227',name:'Lot de deux chaises de jardin en bois d\'acacia',cat:'Canapés',l:90,h:60,p:0,price:310.33,img:'https://www.homemaison.com/media/cache/app_lengow_large/c6/78/de01216f50261fafe40ccd640d25.jpg',url:'https://www.homemaison.com/fr/lot-de-deux-chaises-de-jardin-en-bois-d-acacia?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Clair',mat:'Bois',brand:'vidaXL'},
-{id:'202633025655HM260303',name:'Table de bar mange-debout en aluminium extérieur',cat:'Canapés',l:135,h:105,p:64,price:312.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/13/b8/e8d5e4a52ffb7989aa77e6183cd2.jpg',url:'https://www.homemaison.com/fr/table-de-bar-mange-debout-en-aluminium-exterieur?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Aluminium',brand:'JARDILINE'},
-{id:'2025226090554HM36642',name:'Canapé bois naturel Asilah',cat:'Canapés',l:160,h:70,p:75,price:329.00,img:'https://www.homemaison.com/media/cache/app_lengow_large/ac/b3/d6ef11458d18bf37857b8ea0cc5a.jpg',url:'https://www.homemaison.com/fr/canape-bois-naturel-asilah?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'HOME MAISON'},
-{id:'280524315599HM315599',name:'Duo de chaises de jardin en bambou',cat:'Canapés',l:65,h:71,p:60,price:406.77,img:'https://www.homemaison.com/media/cache/app_lengow_large/f9/73/bc05d804542b96604f770864139e.jpg',url:'https://www.homemaison.com/fr/duo-de-chaises-de-jardin-en-bambou-hm69315599?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris anthracite',mat:'Bambou',brand:'vidaXL'},
-{id:'202619074643HM260109',name:'Banquette 2 places en chenille',cat:'Canapés',l:92,h:68,p:130,price:410.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/79/b4/6dae8c931469f27e74858672162e.jpg',url:'https://www.homemaison.com/fr/banquette-2-places-en-chenille?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Polyester',brand:'ATMOSPHERA'},
-{id:'202619078224HM260109',name:'Banquette 2 places en bouclette design',cat:'Canapés',l:75,h:72,p:172,price:410.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/d9/49/44b9e71a288ea33c1094fb4fb098.jpg',url:'https://www.homemaison.com/fr/banquette-2-places-en-bouclette-design?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'280524365805HM365805',name:'Canapé de jardin 2 places avec tabourets résine tressée',cat:'Canapés',l:62,h:69,p:142,price:425.75,img:'https://www.homemaison.com/media/cache/app_lengow_large/11/5c/8ac15dc88cb153a397e0d809d54d.jpg',url:'https://www.homemaison.com/fr/canape-de-jardin-2-places-avec-tabourets-resine-tressee-hm69365805?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'Résine',brand:'vidaXL'},
-{id:'1117147HM120541',name:'Canapé de jardin en résine tressée',cat:'Canapés',l:200,h:58,p:60,price:494.55,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDAXL_2022/43959-1.jpg',url:'https://www.homemaison.com/fr/canape-de-jardin-en-resine-tressee-hm6943959?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris clair',mat:'Résine',brand:'vidaXL'},
-{id:'1505243057528HM30575',name:'Lot de 2 chaises pliantes en Teck Saint-Tropez',cat:'Canapés',l:50,h:84,p:0,price:510.23,img:'https://www.homemaison.com/media/cache/app_lengow_large/29/d5/97ff7d00af6c015aa060fc6dedee.jpg',url:'https://www.homemaison.com/fr/lot-de-deux-chaises-pliantes-style-metteur-en-scene?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Crème',mat:'Bois',brand:'vidaXL'},
-{id:'20257902612183HMDY82',name:'Fauteuil de jardin en rotin et metal',cat:'Canapés',l:109,h:79,p:118,price:531.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/cd/d1/d59b63febf61f1b2b2cdbff1b73b.jpg',url:'https://www.homemaison.com/fr/fauteuil-de-jardin-en-rotin-et-metal?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'',brand:'JLine'},
-{id:'20257903749146HMDY81',name:'Fauteuil suspendu acier et corde',cat:'Canapés',l:103,h:195,p:103,price:559.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/5c/12/9dbc0bbc2ea7181846f4d9031b5c.jpg',url:'https://www.homemaison.com/fr/fauteuil-suspendu-acier-et-corde?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Terracotta',mat:'Métal',brand:'JLine'},
-{id:'1114532HM113126',name:'Canapé d\'extérieur en résine tressée',cat:'Canapés',l:72,h:63,p:72,price:843.69,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/VIDA_XL_MAI_2021/44163_1.jpg',url:'https://www.homemaison.com/fr/canape-d-exterieur-en-resine-tressee-hm6944163?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Gris clair',mat:'Plastique',brand:'vidaXL'},
-{id:'202619013318HM260109',name:'Canapé fixe 2 places au design organique',cat:'Canapés',l:99,h:73,p:192,price:859.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/f6/cd/0c3083f975a708a2633673029fe9.jpg',url:'https://www.homemaison.com/fr/canape-fixe-2-places-au-design-organique?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'202619075799HM260109',name:'Canapé d’angle 3 places en tissu côtelé',cat:'Canapés',l:164,h:78,p:254,price:998.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/e4/4b/103c38a18673ce086e6f79b1f815.jpg',url:'https://www.homemaison.com/fr/canape-dangle-3-places-en-tissu-cotele?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Ambre',mat:'Polyester',brand:'ATMOSPHERA'},
-{id:'20246240116HMDY24147',name:'Canapé 2/3 places à bouclettes',cat:'Canapés',l:193,h:71,p:82,price:1052.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/03/4e/50d5893cbf7913b31d551b1594b3.jpg',url:'https://www.homemaison.com/fr/canape-2-3-places-a-bouclettes?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Beige',mat:'',brand:'JLine'},
-{id:'20257902599177HMDY82',name:'Ensemble 3 pièces en métal et rotin extérieur',cat:'Canapés',l:72,h:70,p:150,price:1079.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/5d/d6/8596135302293031aababb41bfc9.jpg',url:'https://www.homemaison.com/fr/ensemble-3-pieces-en-metal-et-rotin-exterieur?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Rotin',brand:'JLine'},
-{id:'202619057825HM260109',name:'Canapé fixe 3 places en bouclette au design organique',cat:'Canapés',l:100,h:75,p:232,price:1620.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/01/63/9eeeb2433b26cf02293ceb07fdab.jpg',url:'https://www.homemaison.com/fr/canape-fixe-3-places-en-bouclette-au-design-organique?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'202619093977HM260109',name:'Canapé designer 3 places',cat:'Canapés',l:90,h:90,p:196,price:1745.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/93/97/568b551aa08059ac7a8b7d4d95e9.jpg',url:'https://www.homemaison.com/fr/canape-designer-3-places?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Vert',mat:'Bois',brand:'ATMOSPHERA'},
-{id:'2024319044HM35602375',name:'Etagère inclinée à 3 niveaux',cat:'Salle de bain',l:30,h:70,p:2,price:26.70,img:'https://www.homemaison.com/media/cache/app_lengow_large/5c/26/9d37e52de652b1d38164e29f016b.jpg',url:'https://www.homemaison.com/fr/etagere-incl-3niv-bam?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bambou',brand:'Five Simply Smart'},
-{id:'2024319026HM35602338',name:'Banc à chaussures en bambou',cat:'Salle de bain',l:34,h:70,p:26,price:27.14,img:'https://www.homemaison.com/media/cache/app_lengow_large/62/d1/dc460738ce0da6a60b0b5f460187.jpg',url:'https://www.homemaison.com/fr/range-chauss-bambou-noir-6p?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bambou',brand:'Five Simply Smart'},
-{id:'2024319020HM35602383',name:'Desserte roulante à 4 niveaux',cat:'Salle de bain',l:40,h:87,p:30,price:46.72,img:'https://www.homemaison.com/media/cache/app_lengow_large/57/73/3ed94ff03daea862080d6fdb6b47.jpg',url:'https://www.homemaison.com/fr/desserte-4niv-noir-natureo?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'',brand:'Five Simply Smart'},
-{id:'20252210654023HM3560',name:'Banc en bambou avec rangements',cat:'Salle de bain',l:44,h:35,p:67,price:47.97,img:'https://www.homemaison.com/media/cache/app_lengow_large/14/fe/b46900129ba9534e85c1369bc915.jpg',url:'https://www.homemaison.com/fr/banc-en-bambou-avec-rangements?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Clair',mat:'Bambou',brand:'Five Simply Smart'},
-{id:'2024926087HM35602328',name:'Meuble de salle de bain en bambou',cat:'Salle de bain',l:19,h:120,p:30,price:50.93,img:'https://www.homemaison.com/media/cache/app_lengow_large/8d/a4/98dc1a1f2502ff747a7a738c2496.jpg',url:'https://www.homemaison.com/fr/meuble-de-salle-de-bain-en-bambou?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bambou',brand:'Five Simply Smart'},
-{id:'2024319050HM35602316',name:'Tabouret coffre de rangement en bambou',cat:'Salle de bain',l:35,h:49,p:35,price:53.14,img:'https://www.homemaison.com/media/cache/app_lengow_large/2c/9d/5555512c179908fc58c0e863e78c.png',url:'https://www.homemaison.com/fr/tabouret-coffre-de-rangement-en-bambou?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'',brand:'Five Simply Smart'},
-{id:'2024319019HM35602383',name:'Meuble à roulettes 3 tiroirs bambou',cat:'Salle de bain',l:41,h:93,p:41,price:99.03,img:'https://www.homemaison.com/media/cache/app_lengow_large/a7/99/8db2de11a99682776512d0d6257f.jpg',url:'https://www.homemaison.com/fr/meuble-3tir-roul-bam?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bambou',brand:'Five Simply Smart'},
-{id:'20258190017813HM2508',name:'Tabouret de douche réglable avec assise large et poignées',cat:'Salle de bain',l:44,h:60,p:49,price:114.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/9b/78/708b14f051567eea821cc6a90f36.jpg',url:'https://www.homemaison.com/fr/tabouret-de-douche-reglable-avec-assise-large-et-poignees?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Aluminium',brand:'HOME MAISON'},
-{id:'1120127HM129769',name:'Pare baignoire rabattable en verre trempé',cat:'Salle de bain',l:70,h:120,p:0,price:134.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/33/ed/801759115262a0668da35a0b8bf6.jpg',url:'https://www.homemaison.com/fr/pare-baignoire-rabattable-en-verre-trempe?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Argent',mat:'Verre, Aluminium',brand:'AURLANE'},
-{id:'1120130HM129784',name:'Pare baignoire rabattable',cat:'Salle de bain',l:70,h:130,p:0,price:148.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/AURLANE_2023/ESSENTIEL-BLANC-PARE-BAIGNOIRE-1.jpg',url:'https://www.homemaison.com/fr/pare-baignoire-rabattable-hm69fac924?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Aluminium, Verre',brand:'AURLANE'},
-{id:'1115619HM116693',name:'Armoire de salle de bain',cat:'Salle de bain',l:32,h:190,p:25,price:162.28,img:'https://www.homemaison.com/media/cache/app_lengow_large/VIDA_XL/VIDA_XL_MAI_2021/802882-3.jpg',url:'https://www.homemaison.com/fr/armoire-de-salle-de-bain-hm69802882?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Bois',brand:'vidaXL'},
-{id:'20241024026790416HM3',name:'Meuble salle de bain à suspendre en bois avec vasque encastrée',cat:'Salle de bain',l:60,h:46,p:49,price:193.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/7b/37/14d6a1a3c00bd43d98f92a202624.jpg',url:'https://www.homemaison.com/fr/meuble-salle-de-bain-a-suspendre-en-bois-avec-vasque-encastree?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'AURLANE'},
-{id:'20263130708952HM2603',name:'Pare-baignoire rabattable en verre trempé encadrement aluminium',cat:'Salle de bain',l:75,h:130,p:0,price:236.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/fd/64/2d9e826b34531338a60e7e7273f5.jpg',url:'https://www.homemaison.com/fr/pare-baignoire-rabattable-en-verre-trempe-encadrement-aluminium?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Marron Brun',mat:'Verre',brand:'AURLANE'},
-{id:'1120128HM129778',name:'Pare-baignoire rabattable à 2 volets.',cat:'Salle de bain',l:70,h:120,p:0,price:237.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/AURLANE_2023/DUO-GOLD-4.jpg',url:'https://www.homemaison.com/fr/pare-baignoire-rabattable-a-2-volets-hm69fac742?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Doré',mat:'Aluminium, Verre',brand:'AURLANE'},
-{id:'20263130111658HM2603',name:'Pare-baignoire rabattable en verre trempé sérigraphié Art déco',cat:'Salle de bain',l:80,h:140,p:0,price:253.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/1b/87/5e8647691183a04d94d57969b79a.jpg',url:'https://www.homemaison.com/fr/pare-baignoire-rabattable-en-verre-trempe-serigraphie-art-deco?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Verre',brand:'AURLANE'},
-{id:'20263130507756HM2603',name:'Pare-baignoire rabattable en verre trempé avec cadre aluminium effet bois',cat:'Salle de bain',l:80,h:140,p:0,price:269.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/c0/55/25f3d64086d2882930080417713a.jpg',url:'https://www.homemaison.com/fr/pare-baignoire-rabattable-en-verre-trempe-avec-cadre-aluminium-effet-bois?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Verre',brand:'AURLANE'},
-{id:'1120136HM129796',name:'Colonne de salle de bains à 2 portes',cat:'Salle de bain',l:35,h:160,p:32,price:302.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/AURLANE_2023/ATOS-COLONNE-BLANC-1.jpg',url:'https://www.homemaison.com/fr/colonne-de-salle-de-bains-a-2-portes-hm69lav685?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Bois',brand:'AURLANE'},
-{id:'1120165HM129884',name:'Colonne de salle de bains au style indus',cat:'Salle de bain',l:35,h:150,p:32,price:316.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/AURLANE_2023/DOTZ-COLONNE-1.jpg',url:'https://www.homemaison.com/fr/colonne-de-salle-de-bains-au-style-indus-hm69lav663?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'AURLANE'},
-{id:'20263130325828HM2603',name:'Meuble de salle de bains sur pieds 2 portes avec vasque en céramique',cat:'Salle de bain',l:45,h:81,p:60,price:360.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/ec/a9/d1ed1efe380d1274b56e35aea6b7.jpg',url:'https://www.homemaison.com/fr/meuble-de-salle-de-bains-sur-pieds-2-portes-avec-vasque-en-ceramique?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'AURLANE'},
-{id:'20263130252663HM2603',name:'Paroi de douche à l’italienne en verre trempé 8 mm anticalcaire',cat:'Salle de bain',l:90,h:200,p:0,price:361.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/b1/39/d20c96a6fb2ef47da9dae7b6cf53.jpg',url:'https://www.homemaison.com/fr/paroi-de-douche-a-litalienne-en-verre-trempe-8-mm-anticalcaire?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Verre',brand:'AURLANE'},
-{id:'20241024026083734HM3',name:'Paroi de douche minimaliste en verre trempé',cat:'Salle de bain',l:120,h:195,p:0,price:383.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/f1/e9/fb84155bec5a59986135e6a8a1f0.jpg',url:'https://www.homemaison.com/fr/paroi-de-douche-minimaliste-en-verre-trempe?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Aluminium, Verre',brand:'AURLANE'},
-{id:'20241024024523046HM3',name:'Paroi de douche carrée extensible',cat:'Salle de bain',l:90,h:185,p:0,price:402.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/d9/ae/e9a916af7d6514fdcb6cd4ab529b.jpg',url:'https://www.homemaison.com/fr/paroi-de-douche-carree-extensible?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Aluminium, Verre',brand:'AURLANE'},
-{id:'20263130247260HM2603',name:'Paroi de douche à l’italienne en verre trempé 8 mm géométriques',cat:'Salle de bain',l:120,h:195,p:0,price:411.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/66/d7/ab92d511816ea41c240b17a47fee.jpg',url:'https://www.homemaison.com/fr/paroi-de-douche-a-litalienne-en-verre-trempe-8-mm-geometriques?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Verre',brand:'AURLANE'},
-{id:'20263130489641HM2603',name:'Colonne de salle de bains suspendue texturée et 2 portes',cat:'Salle de bain',l:26,h:22,p:120,price:424.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/e6/47/730a82b141bd36222f468d398312.jpg',url:'https://www.homemaison.com/fr/colonne-de-salle-de-bains-suspendue-texturee-et-2-portes?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Naturel',mat:'Bois',brand:'AURLANE'},
-{id:'20263130136916HM2603',name:'Meuble de salle de bains sur pieds avec 2 portes et vasque',cat:'Salle de bain',l:45,h:81,p:80,price:448.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/49/20/c4d46bb26e7ac2aa01cdbe1cdb27.jpg',url:'https://www.homemaison.com/fr/meuble-de-salle-de-bains-sur-pieds-avec-2-portes-et-vasque?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'AURLANE'},
-{id:'20263130001021HM2603',name:'Meuble de salle de bains sur pieds avec 3 tiroirs et vasque en céramique',cat:'Salle de bain',l:45,h:81,p:60,price:448.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/19/d1/1647ed4449e2b587b5f5671025dc.jpg',url:'https://www.homemaison.com/fr/meuble-de-salle-de-bains-sur-pieds-avec-3-tiroirs-et-vasque-en-ceramique?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Blanc',mat:'Verre',brand:'AURLANE'},
-{id:'20263130137620HM2603',name:'Meuble de salle de bains suspendu 2 tiroirs avec vasque',cat:'Salle de bain',l:45,h:54,p:80,price:486.90,img:'https://www.homemaison.com/media/cache/app_lengow_large/2e/cb/a63e73a62be22c17f19b64459f5b.jpg',url:'https://www.homemaison.com/fr/meuble-de-salle-de-bains-suspendu-2-tiroirs-avec-vasque?utm_source=affilae&utm_medium=affiliation&utm_campaign=nom_du_partenaire&ae=120',shop:'HomeMaison',color:'Noir',mat:'Bois',brand:'AURLANE'}
+// Photos Unsplash — libres de droits
+const PRODUCTS = [
+  // CANAPÉS
+  {id:'canape-naxos', cat:'Canapés', catFull:'Canapés & Fauteuils', name:'Canapé 3 places tissu kaki', shop:'Amazon', shopKey:'camif', url:'https://www.amazon.fr/s?k=canap%C3%A9+3+places+tissu+d%C3%A9houssable&tag=mxadm-21', price:899, priceStr:'dès 899 €', l:220, h:82, p:95, badge:'popular', badgeLabel:'Coup de cœur', desc:'Canapé 3 places en tissu déhoussable. Confort durable, pieds chêne massif.',
+    photo:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=450&fit=crop&auto=format',
+    dims:[['L. Totale','220 cm','#3B8BD4'],['P. Assise','58 cm','#1D9E75'],['H. Totale','82 cm','#E8593C'],['H. Assise','44 cm','#BA7517']],
+    features:[['Matière','Tissu déhoussable'],['Structure','Bois massif'],['Tiroirs','—'],['Pieds','Chêne massif'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'canape-oslo', cat:'Canapés', catFull:'Canapés & Fauteuils', name:'Canapé 2 places scandinave', shop:'Amazon', shopKey:'ikea', url:'https://www.amazon.fr/s?k=canap%C3%A9+2+places+scandinave&tag=mxadm-21', price:499, priceStr:'499 €', l:180, h:80, p:88,
+    photo:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=450&fit=crop&auto=format',
+    dims:[['L. Totale','180 cm','#3B8BD4'],['Profondeur','88 cm','#1D9E75'],['Hauteur','80 cm','#E8593C']],
+    features:[['Places','2 places'],['Style','Scandinave'],['Pieds','Métal noir'],['Montage','À assembler'],['Garantie','10 ans'],['Livraison','Offerte']]},
+  {id:'fauteuil-velvet', cat:'Canapés', catFull:'Canapés & Fauteuils', name:'Fauteuil velours vert', shop:'Amazon', shopKey:'mdm', url:'https://www.amazon.fr/s?k=fauteuil+velours+salon&tag=mxadm-21', price:329, priceStr:'329 €', l:75, h:88, p:80,
+    photo:'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','75 cm','#3B8BD4'],['Profondeur','80 cm','#1D9E75'],['Hauteur','88 cm','#E8593C']],
+    features:[['Couleur','Kaki'],['Matière','Velours'],['Pieds','Laiton'],['Style','Contemporain'],['Garantie','2 ans'],['Livraison','Sur RDV']]},
+  // TABLES
+  {id:'table-stornas', cat:'Tables', catFull:'Tables à manger', name:'Table bois massif extensible', shop:'Amazon', shopKey:'ikea', url:'https://www.amazon.fr/s?k=table+%C3%A0+manger+bois+massif+extensible&tag=mxadm-21', price:799, priceStr:'799 €', l:204, h:74, p:90, badge:'popular', badgeLabel:'Populaire',
+    photo:'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=600&h=450&fit=crop&auto=format',
+    dims:[['L. Min','147 cm','#1D9E75'],['L. Max','204 cm','#1D9E75'],['Largeur','90 cm','#3B8BD4'],['Hauteur','74 cm','#E8593C']],
+    features:[['Matière','Acacia massif'],['Finition','Huilée'],['Places','6 à 8'],['Rallonge','Intégrée'],['Garantie','10 ans'],['Livraison','En kit']]},
+  {id:'table-ronde-180', cat:'Tables', catFull:'Tables à manger', name:'Table ronde 4 à 6 couverts', shop:'Amazon', shopKey:'laredoute', url:'https://www.amazon.fr/s?k=table+ronde+extensible+salle+%C3%A0+manger&tag=mxadm-21', price:449, priceStr:'449 €', l:160, h:76, p:120,
+    photo:'https://images.unsplash.com/photo-1604578762246-41134e37f9cc?w=600&h=450&fit=crop&auto=format',
+    dims:[['Diamètre','120 cm','#3B8BD4'],['Hauteur','76 cm','#E8593C'],['Rallongée','160 cm','#1D9E75']],
+    features:[['Matière','Chêne MDF'],['Forme','Ronde / ovale'],['Places','4 à 6'],['Rallonge','Papillon'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'table-basse-acacia', cat:'Tables basses', catFull:'Tables basses', name:'Table basse bois naturel', shop:'Amazon', shopKey:'but', url:'https://www.amazon.fr/s?k=table+basse+bois+naturel+salon&tag=mxadm-21', price:249, priceStr:'249 €', l:120, h:40, p:65,
+    photo:'https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?w=600&h=450&fit=crop&auto=format',
+    dims:[['Longueur','120 cm','#1D9E75'],['Largeur','65 cm','#3B8BD4'],['Hauteur','40 cm','#E8593C']],
+    features:[['Matière','Acacia'],['Style','Naturel'],['Plateau','2 tons'],['Pieds','Épingle'],['Garantie','1 an'],['Livraison','Offerte']]},
+  // LITS
+  {id:'lit-josephine', cat:'Lits', catFull:'Lits & Literie', name:'Lit 160×200 tête capitonnée', shop:'Amazon', shopKey:'mdm', url:'https://www.amazon.fr/s?k=lit+160x200+t%C3%AAte+de+lit+capitonn%C3%A9e&tag=mxadm-21', price:549, priceStr:'549 €', l:200, h:110, p:165, badge:'new', badgeLabel:'Nouveau',
+    photo:'https://images.unsplash.com/photo-1505693314120-0d443867891c?w=600&h=450&fit=crop&auto=format',
+    dims:[['Larg. matelas','160 cm','#3B8BD4'],['Long. matelas','200 cm','#1D9E75'],['Haut. tête de lit','110 cm','#E8593C'],['Haut. cadre','35 cm','#BA7517']],
+    features:[['Matière','Bois massif'],['Tête de lit','Capitonnée'],['Matelas inclus','Non'],['Coffre','Non'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'lit-coffre-180', cat:'Lits', catFull:'Lits & Literie', name:'Lit coffre 180×200 rangement', shop:'Amazon', shopKey:'conforama', url:'https://www.amazon.fr/s?k=lit+coffre+180x200+rangement&tag=mxadm-21', price:699, priceStr:'699 €', l:200, h:100, p:185,
+    photo:'https://m.media-amazon.com/images/I/81+YW2njlZL._AC_SL1500_.jpg',
+    dims:[['Largeur','185 cm','#3B8BD4'],['Longueur','205 cm','#1D9E75'],['Hauteur','100 cm','#E8593C']],
+    features:[['Matelas','180×200'],['Coffre','Intégré'],['Ouverture','Hydraulique'],['Matière','Tissu'],['Garantie','3 ans'],['Livraison','Sur RDV']]},
+  // ARMOIRES
+  {id:'armoire-velvet', cat:'Armoires', catFull:'Armoires & Dressings', name:'Armoire 2 portes poignées dorées', shop:'Amazon', shopKey:'alinea', url:'https://www.amazon.fr/s?k=armoire+2+portes+chambre&tag=mxadm-21', price:689, priceStr:'689 €', l:150, h:220, p:58,
+    photo:'https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','150 cm','#3B8BD4'],['Profondeur','58 cm','#1D9E75'],['Hauteur','220 cm','#E8593C']],
+    features:[['Portes','2 battantes'],['Intérieur','Équipé'],['Poignées','Dorées'],['Finition','Laqué mat'],['Garantie','2 ans'],['Livraison','Sur RDV']]},
+  {id:'dressing-modulable', cat:'Armoires', catFull:'Armoires & Dressings', name:'Dressing modulable 3 portes', shop:'Amazon', shopKey:'ikea', url:'https://www.amazon.fr/s?k=dressing+modulable+penderie&tag=mxadm-21', price:350, priceStr:'dès 350 €', l:200, h:236, p:58,
+    photo:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','200 cm','#3B8BD4'],['Profondeur','58 cm','#1D9E75'],['Hauteur','236 cm','#E8593C']],
+    features:[['Nb portes','3 coulissantes'],['Intérieur','Personnalisable'],['Montage','À assembler'],['Matière','Mélaminé'],['Garantie','10 ans'],['Livraison','En kit']]},
+  // BIBLIOTHÈQUES
+  {id:'biblio-modular', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Bibliothèque métal noir 220 cm', shop:'Amazon', shopKey:'habitat', url:'https://www.amazon.fr/s?k=biblioth%C3%A8que+m%C3%A9tal+noir+%C3%A9tag%C3%A8res&tag=mxadm-21', price:445, priceStr:'445 €', l:100, h:220, p:28,
+    photo:'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','100 cm','#3B8BD4'],['Profondeur','28 cm','#1D9E75'],['Hauteur','220 cm','#E8593C'],['Nb étagères','5','#BA7517']],
+    features:[['Matière','Métal / MDF'],['Étagères','5 ajustables'],['Style','Industriel'],['Couleur','Noir mat'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'biblio-billy-xl', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Bibliothèque blanche 5 étagères', shop:'Amazon', shopKey:'ikea', url:'https://www.amazon.fr/s?k=biblioth%C3%A8que+blanche+%C3%A9tag%C3%A8res&tag=mxadm-21', price:129, priceStr:'129 €', l:80, h:202, p:28,
+    photo:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=450&fit=crop&auto=format&hue=200&sat=-60',
+    dims:[['Largeur','80 cm','#3B8BD4'],['Profondeur','28 cm','#1D9E75'],['Hauteur','202 cm','#E8593C']],
+    features:[['Couleur','Blanc'],['Étagères','5 ajustables'],['Extension','Possible'],['Matière','MDF'],['Garantie','10 ans'],['Livraison','En kit']]},
+  // BUREAUX
+  {id:'bureau-oak', cat:'Bureaux', catFull:'Bureaux', name:'Bureau chêne avec caissons', shop:'Amazon', shopKey:'laredoute', url:'https://www.amazon.fr/s?k=bureau+ch%C3%AAne+tiroirs+scandinave&tag=mxadm-21', price:319, oldPrice:399, priceStr:'319 €', badge:'promo', badgeLabel:'Promo −20%', l:120, h:75, p:60,
+    photo:'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','120 cm','#3B8BD4'],['Profondeur','60 cm','#1D9E75'],['Hauteur','75 cm','#E8593C']],
+    features:[['Matière','MDF / Chêne'],['Caissons','2 tiroirs'],['Style','Scandinave'],['Montage','À assembler'],['Garantie','1 an'],['Promo','-20%']]},
+  {id:'bureau-gaming', cat:'Bureaux', catFull:'Bureaux', name:'Bureau large 160 cm télétravail', shop:'Amazon', shopKey:'conforama', url:'https://www.amazon.fr/s?k=bureau+large+160+cm+t%C3%A9l%C3%A9travail&tag=mxadm-21', price:249, priceStr:'249 €', l:160, h:75, p:80,
+    photo:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','160 cm','#3B8BD4'],['Profondeur','80 cm','#1D9E75'],['Hauteur','75 cm','#E8593C']],
+    features:[['Gestion câbles','Oui'],['Matière','MDF noir'],['Pieds','Métal réglable'],['Charge max','80 kg'],['Garantie','2 ans'],['Livraison','Sur RDV']]},
+  // COMMODES
+  {id:'commode-5-tiroirs', cat:'Commodes', catFull:'Commodes', name:'Commode 5 tiroirs bois massif', shop:'Amazon', shopKey:'camif', url:'https://www.amazon.fr/s?k=commode+5+tiroirs+bois&tag=mxadm-21', price:389, priceStr:'389 €', l:80, h:100, p:42,
+    photo:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','80 cm','#3B8BD4'],['Profondeur','42 cm','#1D9E75'],['Hauteur','100 cm','#E8593C'],['Tiroirs','5','#BA7517']],
+    features:[['Matière','Bois massif'],['Tiroirs','5'],['Poignées','Laiton'],['Fabrication','France'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'commode-basse', cat:'Commodes', catFull:'Commodes', name:'Commode 3 tiroirs blanc mat', shop:'Amazon', shopKey:'ikea', url:'https://www.amazon.fr/s?k=commode+3+tiroirs+blanc+chambre&tag=mxadm-21', price:199, priceStr:'199 €', l:96, h:72, p:50,
+    photo:'https://images.unsplash.com/photo-1551298370-9d3d53740c72?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','96 cm','#3B8BD4'],['Profondeur','50 cm','#1D9E75'],['Hauteur','72 cm','#E8593C']],
+    features:[['Matière','MDF blanc'],['Tiroirs','3 larges'],['Pieds','Bois massif'],['Montage','À assembler'],['Garantie','10 ans'],['Livraison','En kit']]},
+  // TABLE BASSE
+  {id:'tbasse-marbre', cat:'Tables basses', catFull:'Tables basses', name:'Table basse marbre & laiton', shop:'Amazon', shopKey:'westwing', url:'https://www.amazon.fr/s?k=table+basse+marbre+laiton&tag=mxadm-21', price:580, priceStr:'580 €', l:100, h:38, p:55,
+    photo:'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=600&h=450&fit=crop&auto=format',
+    dims:[['Longueur','100 cm','#1D9E75'],['Largeur','55 cm','#3B8BD4'],['Hauteur','38 cm','#E8593C']],
+    features:[['Plateau','Marbre blanc'],['Pieds','Laiton brossé'],['Style','Luxe'],['Charge max','30 kg'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  // CHAISES
+  {id:'chaise-velvet-6', cat:'Chaises', catFull:'Chaises & Tabourets', name:'Lot 6 chaises velours kaki', shop:'Amazon', shopKey:'laredoute', url:'https://www.amazon.fr/s?k=lot+6+chaises+velours+salle+%C3%A0+manger&tag=mxadm-21', price:299, priceStr:'299 €', l:44, h:88, p:54,
+    photo:'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','44 cm','#3B8BD4'],['Profondeur','54 cm','#1D9E75'],['Hauteur','88 cm','#E8593C']],
+    features:[['Lot','6 chaises'],['Matière','Velours'],['Couleur','Kaki'],['Structure','Métal'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'tabouret-bar', cat:'Chaises', catFull:'Chaises & Tabourets', name:'Tabouret de bar réglable', shop:'Amazon', shopKey:'but', url:'https://www.amazon.fr/s?k=tabouret+de+bar+r%C3%A9glable&tag=mxadm-21', price:89, priceStr:'89 €', l:40, h:80, p:40,
+    photo:'https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','40 cm','#3B8BD4'],['Profondeur','40 cm','#1D9E75'],['Hauteur min','65 cm','#E8593C'],['Hauteur max','82 cm','#E8593C']],
+    features:[['Réglable','Oui'],['Matière','Métal / PU'],['Pivotant','Oui'],['Repose-pieds','Intégré'],['Garantie','1 an'],['Livraison','Offerte']]},
+  // EXTRAS
+  {id:'meuble-tv-velvet', cat:'Commodes', catFull:'Meubles TV & Rangements', name:'Meuble TV 140 cm 2 portes', shop:'Amazon', shopKey:'alinea', url:'https://www.amazon.fr/s?k=meuble+tv+140+cm+portes&tag=mxadm-21', price:389, priceStr:'389 €', l:140, h:50, p:42,
+    photo:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','140 cm','#3B8BD4'],['Profondeur','42 cm','#1D9E75'],['Hauteur','50 cm','#E8593C']],
+    features:[['Portes','2 battantes'],['Câble','Passe-câble'],['Matière','MDF laqué'],['Pieds','Métal noir'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'etagere-leaning', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Étagère inclinée 5 niveaux', shop:'Amazon', shopKey:'lm', url:'https://www.amazon.fr/s?k=%C3%A9tag%C3%A8re+inclin%C3%A9e+5+niveaux&tag=mxadm-21', price:89, priceStr:'89 €', l:60, h:170, p:24,
+    photo:'https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','60 cm','#3B8BD4'],['Profondeur','24 cm','#1D9E75'],['Hauteur','170 cm','#E8593C']],
+    features:[['Style','Incliné'],['Matière','Métal / MDF'],['Niveaux','5'],['Couleur','Noir'],['Garantie','2 ans'],['Livraison','Offerte']]},
+  {id:'rangement-cube', cat:'Bibliothèques', catFull:'Bibliothèques', name:'Étagère cube 3×3 modulable', shop:'Amazon', shopKey:'made', url:'https://www.amazon.fr/s?k=%C3%A9tag%C3%A8re+cube+modulable+cases&tag=mxadm-21', price:195, priceStr:'195 €', l:108, h:108, p:32,
+    photo:'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&h=450&fit=crop&auto=format',
+    dims:[['Largeur','108 cm','#3B8BD4'],['Profondeur','32 cm','#1D9E75'],['Hauteur','108 cm','#E8593C']],
+    features:[['Casiers','9 cases'],['Matière','Contreplaqué'],['Modulable','Oui'],['Style','Scandinave'],['Garantie','2 ans'],['Livraison','Offerte']]},
+{id:'vasagle-sommier-90-190-35', cat:'Lits', catFull:'Lits & Literie', name:'Sommier coffre métal noir 90×190', shop:'Amazon', shopKey:'amazon', url:'https://www.amazon.fr/dp/B0DQCJ3HXY?tag=mxadm-21', price:39.09, priceStr:'39,09 €', l:190, h:36, p:90,
+    photo:'https://m.media-amazon.com/images/I/81+YW2njlZL._AC_SL1500_.jpg',
+    dims:[['Longueur','190 cm','#1D9E75'],['Largeur','90 cm','#3B8BD4'],['Hauteur','36 cm','#E8593C']],
+    features:[['Marque','VASAGLE'],['Matière','Métal noir'],['Rangement','Dessous de lit'],['Montage','À assembler'],['Garantie','2 ans'],['Livraison','Amazon']]},
+  {id:'vasagle-sommier-90-190-40', cat:'Lits', catFull:'Lits & Literie', name:'Sommier coffre métal noir 90×190 haut', shop:'Amazon', shopKey:'amazon', url:'https://www.amazon.fr/dp/B0FM2SVDLQ?tag=mxadm-21', price:45.99, priceStr:'45,99 €', l:190, h:41, p:90,
+    photo:'https://m.media-amazon.com/images/I/81+YW2njlZL._AC_SL1500_.jpg',
+    dims:[['Longueur','190 cm','#1D9E75'],['Largeur','90 cm','#3B8BD4'],['Hauteur','41 cm','#E8593C']],
+    features:[['Marque','VASAGLE'],['Matière','Métal noir'],['Rangement','Dessous de lit'],['Montage','À assembler'],['Garantie','2 ans'],['Livraison','Amazon']]},
+  {id:'vasagle-sommier-140-190-35', cat:'Lits', catFull:'Lits & Literie', name:'Sommier coffre métal noir 140×190', shop:'Amazon', shopKey:'amazon', url:'https://www.amazon.fr/dp/B0DQCJT895?tag=mxadm-21', price:59.99, priceStr:'59,99 €', l:190, h:36, p:140,
+    photo:'https://m.media-amazon.com/images/I/81+YW2njlZL._AC_SL1500_.jpg',
+    dims:[['Longueur','190 cm','#1D9E75'],['Largeur','140 cm','#3B8BD4'],['Hauteur','36 cm','#E8593C']],
+    features:[['Marque','VASAGLE'],['Matière','Métal noir'],['Rangement','Dessous de lit'],['Montage','À assembler'],['Garantie','2 ans'],['Livraison','Amazon']]},
+  {id:'vasagle-sommier-160-200-35', cat:'Lits', catFull:'Lits & Literie', name:'Sommier coffre métal noir 160×200', shop:'Amazon', shopKey:'amazon', url:'https://www.amazon.fr/dp/B0DQ8FN5X2?tag=mxadm-21', price:69.99, priceStr:'69,99 €', l:200, h:36, p:160,
+    photo:'https://m.media-amazon.com/images/I/81T4P+UgAEL._AC_SX679_.jpg',
+    dims:[['Longueur','200 cm','#1D9E75'],['Largeur','160 cm','#3B8BD4'],['Hauteur','36 cm','#E8593C']],
+    features:[['Marque','VASAGLE'],['Matière','Métal noir'],['Rangement','Dessous de lit'],['Montage','À assembler'],['Garantie','2 ans'],['Livraison','Amazon']]},
+  {id:'vasagle-sommier-160-200-40', cat:'Lits', catFull:'Lits & Literie', name:'Sommier coffre métal noir 160×200 haut', shop:'Amazon', shopKey:'amazon', url:'https://www.amazon.fr/dp/B0FLXBWC93?tag=mxadm-21', price:75.99, priceStr:'75,99 €', l:200, h:41, p:160,
+    photo:'https://m.media-amazon.com/images/I/81a9JgDT+XL._AC_SX679_.jpg',
+    dims:[['Longueur','200 cm','#1D9E75'],['Largeur','160 cm','#3B8BD4'],['Hauteur','41 cm','#E8593C']],
+    features:[['Marque','VASAGLE'],['Matière','Métal noir'],['Rangement','Dessous de lit'],['Montage','À assembler'],['Garantie','2 ans'],['Livraison','Amazon']]},
+  {id:'vasagle-sommier-180-200-35', cat:'Lits', catFull:'Lits & Literie', name:'Sommier coffre métal noir 180×200', shop:'Amazon', shopKey:'amazon', url:'https://www.amazon.fr/dp/B0FLX8K6PN?tag=mxadm-21', price:75.99, priceStr:'75,99 €', l:200, h:36, p:180,
+    photo:'https://m.media-amazon.com/images/I/81pmkHxzo1L._AC_SX679_.jpg',
+    dims:[['Longueur','200 cm','#1D9E75'],['Largeur','180 cm','#3B8BD4'],['Hauteur','36 cm','#E8593C']],
+    features:[['Marque','VASAGLE'],['Matière','Métal noir'],['Rangement','Dessous de lit'],['Montage','À assembler'],['Garantie','2 ans'],['Livraison','Amazon']]}
 ];
 
 /* ════════════════════════════════════════════
-   MERGE ALL PRODUCTS
-════════════════════════════════════════════ */
-const ALL_PRODUCTS = HM_PRODUCTS.map(p => ({
-  ...p,
-  features: [
-    p.brand ? ['Marque', p.brand] : null,
-    p.mat ? ['Matière', p.mat] : null,
-    p.color ? ['Couleur', p.color] : null,
-    ['Enseigne', 'HomeMaison'],
-  ].filter(Boolean),
-  dims: [
-    ['Largeur', p.l + ' cm', '#3B8BD4'],
-    ['Hauteur', p.h + ' cm', '#E8593C'],
-    p.p ? ['Profondeur', p.p + ' cm', '#1D9E75'] : null,
-  ].filter(Boolean)
-}));
-
-/* ════════════════════════════════════════════
-   STATE
+   RENDU GRILLE CATALOGUE
 ════════════════════════════════════════════ */
 let currentView = 'grid';
-let currentPage = 1;
-let currentCatFilter = null;
-let searchQuery = '';
-const ITEMS_PER_PAGE = 24;
 
-/* ════════════════════════════════════════════
-   INIT — Build sidebar dynamically
-════════════════════════════════════════════ */
-function init() {
-  // Stat count
-  document.getElementById('statProds').textContent = ALL_PRODUCTS.length + '+';
-
-  // Category checkboxes
-  const cats = {};
-  ALL_PRODUCTS.forEach(p => { cats[p.cat] = (cats[p.cat]||0) + 1; });
-  const catChecks = document.getElementById('catChecks');
-  Object.keys(cats).sort().forEach(c => {
-    catChecks.innerHTML += `<label class="sb-check"><input type="checkbox" onchange="renderGrid()" data-cat="${c}"> <span class="sb-check-label">${c}</span><span class="sb-check-count">${cats[c]}</span></label>`;
-  });
-
-  // Shop checkboxes
-  const shops = {};
-  ALL_PRODUCTS.forEach(p => { shops[p.shop] = (shops[p.shop]||0) + 1; });
-  const shopChecks = document.getElementById('shopChecks');
-  Object.keys(shops).sort().forEach(s => {
-    shopChecks.innerHTML += `<label class="sb-check"><input type="checkbox" onchange="renderGrid()" data-shop="${s}"> <span class="sb-check-label">${s}</span><span class="sb-check-count">${shops[s]}</span></label>`;
-  });
-
-  // Color checkboxes (top 10)
-  const colors = {};
-  ALL_PRODUCTS.forEach(p => { if(p.color) colors[p.color] = (colors[p.color]||0) + 1; });
-  const topColors = Object.entries(colors).sort((a,b) => b[1]-a[1]).slice(0, 12);
-  const colorChecks = document.getElementById('colorChecks');
-  topColors.forEach(([c, n]) => {
-    colorChecks.innerHTML += `<label class="sb-check"><input type="checkbox" onchange="renderGrid()" data-color="${c}"> <span class="sb-check-label">${c}</span><span class="sb-check-count">${n}</span></label>`;
-  });
-
-  // Dimension filters
-  buildDimFilters();
-
-  renderGrid();
-}
-
-function buildDimFilters() {
-  const container = document.getElementById('dimFilters');
-  const dims = [
-    { id: 'L', label: 'Largeur', color: '#3B8BD4', min: 0, max: 400 },
-    { id: 'H', label: 'Hauteur', color: '#E8593C', min: 0, max: 300 },
-    { id: 'P', label: 'Profondeur', color: '#1D9E75', min: 0, max: 250 },
-  ];
-  dims.forEach(d => {
-    container.innerHTML += `
-    <div class="sb-dim-range">
-      <div class="sb-dim-range-top">
-        <div class="sb-dot" style="background:${d.color}"></div>
-        <span class="sb-dim-lbl">${d.label}</span>
-        <div class="sb-dim-vals">
-          <input class="sb-val-box" id="dimMin${d.id}" type="number" value="${d.min}" min="${d.min}" max="${d.max}">
-          <span class="sb-val-sep">–</span>
-          <input class="sb-val-box" id="dimMax${d.id}" type="number" value="${d.max}" min="${d.min}" max="${d.max}">
-          <span class="sb-val-unit">cm</span>
-        </div>
-      </div>
-      <div class="sb-range-dbl">
-        <div class="sb-range-track"></div>
-        <div class="sb-range-fill" id="dimFill${d.id}" style="left:0%;width:100%"></div>
-        <input type="range" id="dimRMin${d.id}" min="${d.min}" max="${d.max}" value="${d.min}" step="1" oninput="syncDimRange('${d.id}')">
-        <input type="range" id="dimRMax${d.id}" min="${d.min}" max="${d.max}" value="${d.max}" step="1" oninput="syncDimRange('${d.id}')">
-      </div>
-    </div>`;
-  });
-}
-
-function syncDimRange(dim) {
-  const rMin = document.getElementById('dimRMin'+dim);
-  const rMax = document.getElementById('dimRMax'+dim);
-  let lo = parseInt(rMin.value), hi = parseInt(rMax.value);
-  if (lo > hi) { lo = hi; rMin.value = lo; }
-  document.getElementById('dimMin'+dim).value = lo;
-  document.getElementById('dimMax'+dim).value = hi;
-  const absMin = parseInt(rMin.min), absMax = parseInt(rMin.max);
-  const pLo = (lo-absMin)/(absMax-absMin)*100;
-  const pHi = (hi-absMin)/(absMax-absMin)*100;
-  document.getElementById('dimFill'+dim).style.left = pLo+'%';
-  document.getElementById('dimFill'+dim).style.width = (pHi-pLo)+'%';
-}
-
-/* ════════════════════════════════════════════
-   FILTERING & RENDERING
-════════════════════════════════════════════ */
-function getFilters() {
-  const checkedCats = [...document.querySelectorAll('[data-cat]:checked')].map(i=>i.dataset.cat);
-  const checkedShops = [...document.querySelectorAll('[data-shop]:checked')].map(i=>i.dataset.shop);
-  const checkedColors = [...document.querySelectorAll('[data-color]:checked')].map(i=>i.dataset.color);
-  const minPrice = +(document.getElementById('sbPrixMin').value||0);
-  const maxPrice = +(document.getElementById('sbPrixMax').value||99999);
-  const minL = +(document.getElementById('dimMinL').value||0);
-  const maxL = +(document.getElementById('dimMaxL').value||9999);
-  const minH = +(document.getElementById('dimMinH').value||0);
-  const maxH = +(document.getElementById('dimMaxH').value||9999);
-  const minP = +(document.getElementById('dimMinP').value||0);
-  const maxP = +(document.getElementById('dimMaxP').value||9999);
-  return { checkedCats, checkedShops, checkedColors, minPrice, maxPrice, minL, maxL, minH, maxH, minP, maxP };
-}
-
-function filterProducts() {
-  const f = getFilters();
-  let list = ALL_PRODUCTS.filter(p =>
-    p.l >= f.minL && p.l <= f.maxL &&
-    p.h >= f.minH && p.h <= f.maxH &&
-    (p.p === 0 || (p.p >= f.minP && p.p <= f.maxP)) &&
-    p.price >= f.minPrice && p.price <= f.maxPrice &&
-    (f.checkedCats.length === 0 || f.checkedCats.includes(p.cat)) &&
-    (f.checkedShops.length === 0 || f.checkedShops.includes(p.shop)) &&
-    (f.checkedColors.length === 0 || f.checkedColors.includes(p.color))
-  );
-  // Category strip filter
-  if (currentCatFilter) {
-    list = list.filter(p => p.cat === currentCatFilter);
-  }
-  // Search
-  if (searchQuery) {
-    const q = searchQuery.toLowerCase();
-    list = list.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q) || (p.color||'').toLowerCase().includes(q));
-  }
-  return list;
-}
-
-function sortProducts(list) {
-  const sort = document.getElementById('sortSelect').value;
-  switch(sort) {
-    case 'prix-asc': return list.sort((a,b) => a.price - b.price);
-    case 'prix-desc': return list.sort((a,b) => b.price - a.price);
-    case 'taille-asc': return list.sort((a,b) => (a.l*a.h) - (b.l*b.h));
-    case 'taille-desc': return list.sort((a,b) => (b.l*b.h) - (a.l*a.h));
-    default: return list;
-  }
-}
-
-function renderGrid() {
-  const filtered = sortProducts(filterProducts());
-  const total = filtered.length;
-  document.getElementById('prodCount').textContent = total;
-  
-  const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
-  if (currentPage > totalPages) currentPage = 1;
-  const start = (currentPage - 1) * ITEMS_PER_PAGE;
-  const page = filtered.slice(start, start + ITEMS_PER_PAGE);
-  
-  const grid = document.getElementById('prodGrid');
-  grid.innerHTML = page.map(p => {
-    const priceStr = p.price.toFixed(2).replace('.', ',') + ' €';
-    const oldPriceHtml = (p.oldPrice && p.oldPrice > p.price) ? `<small>${p.oldPrice.toFixed(2).replace('.',',')} €</small>` : '';
-    const isPromo = p.oldPrice && p.oldPrice > p.price;
-    const shopLabel = 'HomeMaison';
-    return `
-    <div class="card" onclick="openModal('${p.id}')">
-      <div class="card-dims">
-        <div class="cd-item"><div class="cd-axis">Larg.</div><div class="cd-val">${p.l}<span class="cd-unit"> cm</span></div></div>
-        <div class="cd-item"><div class="cd-axis">Haut.</div><div class="cd-val">${p.h}<span class="cd-unit"> cm</span></div></div>
-        ${p.p ? `<div class="cd-item"><div class="cd-axis">Prof.</div><div class="cd-val">${p.p}<span class="cd-unit"> cm</span></div></div>` : ''}
-      </div>
-      <div class="card-img">
-        <img src="${p.img}" alt="${p.name.replace(/"/g,'&quot;')}" loading="lazy" onerror="this.style.display='none'">
-        ${isPromo ? '<div class="card-badge-wrap"><span class="card-badge promo">Promo</span></div>' : ''}
-        <div class="card-shop">${shopLabel}</div>
-      </div>
-      <div class="card-body">
-        <div class="card-cat">${p.cat}</div>
-        <div class="card-name">${p.name}</div>
-        <div class="card-footer">
-          <div class="card-price">${priceStr}${oldPriceHtml}</div>
-          <a class="card-cta" href="${p.url}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
-            Voir
-          </a>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-  
-  renderPagination(totalPages);
-}
-
-function renderPagination(totalPages) {
-  const container = document.getElementById('pagination');
-  if (totalPages <= 1) { container.innerHTML = ''; return; }
-  let html = '';
-  html += `<button class="pg-btn ${currentPage===1?'disabled':''}" onclick="${currentPage>1?'goPage('+(currentPage-1)+')':''}">‹</button>`;
-  const maxVisible = 7;
-  let pages = [];
-  if (totalPages <= maxVisible) {
-    for (let i=1; i<=totalPages; i++) pages.push(i);
-  } else {
-    pages.push(1);
-    if (currentPage > 3) pages.push('...');
-    for (let i=Math.max(2,currentPage-1); i<=Math.min(totalPages-1,currentPage+1); i++) pages.push(i);
-    if (currentPage < totalPages-2) pages.push('...');
-    pages.push(totalPages);
-  }
-  pages.forEach(p => {
-    if (p === '...') html += '<span style="color:var(--muted);font-size:13px;padding:0 4px">…</span>';
-    else html += `<button class="pg-btn ${p===currentPage?'on':''}" onclick="goPage(${p})">${p}</button>`;
-  });
-  html += `<button class="pg-btn ${currentPage===totalPages?'disabled':''}" onclick="${currentPage<totalPages?'goPage('+(currentPage+1)+')':''}">›</button>`;
-  container.innerHTML = html;
-}
-
-function goPage(n) {
-  currentPage = n;
-  renderGrid();
-  document.getElementById('catalogue').scrollIntoView({behavior:'smooth'});
-}
-
-/* ════════════════════════════════════════════
-   INTERACTIONS
-════════════════════════════════════════════ */
-function setView(v) {
+function setView(v){
   currentView = v;
   const g = document.getElementById('prodGrid');
   document.getElementById('viewGrid').classList.toggle('on', v==='grid');
@@ -1608,126 +1197,134 @@ function setView(v) {
   g.classList.toggle('list-mode', v==='list');
 }
 
-function toggleSb(head) {
-  head.classList.toggle('open');
-  head.nextElementSibling.classList.toggle('open');
+function getFilters(){
+  const maxL = sbFilterActive ? sbFilterL : (document.getElementById('sbLslider') ? +document.getElementById('sbLslider').value : 300);
+  const maxH = sbFilterActive ? sbFilterH : (document.getElementById('sbHslider') ? +document.getElementById('sbHslider').value : 300);
+  const maxP = sbFilterActive ? sbFilterP : (document.getElementById('sbPslider') ? +document.getElementById('sbPslider').value : 150);
+  const minPrice = +(document.getElementById('sbPrixMin').value||0);
+  const maxPrice = +(document.getElementById('sbPrixMax').value||99999);
+  const checkedCats = [...document.querySelectorAll('[data-cat]:checked')].map(i=>i.dataset.cat);
+  const checkedShops = [...document.querySelectorAll('[data-shop]:checked')].map(i=>i.dataset.shop);
+  return {maxL, maxH, maxP, minPrice, maxPrice, checkedCats, checkedShops};
 }
 
-function filterCatStrip(cat, el) {
-  currentCatFilter = cat;
-  currentPage = 1;
-  document.querySelectorAll('.ci').forEach(c => c.classList.remove('on'));
-  if (el) el.classList.add('on');
-  else document.querySelector('.ci').classList.add('on');
-  // Also uncheck sidebar cat checkboxes
-  document.querySelectorAll('[data-cat]').forEach(cb => { cb.checked = false; });
+function renderGrid(){
+  const f = getFilters();
+  let filtered = PRODUCTS.filter(p =>
+    p.l <= f.maxL && p.h <= f.maxH && p.p <= f.maxP &&
+    p.price >= f.minPrice && p.price <= f.maxPrice &&
+    (f.checkedCats.length===0 || f.checkedCats.some(c=>p.cat.includes(c))) &&
+    (f.checkedShops.length===0 || f.checkedShops.includes(p.shopKey))
+  );
+  document.getElementById('prodCount').textContent = filtered.length;
+  const grid = document.getElementById('prodGrid');
+  grid.innerHTML = filtered.map(p => `
+    <div class="card-cat-item" data-pid="${p.id}" onclick="openModal('${p.id}')">
+      <div class="card-dims-banner">
+        <div class="cdb-item"><div class="cdb-axis">Larg.</div><div class="cdb-val">${p.l}<span class="cdb-unit"> cm</span></div></div>
+        <div class="cdb-item"><div class="cdb-axis">Haut.</div><div class="cdb-val">${p.h}<span class="cdb-unit"> cm</span></div></div>
+        <div class="cdb-item"><div class="cdb-axis">Prof.</div><div class="cdb-val">${p.p}<span class="cdb-unit"> cm</span></div></div>
+      </div>
+      <div class="card-img-zone" style="background:#e8ead8">
+        <img src="${p.photo}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0" onerror="this.style.display='none'">
+        ${p.badge ? `<div class="card-badge-wrap"><span class="card-badge ${p.badge}">${p.badgeLabel}</span></div>` : ''}
+      </div>
+      <div class="card-body-cat">
+        <div class="card-cat-label">${p.catFull}</div>
+        <div class="card-name-cat">${p.name}</div>
+        <div class="card-desc-cat">${p.desc||''}</div>
+        <div class="card-footer-cat">
+          <div class="card-price-cat">${p.priceStr}${p.oldPrice?`<small>${p.oldPrice} €</small>`:''}</div>
+          <a class="card-cta" href="${p.url}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()" style="${p.url==='#'?'opacity:.5;pointer-events:none':''}">
+          ${p.url!=='#' ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg> Voir sur Amazon' : 'Bientôt disponible'}
+        </a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterCat(el, cat){
+  document.querySelectorAll('.ci').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  if(cat !== 'Tous'){
+    document.querySelectorAll('[data-cat]').forEach(cb => { cb.checked = cb.dataset.cat===cat; });
+  } else {
+    document.querySelectorAll('[data-cat]').forEach(cb => { cb.checked = false; });
+  }
   renderGrid();
-  document.getElementById('catalogue').scrollIntoView({behavior:'smooth'});
 }
 
-function applyHeroDims() {
+function toggleSb(head){
+  head.classList.toggle('open');
+  const body = head.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+function applyHeroDimSearch(){
   const l = +document.getElementById('hLslider').value;
   const h = +document.getElementById('hHslider').value;
   const p = +document.getElementById('hPslider').value;
-  document.getElementById('dimMaxL').value = l;
-  document.getElementById('dimRMaxL').value = l;
-  document.getElementById('dimMaxH').value = h;
-  document.getElementById('dimRMaxH').value = h;
-  document.getElementById('dimMaxP').value = p;
-  document.getElementById('dimRMaxP').value = p;
-  syncDimRange('L'); syncDimRange('H'); syncDimRange('P');
-  currentPage = 1;
+  // Écrit dans les globals de filtre
+  sbFilterActive = true;
+  sbFilterL = l; sbFilterH = h; sbFilterP = p;
   renderGrid();
   document.getElementById('catalogue').scrollIntoView({behavior:'smooth'});
 }
 
-function resetHeroDims() {
-  document.getElementById('hLslider').value = 200; document.getElementById('hLval').textContent = '200 cm';
-  document.getElementById('hHslider').value = 250; document.getElementById('hHval').textContent = '250 cm';
-  document.getElementById('hPslider').value = 100; document.getElementById('hPval').textContent = '100 cm';
-  document.getElementById('dimMaxL').value = 400; document.getElementById('dimRMaxL').value = 400;
-  document.getElementById('dimMaxH').value = 300; document.getElementById('dimRMaxH').value = 300;
-  document.getElementById('dimMaxP').value = 250; document.getElementById('dimRMaxP').value = 250;
-  syncDimRange('L'); syncDimRange('H'); syncDimRange('P');
-  currentPage = 1;
+function resetHeroDims(){
+  document.getElementById('hLslider').value = 80; document.getElementById('hLval').textContent = '80 cm';
+  document.getElementById('hHslider').value = 180; document.getElementById('hHval').textContent = '180 cm';
+  document.getElementById('hPslider').value = 50; document.getElementById('hPval').textContent = '50 cm';
+  sbFilterActive = false;
   renderGrid();
-}
-
-function doSearch() {
-  searchQuery = document.getElementById('navSearch').value.trim();
-  currentPage = 1;
-  currentCatFilter = null;
-  document.querySelectorAll('.ci').forEach(c => c.classList.remove('on'));
-  document.querySelector('.ci').classList.add('on');
-  renderGrid();
-  document.getElementById('catalogue').scrollIntoView({behavior:'smooth'});
 }
 
 /* ════════════════════════════════════════════
-   MODAL
+   MODALE
 ════════════════════════════════════════════ */
-function openModal(id) {
-  const p = ALL_PRODUCTS.find(x => x.id === id);
-  if (!p) return;
-  document.getElementById('mCat').textContent = p.cat;
-  document.getElementById('mSite').textContent = '📐 ' + p.shop;
-  document.getElementById('mTitle').textContent = p.name;
-  document.getElementById('mDesc').textContent = p.brand ? 'Marque : ' + p.brand : '';
-  document.getElementById('mPrice').textContent = p.price.toFixed(2).replace('.',',') + ' €';
-  
+function openModal(id){
+  const p = PRODUCTS.find(x=>x.id===id); if(!p) return;
+  document.getElementById('mCat').textContent = p.catFull||'';
+  document.getElementById('mSite').textContent = '📐 Dimensions détaillées';
+  document.getElementById('mTitle').textContent = p.name||'';
+  document.getElementById('mDesc').textContent = p.desc||'Description complète disponible lors du lancement officiel du site.';
+  document.getElementById('mPrice').textContent = p.priceStr;
   const cta = document.getElementById('mCta');
-  cta.href = p.url;
-  cta.textContent = '🛒 Voir sur ' + p.shop + ' →';
-  
-  document.getElementById('mDims').innerHTML = (p.dims||[]).map(d =>
-    `<div class="modal-dim-row"><span class="modal-dim-label"><span class="modal-dim-dot" style="background:${d[2]}"></span>${d[0]}</span><span class="modal-dim-val" style="color:${d[2]}">${d[1]}</span></div>`
-  ).join('');
-  
-  document.getElementById('mFeatures').innerHTML = (p.features||[]).map(f =>
-    `<div class="modal-feat"><div class="modal-feat-label">${f[0]}</div><div class="modal-feat-val">${f[1]}</div></div>`
-  ).join('');
-  
-  document.getElementById('mImg').innerHTML = p.img
-    ? `<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;min-height:200px">`
-    : '<div style="padding:24px;color:var(--muted);font-size:13px">Photo non disponible</div>';
-  
+  if(p.url && p.url !== '#'){
+    cta.href = p.url;
+    cta.setAttribute('target','_blank');
+    cta.setAttribute('rel','noopener sponsored');
+    cta.textContent = '🛒 Voir sur Amazon →';
+    cta.style.background = '';
+    cta.style.opacity = '';
+    cta.style.cursor = '';
+    cta.onclick = null;
+  } else {
+    cta.href = '#';
+    cta.textContent = '🔗 Lien bientôt disponible';
+    cta.style.background = 'var(--k5)';
+    cta.style.opacity = '.7';
+    cta.style.cursor = 'default';
+    cta.onclick = (e) => e.preventDefault();
+  }
+  document.getElementById('mDims').innerHTML = (p.dims||[]).map(d=>`<div class="modal-dim-row"><span class="modal-dim-label"><span class="modal-dim-dot" style="background:${d[2]}"></span>${d[0]}</span><span class="modal-dim-val" style="color:${d[2]}">${d[1]}</span></div>`).join('');
+  document.getElementById('mFeatures').innerHTML = (p.features||[]).map(f=>`<div class="modal-feat"><div class="modal-feat-label">${f[0]}</div><div class="modal-feat-val">${f[1]}</div></div>`).join('');
+  const imgEl = document.getElementById('mImg');
+  if(p.photo){
+    imgEl.innerHTML = `<img src="${p.photo}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:6px;display:block;min-height:200px">`;
+  } else {
+    imgEl.innerHTML = `<div style="padding:24px;width:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px">Photo non disponible</div>`;
+  }
   document.getElementById('productModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-
-function closeModal(e, force) {
-  if (force || (e && e.target === document.getElementById('productModal'))) {
+function closeModal(e, force){
+  if(force||(e&&e.target===document.getElementById('productModal'))){
     document.getElementById('productModal').classList.remove('open');
-    document.body.style.overflow = '';
+    document.body.style.overflow='';
   }
 }
-
-/* ════════════════════════════════════════════
-   LEGAL MODALS
-════════════════════════════════════════════ */
-function openLegal(type) {
-  document.getElementById(type==='mentions'?'legalMentions':'legalPrivacy').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  return false;
-}
-function closeLegal(id) {
-  document.getElementById(id).classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeLegalIfBg(e, id) {
-  if (e.target === document.getElementById(id)) closeLegal(id);
-}
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    ['legalMentions','legalPrivacy','productModal'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el && el.classList.contains('open')) {
-        el.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-    });
-  }
-});
 
 /* ════════════════════════════════════════════
    SHOPPABLE ROOM
@@ -1751,7 +1348,7 @@ function hlHs2(n){
   for(let i=1;i<=5;i++){document.getElementById('r2tt'+i).classList.remove('show');document.getElementById('r2hs'+i).classList.remove('act');document.getElementById('r2pc'+i).classList.remove('hl');}
   document.getElementById('r2pc'+n).classList.add('hl');document.getElementById('r2hs'+n).classList.add('act');
 }
-const _rw2 = document.getElementById('roomWrap2'); if(_rw2) _rw2.addEventListener('click',function(e){
+document.getElementById('roomWrap2')?.addEventListener('click',function(e){
   if(!e.target.closest('.hotspot')&&!e.target.closest('.tt')){
     for(let i=1;i<=5;i++){document.getElementById('r2tt'+i).classList.remove('show');document.getElementById('r2hs'+i).classList.remove('act');}
     activeTip2=null;
@@ -1844,8 +1441,6 @@ function cfgSetType(type, btn){
   cfgCloseCote();
   cfgBuildPanel();
 }
-
-function cfgCloseCote(){ /* no-op — ferme tooltip cote si ouvert */ }
 
 function cfgSyncRange(dim){
   const defs = CFG_RANGES[cfgType]; if(!defs||!defs[dim]) return;
@@ -2043,7 +1638,7 @@ function cfgSearch(){
   const minL=cfgRanges.L?.min||0, minH=cfgRanges.H?.min||0, minP=cfgRanges.P?.min||0;
   const catMap = { commode:'Commodes', table:'Tables', canape:'Canapés', armoire:'Armoires', bureau:'Bureaux', lit:'Lits', etagere:'Bibliothèques', tbasse:'Tables basses' };
   const cat = catMap[cfgType]||'';;
-  const results = ALL_PRODUCTS.filter(p =>
+  const results = PRODUCTS.filter(p =>
     p.l>=minL && p.l<=maxL && p.h>=minH && p.h<=maxH && p.p>=minP && p.p<=maxP &&
     (cat===''||p.cat===cat)
   );
@@ -2056,7 +1651,7 @@ function cfgSearch(){
     } else {
       grid.innerHTML = results.map(p=>`
         <div class="cfg-res-card" onclick="openModal('${p.id}')">
-          <div class="cfg-res-img"><img src="${p.img||''}" alt="${p.name}" loading="lazy" style="object-fit:contain;padding:6px;background:#fff" onerror="this.style.display='none'"></div>
+          <div class="cfg-res-img"><img src="${p.photo||''}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"></div>
           <div class="cfg-res-body">
             <div class="cfg-res-dims">
               <span class="cfg-res-dim">L ${p.l}cm</span>
@@ -2064,8 +1659,8 @@ function cfgSearch(){
               <span class="cfg-res-dim">P ${p.p}cm</span>
             </div>
             <div class="cfg-res-name">${p.name}</div>
-            <div class="cfg-res-price">${p.price.toFixed(2).replace('.',',')} €</div>
-            <a class="cfg-res-cta" href="${p.url}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()">Voir sur HomeMaison</a>
+            <div class="cfg-res-price">${p.priceStr}</div>
+            <button class="cfg-res-cta" onclick="event.stopPropagation();openModal('${p.id}')">Voir ce meuble</button>
           </div>
         </div>
       `).join('');
@@ -2501,13 +2096,55 @@ function applyDimToolSearch(){
 let sbFilterActive = false;
 let sbFilterL = 300, sbFilterH = 300, sbFilterP = 150;
 
-/* Amazon grid removed */
+/* ── Grille produits Amazon disponibles ── */
+function renderAmazonGrid(){
+  const amazonProducts = PRODUCTS.filter(p => p.shopKey === 'amazon');
+  const grid = document.getElementById('amazonGrid');
+  if(!grid) return;
+  if(amazonProducts.length === 0){
+    grid.style.display = 'none';
+    document.getElementById('amazonSection').style.display = 'none';
+    return;
+  }
+  grid.innerHTML = amazonProducts.map(p => `
+    <div class="card-cat-item" onclick="openModal('${p.id}')" style="border-color:rgba(196,163,90,.4)">
+      <div class="card-dims-banner">
+        <div class="cdb-item"><div class="cdb-axis">Larg.</div><div class="cdb-val">${p.p}<span class="cdb-unit"> cm</span></div></div>
+        <div class="cdb-item"><div class="cdb-axis">Long.</div><div class="cdb-val">${p.l}<span class="cdb-unit"> cm</span></div></div>
+        <div class="cdb-item"><div class="cdb-axis">Haut.</div><div class="cdb-val">${p.h}<span class="cdb-unit"> cm</span></div></div>
+      </div>
+      <div class="card-img-zone" style="background:#e8ead8">
+        <img src="${p.photo}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0" onerror="this.style.display='none'">
+        <div class="card-badge-wrap"><span class="card-badge popular">Amazon</span></div>
+      </div>
+      <div class="card-body-cat">
+        <div class="card-cat-label">${p.catFull}</div>
+        <div class="card-name-cat">${p.name}</div>
+        <div class="card-footer-cat" style="margin-top:auto;padding-top:10px;border-top:1px solid rgba(154,171,122,.15)">
+          <div class="card-price-cat">${p.priceStr}</div>
+          <a class="card-cta" href="${p.url}" target="_blank" rel="noopener sponsored" onclick="event.stopPropagation()" style="background:var(--gold);color:var(--k1)">
+            🛒 Amazon
+          </a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* INIT — deferred to ensure DOM is ready */
+document.addEventListener('DOMContentLoaded', function(){
+  initDimFiltersFromProducts();
+  cfgInitRanges('commode');
+  cfgBuildPanel();
+  renderGrid();
+  renderAmazonGrid();
+});
 
 /* ── Calcule les min/max réels des produits pour les filtres sidebar ── */
 function initDimFiltersFromProducts(){
-  const maxL = Math.max(...ALL_PRODUCTS.map(p=>p.l));
-  const maxH = Math.max(...ALL_PRODUCTS.map(p=>p.h));
-  const maxP = Math.max(...ALL_PRODUCTS.map(p=>p.p));
+  const maxL = Math.max(...PRODUCTS.map(p=>p.l));
+  const maxH = Math.max(...PRODUCTS.map(p=>p.h));
+  const maxP = Math.max(...PRODUCTS.map(p=>p.p));
 
   // Sidebar sliders — met à jour les valeurs max
   ['sbLslider','sbHslider','sbPslider'].forEach((id,i)=>{
@@ -2537,11 +2174,18 @@ function toggleGuide(id, btn){
   btn.innerHTML = (isOpen ? 'Réduire' : 'En savoir plus') + ' <span class="arr">' + (isOpen ? '▲' : '▼') + '</span>';
 }
 
-// INIT
-init();
-// Init configurateur
-cfgInitRanges('commode');
-cfgBuildPanel();
+
+
+/* ── Carrousel Inspiration ── */
+
+let inspiCurrent=0;
+function inspiGo(idx){
+  document.querySelectorAll('.inspi-slide').forEach((s,i)=>s.classList.toggle('active',i===idx));
+  document.querySelectorAll('.inspi-dots-wrap .inspi-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  inspiCurrent=idx;
+}
+function inspiNext(){inspiGo((inspiCurrent+1)%2);}
+function inspiPrev(){inspiGo((inspiCurrent-1+2)%2);}
 </script>
 </body>
 </html>
